@@ -29,6 +29,12 @@ Default options are:
 The result can be customized via the partial view `common/citation`.
 
 
+TODO
+----
+
+* Use a csl-styling tool to be more accurate and allow automatic format.
+
+
 Warning
 -------
 

@@ -1,0 +1,74 @@
+<?php
+/**
+ * @var \Zend\View\Renderer\PhpRenderer $this
+ * @var \Omeka\Api\Representation\AbstractResourceEntityRepresentation $resource
+ * @var string $format
+ * @var bool $append_site
+ * @var bool $append_access_date
+ * @var bool $bibliographic
+ */
+$translate = $this->plugin('translate');
+$escape = $this->plugin('escapeHtml');
+
+// Format: only Chicago is managed.
+
+$citation = '';
+
+$creators = $resource->value('dcterms:creator', ['all' => true]) ?: [];
+// Strip formatting and remove empty creator elements.
+$creators = array_filter(array_map('strip_tags', $creators));
+if ($creators) {
+    switch (count($creators)) {
+        case 1:
+            $creator = $creators[0];
+            break;
+        case 2:
+            // Chicago-style item citation: two authors.
+            $creator = sprintf($translate('%1$s and %2$s'), $creators[0], $creators[1]);
+            break;
+        case 3:
+            // Chicago-style item citation: three authors.
+            $creator = sprintf($translate('%1$s, %2$s, and %3$s'), $creators[0], $creators[1], $creators[2]);
+            break;
+        default:
+            // Chicago-style item citation: more than three authors.
+            $creator = sprintf($translate('%s et al.'), $creators[0]);
+            break;
+    }
+    $citation .= $creator;
+}
+
+$title = $resource->displayTitle();
+if ($title) {
+    $citation .= ($citation ? ', ' : '') . '“' . $title . '”';
+}
+
+if ($bibliographic) {
+    $publisher = $resource->value('dcterms:publisher');
+    if ($publisher) {
+        $citation .= ', <i>' . $publisher . '</i>';
+    }
+    $date = $resource->value('dcterms:date');
+    if ($date) {
+        $citation .= ', ' . $date;
+    }
+} else {
+    if ($append_site) {
+        $site = $this->currentSite();
+        if ($site) {
+            $citation .= ', <i>' . $site->title() . '</i>';
+        }
+    }
+
+    if ($append_access_date) {
+        // TODO Use the locale for the citation access date.
+        $accessed = (new \DateTime())->format('j F Y');
+        $url = '<span class="citation-url">' . $escape($resource->siteUrl(null, true)) . '</span>';
+        // Chicago-style item citation: access date and URL.
+        $citation .= ', ' . sprintf($translate('accessed %1$s, %2$s'), $accessed, $url);
+    }
+}
+
+$citation .= '.';
+
+echo $citation;
