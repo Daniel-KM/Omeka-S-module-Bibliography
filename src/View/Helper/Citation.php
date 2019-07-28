@@ -44,7 +44,7 @@ class Citation extends AbstractHelper
         }
         $options['resource'] = $resource;
 
-        $partial = isset($options['partial']) ? $options['partial'] : 'common/citation';
+        $partial = empty($options['partial']) ? 'common/citation' : $options['partial'];
         unset($options['partial']);
 
         return $view->partial($partial, $options);
