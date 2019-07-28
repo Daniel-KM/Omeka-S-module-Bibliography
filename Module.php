@@ -2,6 +2,8 @@
 namespace Citation;
 
 use Omeka\Module\AbstractModule;
+use Zend\EventManager\Event;
+use Zend\EventManager\SharedEventManagerInterface;
 
 /**
  * Citation
@@ -16,5 +18,20 @@ class Module extends AbstractModule
     public function getConfig()
     {
         return include __DIR__ . '/config/module.config.php';
+    }
+
+    public function attachListeners(SharedEventManagerInterface $sharedEventManager)
+    {
+        $sharedEventManager->attach(
+            'Omeka\Controller\Site\Item',
+            'view.show.after',
+            [$this, 'handleViewShowAfter']
+        );
+    }
+
+    public function handleViewShowAfter(Event $event)
+    {
+        $view = $event->getTarget();
+        echo $view->citation($view->resource);
     }
 }

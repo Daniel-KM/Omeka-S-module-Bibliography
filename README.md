@@ -17,14 +17,22 @@ See general end user documentation for [Installing a module].
 Usage
 -----
 
-Add this anywhere in your theme: `echo $this->citation($resource, $options);`.
+The citation is automatically added to the item/show page. You can have a better
+control on the display with module [BlocksDisposition] or directly in the theme.
+
+To insert a citation directly in the theme, add this anywhere in any partial:
+```php
+echo $this->citation($resource, $options);
+```
+
 Default options are:
 * `format` (string): format of the citation (only Chicago is supported
   currently).
-* `site` (boolean): to append the site or not.
-* `access_date` (boolean): to append the access date.
+* `append_site` (boolean): to append the site or not.
+* `append_access_date` (boolean): to append the access date.
 * `bibliographic` (boolean): used for a real bibliographic reference, when an
   item is a simple book or article. It implies no site and no access date.
+  Any other option is passed to the partial.
 
 The result can be customized via the partial view `common/citation`.
 
@@ -76,12 +84,13 @@ altered, and that no provisions are either added or removed herefrom.
 Copyright
 ---------
 
-* Copyright Daniel Berthereau, 2018 (see [Daniel-KM] on GitHub)
+* Copyright Daniel Berthereau, 2018-2019 (see [Daniel-KM] on GitHub)
 
 
 [Omeka S]: https://omeka.org/s
 [Citation]: https://github.com/Daniel-KM/Omeka-S-module-Citation
 [Installing a module]: http://dev.omeka.org/docs/s/user-manual/modules/#installing-modules
+[BlocksDisposition]: https://github.com/Daniel-KM/Omeka-S-module-BlocksDisposition
 [module issues]: https://github.com/Daniel-KM/Omeka-S-module-Citation/issues
 [CeCILL v2.1]: https://www.cecill.info/licences/Licence_CeCILL_V2.1-en.html
 [GNU/GPL]: https://www.gnu.org/licenses/gpl-3.0.html
