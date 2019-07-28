@@ -18,8 +18,8 @@ class Citation extends AbstractHelper
      * @todo Find a full php library to manage citation. No event is triggered currently.
      *
      * @param AbstractResourceEntityRepresentation $resource
-     * @param array $options Managed options are: "partial", "format",
-     * "append_site", "append_access_date", "bibliographic".
+     * @param array $options Managed options are: "format", "append_site",
+     * "append_access_date", "bibliographic", "mode", and "partial".
      * The default options are used for Omeka resources. So use "bibliographic"
      * for a real bibliographic resource. Only Chicago is supported currently.
      * @return string
@@ -34,12 +34,14 @@ class Citation extends AbstractHelper
                 'append_site' => true,
                 'append_access_date' => true,
                 'bibliographic' => false,
+                'mode' => null,
             ];
         } else {
             $options += [
                 'format' => null,
                 'append_site' => false,
                 'append_access_date' => false,
+                'mode' => null,
             ];
         }
         $options['resource'] = $resource;

@@ -18,9 +18,10 @@ Usage
 -----
 
 The citation is automatically added to the item/show page. You can have a better
-control on the display with module [BlocksDisposition] or directly in the theme.
+control on the display with module [BlocksDisposition] or direct edition of the
+theme.
 
-To insert a citation directly in the theme, add this anywhere in any partial:
+To insert a citation in the theme, add this anywhere in any partial:
 ```php
 echo $this->citation($resource, $options);
 ```
@@ -32,6 +33,11 @@ Default options are:
 * `append_access_date` (boolean): to append the access date.
 * `bibliographic` (boolean): used for a real bibliographic reference, when an
   item is a simple book or article. It implies no site and no access date.
+* `mode` (string): how to display the citation in order to display the citation
+  differently in various contexts. Default managed values are "list" and "single"
+  (default). It may avoid to use a specific partial.
+* `partial` (string): partial to use for display, default is `common/citation`.
+  currently).
   Any other option is passed to the partial.
 
 The result can be customized via the partial view `common/citation`.
