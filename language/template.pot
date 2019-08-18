@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-07-29 00:00+0200\n"
+"POT-Creation-Date: 2019-08-19 00:00+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -35,4 +35,56 @@ msgstr ""
 #: view/common/citation.phtml:72
 #, php-format
 msgid "accessed %1$s, %2$s"
+msgstr ""
+
+#: src/Form/BibliographyBlockFieldset.php:16
+msgid "Block title"
+msgstr ""
+
+#: src/Form/BibliographyBlockFieldset.php:17
+msgid "Heading for the block, if any."
+msgstr ""
+
+#: src/Form/BibliographyBlockFieldset.php:24
+msgid "Citation format"
+msgstr ""
+
+#: src/Form/BibliographyBlockFieldset.php:26
+msgid "Chicago"
+msgstr ""
+
+#: src/Form/BibliographyBlockFieldset.php:39
+msgid "Display items using this search query"
+msgstr ""
+
+#: src/Form/BibliographyBlockFieldset.php:47
+msgid "Append the site"
+msgstr ""
+
+#: src/Form/BibliographyBlockFieldset.php:54
+msgid "Append access date"
+msgstr ""
+
+#: src/Form/BibliographyBlockFieldset.php:61
+msgid "Bibliographic"
+msgstr ""
+
+#: src/Form/BibliographyBlockFieldset.php:62
+msgid ""
+"Indicate if the items are records of external books, articles, etc., and not "
+"Omeka common resources."
+msgstr ""
+
+#: src/Form/BibliographyBlockFieldset.php:72
+msgid "Partial to display"
+msgstr ""
+
+#: src/Form/BibliographyBlockFieldset.php:73
+msgid ""
+"Partials are in folder \"common/block-layout\" of the theme and should start "
+"with \"bibliography\"."
+msgstr ""
+
+#: src/Site/BlockLayout/Bibliography.php:16
+msgid "Bibliography"
 msgstr ""
