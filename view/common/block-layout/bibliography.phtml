@@ -1,0 +1,25 @@
+<?php
+/**
+ * @var \Zend\View\Renderer\PhpRenderer $this
+ * @var \Omeka\Api\Representation\ItemRepresentation[] $resources
+ * @var string $heading
+ * @var string $query
+ * @var array $options
+ */
+
+$escape = $this->plugin('escapeHtml');
+$citation = $this->plugin('citation');
+
+$options['tag'] = 'li';
+?>
+
+<div class="block-bibliography">
+    <?php if ($heading): ?>
+    <h2><?= $escape($heading) ?></h2>
+    <?php endif; ?>
+    <ul>
+    <?php foreach ($resources as $resource): ?>
+        <?= $citation($resource, $options) ?>
+    <?php endforeach; ?>
+    </ul>
+</div>

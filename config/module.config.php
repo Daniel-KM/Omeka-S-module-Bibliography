@@ -12,6 +12,16 @@ return [
             'citation' => View\Helper\Citation::class,
         ],
     ],
+    'block_layouts' => [
+        'invokables' => [
+            'bibliography' => Site\BlockLayout\Bibliography::class,
+        ],
+    ],
+    'form_elements' => [
+        'invokables' => [
+            Form\CitationBlockFieldset::class => Form\CitationBlockFieldset::class,
+        ],
+    ],
     'translator' => [
         'translation_file_patterns' => [
             [
@@ -19,6 +29,19 @@ return [
                 'base_dir' => dirname(__DIR__) . '/language',
                 'pattern' => '%s.mo',
                 'text_domain' => null,
+            ],
+        ],
+    ],
+    'citation' => [
+        'block_settings' => [
+            'bibliography' => [
+                'heading' => '',
+                'format' => 'Chicago',
+                'query' => '',
+                'append_site' => false,
+                'append_access_date' => false,
+                'bibliographic' => false,
+                'partial' => '',
             ],
         ],
     ],
