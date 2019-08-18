@@ -18,7 +18,7 @@ $citation = '';
 
 $creators = $resource->value('dcterms:creator', ['all' => true]) ?: [];
 // Strip formatting and remove empty creator elements.
-$creators = array_filter(array_map('strip_tags', $creators));
+$creators = array_values(array_filter(array_map('strip_tags', $creators)));
 if ($creators) {
     switch (count($creators)):
     case 1:
