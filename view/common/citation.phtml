@@ -6,7 +6,7 @@
  * @var bool $append_site
  * @var bool $append_access_date
  * @var bool $bibliographic
- * @var string $mode
+ * @var string $tag
  */
 
 $translate = $this->plugin('translate');
@@ -75,19 +75,5 @@ else:
 endif;
 
 $citation .= '.';
-?>
 
-<?php
-switch ($mode):
-case 'list':
-    ?>
-    <li class="citation"><?= $citation ?></li>
-    <?php
-    break;
-case 'single':
-default:
-    ?>
-    <p class="citation"><?= $citation ?></p>
-    <?php
-    break;
-endswitch;
+echo empty($tag) ? $citation : "<$tag class=\"citation\">$citation</$tag>";

@@ -32,6 +32,6 @@ class Module extends AbstractModule
     public function handleViewShowAfter(Event $event)
     {
         $view = $event->getTarget();
-        echo $view->citation($view->resource, ['mode' => 'single']);
+        echo $view->citation($view->resource, ['tag' => 'p']);
     }
 }
