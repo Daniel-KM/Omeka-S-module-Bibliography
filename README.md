@@ -36,11 +36,11 @@ Default options are:
 * `mode` (string): how to display the citation in order to display the citation
   differently in various contexts. Default managed values are "list" and "single"
   (default). It may avoid to use a specific partial.
-* `partial` (string): partial to use for display, default is `common/citation`.
+* `template` (string): partial to use for display, default is `common/citation`.
   currently).
-  Any other option is passed to the partial.
+  Any other option is passed to the template.
 
-The result can be customized via the partial view `common/citation`.
+The result can be customized via the template `common/citation` in `view/`.
 
 
 TODO

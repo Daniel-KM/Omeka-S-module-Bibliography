@@ -63,15 +63,15 @@ class BibliographyBlockFieldset extends Fieldset
                 ],
             ]);
 
-        if (class_exists('BlockPlus\Form\Element\PartialSelect')) {
+        if (class_exists('BlockPlus\Form\Element\TemplateSelect')) {
             $this
                 ->add([
-                    'name' => 'o:block[__blockIndex__][o:data][partial]',
-                    'type' => \BlockPlus\Form\Element\PartialSelect::class,
+                    'name' => 'o:block[__blockIndex__][o:data][template]',
+                    'type' => \BlockPlus\Form\Element\TemplateSelect::class,
                     'options' => [
-                        'label' => 'Partial to display', // @translate
-                        'info' => 'Partials are in folder "common/block-layout" of the theme and should start with "bibliography".', // @translate
-                        'partial' => 'common/block-layout/bibliography',
+                        'label' => 'Template to display', // @translate
+                        'info' => 'Templates are in folder "common/block-layout" of the theme and should start with "bibliography".', // @translate
+                        'template' => 'common/block-layout/bibliography',
                     ],
                     'attributes' => [
                         'class' => 'chosen-select',

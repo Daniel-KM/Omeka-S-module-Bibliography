@@ -72,9 +72,9 @@ class Bibliography extends AbstractBlockLayout
         $response = $view->api()->search('items', $query);
         $resources = $response->getContent();
 
-        $partial = $block->dataValue('partial') ?: 'common/block-layout/bibliography';
+        $template = $block->dataValue('template') ?: 'common/block-layout/bibliography';
 
-        return $view->partial($partial, [
+        return $view->partial($template, [
             'heading' => $block->dataValue('heading'),
             'query' => $originalQuery,
             'resources' => $resources,

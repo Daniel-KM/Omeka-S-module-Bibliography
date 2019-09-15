@@ -19,9 +19,10 @@ class Citation extends AbstractHelper
      *
      * @param AbstractResourceEntityRepresentation $resource
      * @param array $options Managed options are: "format", "append_site",
-     * "append_access_date", "bibliographic", "tag", and "partial".
+     * "append_access_date", "bibliographic", "tag", and "template".
      * The default options are used for Omeka resources. So use "bibliographic"
      * for a real bibliographic resource. Only Chicago is supported currently.
+     * Other options are passed to the partial.
      * @return string
      */
     public function __invoke(AbstractResourceEntityRepresentation $resource, array $options = [])
@@ -46,9 +47,9 @@ class Citation extends AbstractHelper
         }
         $options['resource'] = $resource;
 
-        $partial = empty($options['partial']) ? 'common/citation' : $options['partial'];
-        unset($options['partial']);
+        $template = empty($options['template']) ? 'common/citation' : $options['template'];
+        unset($options['template']);
 
-        return $view->partial($partial, $options);
+        return $view->partial($template, $options);
     }
 }
