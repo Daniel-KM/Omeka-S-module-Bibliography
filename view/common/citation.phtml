@@ -9,8 +9,9 @@
  * @var string $tag
  */
 
-$translate = $this->plugin('translate');
-$escape = $this->plugin('escapeHtml');
+$plugins = $this->getHelperPluginManager();
+$translate = $plugins->get('translate');
+$escape = $plugins->get('escapeHtml');
 
 // Format: only Chicago is managed.
 
@@ -58,8 +59,7 @@ if ($bibliographic):
 else:
 
     if ($append_site):
-        $site = $this->currentSite();
-        if ($site):
+        if ($site = $this->viewModel()->getRoot()->getVariable('site')):
             $citation .= ', <i>' . $site->title() . '</i>';
         endif;
     endif;
