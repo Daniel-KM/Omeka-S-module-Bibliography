@@ -19,7 +19,7 @@ return [
     ],
     'form_elements' => [
         'invokables' => [
-            Form\CitationBlockFieldset::class => Form\CitationBlockFieldset::class,
+            Form\BibliographyBlockFieldset::class => Form\BibliographyBlockFieldset::class,
         ],
     ],
     'translator' => [
