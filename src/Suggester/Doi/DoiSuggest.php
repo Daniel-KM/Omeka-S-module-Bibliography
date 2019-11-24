@@ -46,6 +46,7 @@ class DoiSuggest implements SuggesterInterface
     public function getSuggestions($query, $lang = null)
     {
         if ($this->options['identifier']) {
+            $query = trim($query);
             $this->client->setUri($this->client->getUri() . '/' . urlencode($query));
         } else {
             $args = [
