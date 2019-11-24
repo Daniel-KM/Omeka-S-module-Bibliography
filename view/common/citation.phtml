@@ -2,7 +2,6 @@
 /**
  * @var \Zend\View\Renderer\PhpRenderer $this
  * @var \Omeka\Api\Representation\AbstractResourceEntityRepresentation $resource
- * @var array $csl Resource formatted with citation style language
  * @var string $style
  * @var string $locale
  * @var bool $append_site
@@ -14,16 +13,23 @@ $plugins = $this->getHelperPluginManager();
 $translate = $plugins->get('translate');
 $escape = $plugins->get('escapeHtml');
 
-if ($csl):
+if (empty($style)):
+    $style = 'chicago-fullnote-bibliography';
+endif;
 
-    if (empty($style)):
-        $style = 'chicago-fullnote-bibliography';
-    endif;
-    $style = \Seboettg\CiteProc\StyleSheet::loadStyleSheet($style);
+try {
+    $style = @\Seboettg\CiteProc\StyleSheet::loadStyleSheet($style);
+} catch (\Seboettg\CiteProc\Exception\CiteProcException $e) {
+    $style = null;
+}
+
+if ($style):
+
     $citeProc = new \Seboettg\CiteProc\CiteProc($style, $locale);
+    $csl = $this->convertIntoCsl($resource);
 
     // CiteProc works on a list of bibliographic objects.
-    $csl = [(object) $csl];
+    $csl = [$csl];
     $citation = trim(strip_tags($citeProc->render($csl, 'bibliography')));
 
 else:

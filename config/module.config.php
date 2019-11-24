@@ -10,6 +10,7 @@ return [
     'view_helpers' => [
         'invokables' => [
             'citation' => View\Helper\Citation::class,
+            'convertIntoCsl' => View\Helper\ConvertIntoCsl::class,
         ],
     ],
     'block_layouts' => [
