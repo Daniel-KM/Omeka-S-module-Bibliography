@@ -28,3 +28,7 @@ WHERE layout = 'bibliography';
 SQL;
     $connection->exec($sql);
 }
+
+if (version_compare($oldVersion, '3.0.6', '<')) {
+    $this->uninstallModuleCitation();
+}

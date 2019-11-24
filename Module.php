@@ -23,6 +23,11 @@ class Module extends AbstractModule
 {
     const NAMESPACE = __NAMESPACE__;
 
+    protected function postInstall()
+    {
+        $this->uninstallModuleCitation();
+    }
+
     public function attachListeners(SharedEventManagerInterface $sharedEventManager)
     {
         $sharedEventManager->attach(
@@ -36,5 +41,53 @@ class Module extends AbstractModule
     {
         $view = $event->getTarget();
         echo $view->citation($view->resource, ['tag' => 'p']);
+    }
+
+    protected function uninstallModuleCitation()
+    {
+        $services = $this->getServiceLocator();
+        /** @var \Omeka\Module\Manager $moduleManager */
+        $moduleManager = $services->get('Omeka\ModuleManager');
+        $module = $moduleManager->getModule('Citation');
+        if (!$module) {
+            return;
+        }
+
+        $state = $module->getState();
+        if (!in_array($state, [
+            \Omeka\Module\Manager::STATE_ACTIVE,
+            \Omeka\Module\Manager::STATE_NOT_ACTIVE,
+            \Omeka\Module\Manager::STATE_NOT_FOUND,
+            \Omeka\Module\Manager::STATE_NEEDS_UPGRADE,
+            \Omeka\Module\Manager::STATE_INVALID_OMEKA_VERSION,
+        ])) {
+            return;
+        }
+
+        $t = $services->get('MvcTranslator');
+        $messenger = new \Omeka\Mvc\Controller\Plugin\Messenger();
+
+        // Process uninstallation directly: the module has nothing to uninstall.
+        $entityManager = $services->get('Omeka\EntityManager');
+        $entity = $entityManager
+            ->getRepository(\Omeka\Entity\Module::class)
+            ->findOneById($module->getId());
+        if (!$entity) {
+            $message = new \Omeka\Stdlib\Message(
+                $t->translate('The module Bibliography replaces the module Citation, that cannot be automatically uninstalled.') // @translate
+            );
+            $messenger->addWarning($message);
+            return;
+        }
+
+        $entityManager->remove($entity);
+        $entityManager->flush();
+
+        $message = new \Omeka\Stdlib\Message(
+            $t->translate('The module Bibliography replaces the module Citation, that was automatically uninstalled.') // @translate
+        );
+        $messenger->addNotice($message);
+
+        $module->setState(\Omeka\Module\Manager::STATE_NOT_INSTALLED);
     }
 }
