@@ -48,13 +48,24 @@ class ConvertIntoCsl extends AbstractHelper
         $csl['deposited'] = $this->cslDate($resource, 'dcterms:dateSubmitted');
         $csl['approved'] = $this->cslDate($resource, 'dcterms:dateAccepted');
         $csl['issued'] = $this->cslDate($resource, 'dcterms:issued') ?: $this->cslDate($resource, 'dcterms:date');
+        // $csl['published-print'] = $this->cslDate($resource, 'dcterms:issued') ?: $this->cslDate($resource, 'dcterms:date');
 
         $csl['edition'] = $resource->value('bibo:edition');
 
         $csl['DOI'] = $resource->value('bibo:doi');
-        $csl['ISSN'] = $resource->value('bibo:issn');
+        $issn = $resource->value('bibo:issn', ['all' => true]);
+        if ($issn) {
+            $csl['ISSN'] = count($issn) > 1 ? $issn : reset($issn);
+        }
         $csl['EISSN'] = $resource->value('bibo:eissn');
-        $csl['ISBN'] = $resource->value('bibo:isbn13') ?: ($resource->value('bibo:isbn10') ?: $resource->value('bibo:isbn'));
+        $isbn = [];
+        $isbn += $resource->value('bibo:isbn13', ['all' => true, 'default' => []]);
+        $isbn += $resource->value('bibo:isbn10', ['all' => true, 'default' => []]);
+        $isbn += $resource->value('bibo:isbn', ['all' => true, 'default' => []]);
+        $isbn = array_filter($isbn);
+        if ($isbn) {
+            $csl['ISBN'] = count($isbn) > 1 ? $isbn : reset($isbn);
+        }
         $csl['URL'] = $resource->value('bibo:uri') ?: (empty($csl['DOI']) ? null : 'https://dx.doi.org/' . urlencode($csl['DOI']));
         $csl['volume'] = $resource->value('bibo:volume');
         $csl['number-of-volumes'] = $resource->value('bibo:numVolumes');
