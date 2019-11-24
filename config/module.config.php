@@ -2,6 +2,12 @@
 namespace Bibliography;
 
 return [
+    'data_types' => [
+        'factories' => [
+            /* DOI: Digital object identifiers */
+            'valuesuggest:doi' => Service\DoiDataTypeFactory::class,
+        ],
+    ],
     'view_manager' => [
         'template_path_stack' => [
             dirname(__DIR__) . '/view',
@@ -21,6 +27,7 @@ return [
     'form_elements' => [
         'invokables' => [
             Form\BibliographyBlockFieldset::class => Form\BibliographyBlockFieldset::class,
+            Form\SettingsFieldset::class => Form\SettingsFieldset::class,
             Form\SiteSettingsFieldset::class => Form\SiteSettingsFieldset::class,
         ],
     ],
@@ -35,6 +42,9 @@ return [
         ],
     ],
     'bibliography' => [
+        'settings' => [
+            'bibliography_crossref_email' => '',
+        ],
         'site_settings' => [
             'bibliography_csl_style' => 'chicago-fullnote-bibliography',
             'bibliography_csl_locale' => '',
