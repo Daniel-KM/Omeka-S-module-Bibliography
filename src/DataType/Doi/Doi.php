@@ -2,6 +2,8 @@
 namespace Bibliography\DataType\Doi;
 
 use Bibliography\Suggester\Doi\DoiSuggest;
+use Seboettg\CiteProc\CiteProc;
+use Seboettg\CiteProc\StyleSheet;
 use ValueSuggest\DataType\AbstractDataType;
 
 class Doi extends AbstractDataType
@@ -12,14 +14,17 @@ class Doi extends AbstractDataType
     {
         $resource = 'works';
 
+        $viewHelpers = $this->services->get('ViewHelperManager');
+        $setting = $viewHelpers->get('setting');
+
+        /** @var \Omeka\Entity\Module $module */
+        $module = $this->services->get('Omeka\ModuleManager')->getModule('Bibliography');
+        $email = $setting('bibliography_crossref_email');
+
         /** @var \Zend\Http\Client $client */
         $client = $this->services->get('Omeka\HttpClient');
         $client->setUri(self::CROSSREF_DOI_API . '/' . $resource);
-        /** @var \Omeka\Entity\Module $module */
-        $module = $this->services->get('Omeka\ModuleManager')->getModule('Bibliography');
-        $email = $this->services->get('Omeka\Settings')->get('bibliography_crossref_email');
-        $headers = $client->getRequest()->getHeaders();
-        $headers
+        $client->getRequest()->getHeaders()
             ->addHeaderLine(
                 'User-Agent',
                 'Omeka-S-module-Bibliography/'
@@ -30,7 +35,23 @@ class Doi extends AbstractDataType
                     . ')')
             ->addHeaderLine('Accept', 'application/json')
         ;
-        return new DoiSuggest($client);
+
+        $currentSite = $this->services->get('ControllerPluginManager')->get('currentSite');
+        $currentSite = $currentSite();
+        $currentSetting = $currentSite
+            ? $viewHelpers->get('siteSetting')
+            : $setting;
+
+        $style = $currentSetting('bibliography_csl_style') ?: 'chicago-fullnote-bibliography';
+        try {
+            $style = @StyleSheet::loadStyleSheet($style);
+        } catch (\Seboettg\CiteProc\Exception\CiteProcException $e) {
+            $style = StyleSheet::loadStyleSheet('chicago-fullnote-bibliography');
+        }
+        $locale = $currentSetting('bibliography_csl_locale') ?: str_replace('_', '-', $currentSetting('locale'));
+        $citeProc = new CiteProc($style, $locale);
+
+        return new DoiSuggest($client, $citeProc);
     }
 
     public function getName()

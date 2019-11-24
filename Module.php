@@ -47,6 +47,11 @@ class Module extends AbstractModule
             'form.add_elements',
             [$this, 'handleMainSettings']
         );
+        $sharedEventManager->attach(
+            \Omeka\Form\SettingForm::class,
+            'form.add_input_filters',
+            [$this, 'handleMainSettingsFilters']
+        );
 
         $sharedEventManager->attach(
             \Omeka\Form\SiteSettingsForm::class,
@@ -58,6 +63,20 @@ class Module extends AbstractModule
             'form.add_input_filters',
             [$this, 'handleSiteSettingsFilters']
         );
+    }
+
+    public function handleMainSettingsFilters(Event $event)
+    {
+        $event->getParam('inputFilter')
+            ->get('bibliography')
+            ->add([
+                'name' => 'bibliography_csl_style',
+                'required' => false,
+            ])
+            ->add([
+                'name' => 'bibliography_csl_locale',
+                'required' => false,
+            ]);
     }
 
     public function handleSiteSettingsFilters(Event $event)

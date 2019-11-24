@@ -44,6 +44,8 @@ return [
     'bibliography' => [
         'settings' => [
             'bibliography_crossref_email' => '',
+            'bibliography_csl_style' => 'chicago-fullnote-bibliography',
+            'bibliography_csl_locale' => '',
         ],
         'site_settings' => [
             'bibliography_csl_style' => 'chicago-fullnote-bibliography',

@@ -2,6 +2,7 @@
 
 namespace Bibliography\Suggester\Doi;
 
+use Seboettg\CiteProc\CiteProc;
 use ValueSuggest\Suggester\SuggesterInterface;
 use Zend\Http\Client;
 
@@ -12,9 +13,15 @@ class DoiSuggest implements SuggesterInterface
      */
     protected $client;
 
-    public function __construct(Client $client)
+    /**
+     * @var CiteProc
+     */
+    protected $citeProc;
+
+    public function __construct(Client $client, CiteProc $citeProc)
     {
         $this->client = $client;
+        $this->citeProc = $citeProc;
     }
 
     /**
@@ -42,15 +49,62 @@ class DoiSuggest implements SuggesterInterface
 
         // Parse the JSON response.
         $suggestions = [];
-        $results = json_decode($response->getBody(), true);
+        // Don't convert to array: csl are objects.
+        $results = json_decode($response->getBody());
 
-        foreach ($results['message']['items'] as $result) {
-            $result['title'][0];
+        // Fix crossref output for CiteProc, that requires single strings.
+        // @see https://github.com/Crossref/rest-api-doc/blob/master/api_format.md
+        $toStrings = [
+            'title',
+            'original-title',
+            'short-title',
+            'subtitle',
+            'short-container-title',
+            'container-title',
+            'collection-title',
+            'collection-title-short',
+            'ISBN',
+            'ISSN',
+            'archive',
+        ];
+        foreach ($results->message->items as &$item) {
+            foreach ($toStrings as $key) {
+                if (isset($item->{$key}) && is_array($item->{$key})) {
+                    $item->{$key} = reset($item->{$key});
+                }
+            }
+            // CiteProc requires a family name, even for institutions.
+            if (isset($item->author)) {
+                foreach ($item->author as &$author) {
+                    if (isset($author->name) && !isset($author->family)) {
+                        $author->family = $author->name;
+                        $author->given = null;
+                    }
+                }
+                unset($author);
+            }
+            // CiteProc requires a key for genre.
+            if (!isset($item->genre)) {
+                $item->genre = null;
+            }
+        }
+        unset($item);
+
+        // The current version output notices when some common keys are missing.
+        // TODO Fix CiteProc to allow missing keys.
+        $citations = @$this->citeProc->render($results->message->items, 'bibliography', [], true);
+        $citationsXml = new \SimpleXMLElement($citations);
+        $citations = [];
+        foreach ($citationsXml->div as $citation) {
+            $citations[] = substr($citation->asXml(), 23, -6);
+        }
+
+        foreach ($results->message->items as $key => $result) {
             $suggestions[] = [
-                'value' => $result['DOI'],
+                'value' => $result->DOI,
                 'data' => [
-                    'uri' => $result['URL'],
-                    'info' => null,
+                    'uri' => $result->URL,
+                    'info' => $citations[$key],
                 ],
             ];
         }
