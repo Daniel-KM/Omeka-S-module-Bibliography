@@ -31,17 +31,40 @@ class Citation extends AbstractHelper
         ];
         $options['resource'] = $resource;
 
-        $siteSetting = $view->plugin('siteSetting');
+        $currentSite = $this->currentSite();
+        $currentSetting = $currentSite
+            ? $view->plugin('siteSetting')
+            : $view->plugin('setting');
         if (is_null($options['style'])) {
-            $options['style'] = $siteSetting('bibliography_csl_style') ?: 'chicago-fullnote-bibliography';
+            $options['style'] = $currentSetting('bibliography_csl_style') ?: 'chicago-fullnote-bibliography';
         }
         if (is_null($options['locale'])) {
-            $options['locale'] = $siteSetting('bibliography_csl_locale') ?: str_replace('_', '-', $siteSetting('locale'));
+            $options['locale'] = $currentSetting('bibliography_csl_locale') ?: str_replace('_', '-', $currentSetting('locale'));
         }
 
         $template = empty($options['template']) ? 'common/citation' : $options['template'];
         unset($options['template']);
 
         return $view->partial($template, $options);
+    }
+
+    /**
+     * Get the current site from the view.
+     *
+     * @return \Omeka\Api\Representation\SiteRepresentation|null
+     */
+    protected function currentSite()
+    {
+        static $site;
+
+        if (is_null($site)) {
+            $site = $this->getView()
+                ->getHelperPluginManager()
+                ->get('Zend\View\Helper\ViewModel')
+                ->getRoot()
+                ->getVariable('site');
+        }
+
+        return $site;
     }
 }
