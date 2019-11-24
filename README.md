@@ -3,12 +3,25 @@ Bibliography (module for Omeka S)
 
 [Bibliography] is a module for [Omeka S] that allows to display the canonical
 bibliographic citations of resources, according to any managed [citation style].
+Furthermore, it adds some new suggesters to the module [Value Suggest] in order
+to get multiple unique identifiers from [DOI], [ISBN], [ISSN], [OCLC], [LCCN],
+[OLID].
+
+The doi and the issn are retrieved from the open service of [crossref] (a free
+registration allows to get a better performance for service). The isbn, the
+oclc, the lccn, and the olid are retrieved through the [OpenLibrary] api from
+Internet Archive.
 
 
 Installation
 ------------
 
 This optional  module [Generic] may be installed first.
+
+To use suggesters, it is required to use this [version of Value Suggest], that
+contains all patchs, not yet integrated upstream. For the same reason, it is
+required to use this [version of Collecting] to create a collecting form with
+suggesters.
 
 The module uses external libraries, so use the release zip to install it, or use
 and init the source.
@@ -36,6 +49,27 @@ are the same and improved in this module.
 
 Usage
 -----
+
+### Suggesters
+
+Once the specific [version of Value Suggest] is installed, the following
+identifiers can be requested:
+- DOI: Works
+- DOI: Journals
+- DOI: Funders
+- DOI: Members
+- DOI: Licenses
+- DOI: Types
+- ISBN: International standard book number
+- LCCN: Library of Congress Control Number
+- OCLC: Online computer library center
+- OLID: Open library id from Internet Archive
+
+In the config of the resource template or the collecting form, some items above
+can be requested with different values. It allows to choose between a large
+query with keywords, or a strict query with the id. It allows to set the label
+too, that can be a name or an id according to properties, for example the title
+or the article for dcterms:title, but the id for bibo:doi.
 
 ### Creation of the citation
 
@@ -135,11 +169,22 @@ Copyright
 [Omeka S]: https://omeka.org/s
 [Bibliography]: https://github.com/Daniel-KM/Omeka-S-module-Bibliography
 [citation style]: https://citationstyles.org
+[Value Suggest]: https://github.com/omeka-s-modules/ValueSuggest
+[DOI]: https://doi.org
+[ISBN]: https://www.isbn-international.org
+[ISSN]: http://www.issn.org
+[OCLC]: https://www.oclc.org
+[LCCN]: https://loc.gov
+[OLID]: https://openlibrary.org
+[crossref]: https://www.crossref.org
+[OpenLibrary]: https://openlibrary.org
 [Generic]: https://github.com/Daniel-KM/Omeka-S-module-Generic
 [Bibliography.zip]: https://github.com/Daniel-KM/Omeka-S-module-Bibliography/releases
 [Installing a module]: http://dev.omeka.org/docs/s/user-manual/modules/#installing-modules
 [Blocks Disposition]: https://github.com/Daniel-KM/Omeka-S-module-BlocksDisposition
 [Citation]: https://github.com/Daniel-KM/Omeka-S-module-Citation
+[version of Value Suggest]: https://github.com/Daniel-KM/Omeka-S-module-ValueSuggest
+[version of Collecting]: https://github.com/Daniel-KM/Omeka-S-module-Collecting
 [not managed]: https://github.com/Daniel-KM/Omeka-S-module-Bibliography/tree/master/data/mapping/resource_class_map.php
 [module issues]: https://github.com/Daniel-KM/Omeka-S-module-Bibliography/issues
 [CeCILL v2.1]: https://www.cecill.info/licences/Licence_CeCILL_V2.1-en.html
