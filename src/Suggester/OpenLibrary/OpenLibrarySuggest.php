@@ -76,14 +76,9 @@ class OpenLibrarySuggest implements SuggesterInterface
         $id = strtok(':');
         $ids = [$id];
 
-        // The current version output notices when some common keys are missing.
-        // TODO Fix CiteProc to allow missing keys.
-        $list = @$this->citeProc->render([$csl], 'bibliography', [], true);
-        $listXml = new \SimpleXMLElement($list);
         $list = [];
-        foreach ($listXml->div as $item) {
-            $list[] = substr($item->asXml(), 23, -6);
-        }
+        $item = @$this->citeProc->render([$csl], 'bibliography');
+        $list[] = substr($item, 52, -13);
 
         $suggestions = [];
         foreach ([$csl] as $key => $result) {

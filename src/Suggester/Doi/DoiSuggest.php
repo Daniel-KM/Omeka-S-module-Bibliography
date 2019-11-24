@@ -51,7 +51,7 @@ class DoiSuggest implements SuggesterInterface
         } else {
             $args = [
                 'query' => $query,
-                // 'rows' => 20,
+                'rows' => 2,
             ];
             if ($lang) {
                 $args['language'] = $lang;
@@ -96,6 +96,8 @@ class DoiSuggest implements SuggesterInterface
 
     protected function suggestedWorks($results)
     {
+        $list = [];
+
         // Fix crossref output for CiteProc, that requires single strings.
         // @see https://github.com/Crossref/rest-api-doc/blob/master/api_format.md
         $toStrings = [
@@ -111,7 +113,7 @@ class DoiSuggest implements SuggesterInterface
             'ISSN',
             'archive',
         ];
-        foreach ($results->message->items as &$item) {
+        foreach ($results->message->items as $key => &$item) {
             foreach ($toStrings as $key) {
                 if (isset($item->{$key}) && is_array($item->{$key})) {
                     $item->{$key} = reset($item->{$key});
@@ -131,17 +133,15 @@ class DoiSuggest implements SuggesterInterface
             if (!isset($item->genre)) {
                 $item->genre = null;
             }
+
+            // The current version output notices when some common keys are missing.
+            // CiteProc automatically sort the list of citations, and it's complex
+            // to not sort, so the rendering is made one by one.
+            // TODO Fix CiteProc to allow missing keys and to keep order.
+            $value = @$this->citeProc->render([$item], 'bibliography');
+            $list[] = substr($value, 52, -13);
         }
         unset($item);
-
-        // The current version output notices when some common keys are missing.
-        // TODO Fix CiteProc to allow missing keys.
-        $list = @$this->citeProc->render($results->message->items, 'bibliography', [], true);
-        $listXml = new \SimpleXMLElement($list);
-        $list = [];
-        foreach ($listXml->div as $item) {
-            $list[] = substr($item->asXml(), 23, -6);
-        }
 
         $suggestions = [];
         foreach ($results->message->items as $key => $result) {
@@ -199,7 +199,7 @@ class DoiSuggest implements SuggesterInterface
                 $uri = null;
             }
             $suggestions[] = [
-                'value' => $value,
+                'value' => (string) $value,
                 'data' => [
                     'uri' => $uri,
                     'info' => $info,
@@ -213,11 +213,11 @@ class DoiSuggest implements SuggesterInterface
     {
         $suggestions = [];
         foreach ($results->message->items as $result) {
-            $info = $result->{primary-name};
+            $info = $result->{'primary-name'};
             $value = $result->id;
             $uri = 'https://id.crossref.org/member/' . $value;
             $suggestions[] = [
-                'value' => $value,
+                'value' => (string) $value,
                 'data' => [
                     'uri' => $uri,
                     'info' => $info,

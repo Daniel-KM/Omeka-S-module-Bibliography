@@ -27,10 +27,7 @@ if ($style):
 
     $citeProc = new \Seboettg\CiteProc\CiteProc($style, $locale);
     $csl = $this->convertIntoCsl($resource);
-
-    // CiteProc works on a list of bibliographic objects.
-    $csl = [$csl];
-    $citation = trim(strip_tags($citeProc->render($csl, 'bibliography')));
+    $citation = substr(@$citeProc->render([$csl], 'bibliography'), 52, -13);
 
 else:
 
