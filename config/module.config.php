@@ -16,6 +16,14 @@ return [
             'valuesuggest:doi:licenses' => Service\DoiDataTypeFactory::class,
             'valuesuggest:doi:licenses:id' => Service\DoiDataTypeFactory::class,
             'valuesuggest:doi:types' => Service\DoiDataTypeFactory::class,
+            /* ISBN: International standard book numbers */
+            'valuesuggest:isbn:id' => Service\OpenLibraryDataTypeFactory::class,
+            /* LCCN: Library of Congress control number */
+            'valuesuggest:lccn:id' => Service\OpenLibraryDataTypeFactory::class,
+            /* OCLC: Online computer library center */
+            'valuesuggest:oclc:id' => Service\OpenLibraryDataTypeFactory::class,
+            /* OLID: Open library id from Internet Archive */
+            'valuesuggest:olid:id' => Service\OpenLibraryDataTypeFactory::class,
         ],
     ],
     'view_manager' => [
