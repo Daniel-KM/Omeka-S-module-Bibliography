@@ -8,17 +8,15 @@ use ValueSuggest\DataType\AbstractDataType;
 
 class Doi extends AbstractDataType
 {
-    const CROSSREF_DOI_API = 'https://api.crossref.org';
+    const API = 'https://api.crossref.org';
 
-    protected $doiName;
-    protected $doiLabel;
-    protected $doiResource;
-    protected $doiIdentifier;
+    protected $name;
+    protected $label;
+    protected $resource;
+    protected $identifier;
 
     public function getSuggester()
     {
-        $resource = $this->doiResource ?: 'works';
-
         $viewHelpers = $this->services->get('ViewHelperManager');
         $setting = $viewHelpers->get('setting');
 
@@ -28,7 +26,7 @@ class Doi extends AbstractDataType
 
         /** @var \Zend\Http\Client $client */
         $client = $this->services->get('Omeka\HttpClient');
-        $client->setUri(self::CROSSREF_DOI_API . '/' . $resource);
+        $client->setUri(self::API . '/' . $this->resource);
         $client->getRequest()->getHeaders()
             ->addHeaderLine(
                 'User-Agent',
@@ -56,40 +54,40 @@ class Doi extends AbstractDataType
         $locale = $currentSetting('bibliography_csl_locale') ?: str_replace('_', '-', $currentSetting('locale'));
         $citeProc = new CiteProc($style, $locale);
 
-        return new DoiSuggest($client, $citeProc, $this->doiResource, $this->doiIdentifier);
+        return new DoiSuggest($client, $citeProc, $this->resource, $this->identifier);
     }
 
-    public function setDoiName($doiName)
+    public function setName($name)
     {
-        $this->doiName = $doiName;
+        $this->name = $name;
         return $this;
     }
 
-    public function setDoiLabel($doiLabel)
+    public function setLabel($label)
     {
-        $this->doiLabel = $doiLabel;
+        $this->label = $label;
         return $this;
     }
 
-    public function setDoiResource($doiResource)
+    public function setResource($resource)
     {
-        $this->doiResource = $doiResource;
+        $this->resource = $resource;
         return $this;
     }
 
-    public function setDoiIdentifier($doiIdentifier)
+    public function setIdentifier($identifier)
     {
-        $this->doiIdentifier = (bool) $doiIdentifier;
+        $this->identifier = (bool) $identifier;
         return $this;
     }
 
     public function getName()
     {
-        return $this->doiName;
+        return $this->name;
     }
 
     public function getLabel()
     {
-        return $this->doiLabel;
+        return $this->label;
     }
 }

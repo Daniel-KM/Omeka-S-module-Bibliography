@@ -14,7 +14,7 @@ class DoiDataTypeFactory implements FactoryInterface
             'identifier' => false,
         ],
         'valuesuggest:doi:works:id' => [
-            'label' => 'DOI: Single work', // @translate
+            'label' => 'DOI: Works (id)', // @translate
             'resource' => 'works',
             'identifier' => true,
         ],
@@ -24,7 +24,7 @@ class DoiDataTypeFactory implements FactoryInterface
             'identifier' => false,
         ],
         'valuesuggest:doi:journals:id' => [
-            'label' => 'DOI: Single journal', // @translate
+            'label' => 'DOI: Journals (id)', // @translate
             'resource' => 'journals',
             'identifier' => true,
         ],
@@ -34,7 +34,7 @@ class DoiDataTypeFactory implements FactoryInterface
             'identifier' => false,
         ],
         'valuesuggest:doi:funders:id' => [
-            'label' => 'DOI: Single funders', // @translate
+            'label' => 'DOI: Funders (id)', // @translate
             'resource' => 'funders',
             'identifier' => true,
         ],
@@ -44,7 +44,7 @@ class DoiDataTypeFactory implements FactoryInterface
             'identifier' => false,
         ],
         'valuesuggest:doi:members:id' => [
-            'label' => 'DOI: Single member', // @translate
+            'label' => 'DOI: Member (id)', // @translate
             'resource' => 'members',
             'identifier' => true,
         ],
@@ -54,7 +54,7 @@ class DoiDataTypeFactory implements FactoryInterface
             'identifier' => false,
         ],
         'valuesuggest:doi:licenses:id' => [
-            'label' => 'DOI: Single license', // @translate
+            'label' => 'DOI: License (id)', // @translate
             'resource' => 'licenses',
             'identifier' => true,
         ],
@@ -69,10 +69,10 @@ class DoiDataTypeFactory implements FactoryInterface
     {
         $dataType = new Doi($services);
         return $dataType
-            ->setDoiName($requestedName)
-            ->setDoiLabel($this->types[$requestedName]['label'])
-            ->setDoiResource($this->types[$requestedName]['resource'])
-            ->setDoiIdentifier($this->types[$requestedName]['identifier'])
+            ->setName($requestedName)
+            ->setLabel($this->types[$requestedName]['label'])
+            ->setResource($this->types[$requestedName]['resource'])
+            ->setIdentifier($this->types[$requestedName]['identifier'])
         ;
     }
 }
