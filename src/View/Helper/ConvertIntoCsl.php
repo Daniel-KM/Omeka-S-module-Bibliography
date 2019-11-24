@@ -191,16 +191,7 @@ class ConvertIntoCsl extends AbstractHelper
         }
 
         // Date should be either [2019, 11, 25] or ['20191125'] or ['25/11/2019'].
-        $date = (string) $date;
-        try {
-            $datetime = new \DateTime($date);
-            if ($datetime) {
-                $date = $datetime->format('Ymd');
-            }
-        } catch (\Exception $e) {
-        }
-        $date = [$date];
-        return (object) ['date-parts' => [$date]];
+        return (object) ['date-parts' => [[(string) $date]]];
     }
 
     /**
