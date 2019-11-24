@@ -62,8 +62,8 @@ echo $this->citation($resource, $options);
 ```
 
 Default options are:
-* `format` (string): format of the citation (only Chicago is supported
-  currently).
+* `style` (string): the citation style (default to "chicago-fullnote-bibliography").
+* `locale` (string): the locale for the citation.
 * `append_site` (boolean): to append the site or not.
 * `append_access_date` (boolean): to append the access date.
 * `bibliographic` (boolean): used for a real bibliographic reference, when an

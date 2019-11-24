@@ -41,6 +41,30 @@ class Module extends AbstractModule
             'view.show.after',
             [$this, 'handleViewShowAfter']
         );
+        $sharedEventManager->attach(
+            \Omeka\Form\SiteSettingsForm::class,
+            'form.add_elements',
+            [$this, 'handleSiteSettings']
+        );
+        $sharedEventManager->attach(
+            \Omeka\Form\SiteSettingsForm::class,
+            'form.add_input_filters',
+            [$this, 'handleSiteSettingsFilters']
+        );
+    }
+
+    public function handleSiteSettingsFilters(Event $event)
+    {
+        $inputFilter = $event->getParam('inputFilter');
+        $inputFilter->get('bibliography')
+            ->add([
+                'name' => 'bibliography_csl_style',
+                'required' => false,
+            ])
+            ->add([
+                'name' => 'bibliography_csl_locale',
+                'required' => false,
+            ]);
     }
 
     public function handleViewShowAfter(Event $event)

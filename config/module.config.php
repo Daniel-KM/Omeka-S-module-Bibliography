@@ -21,6 +21,9 @@ return [
         'invokables' => [
             Form\BibliographyBlockFieldset::class => Form\BibliographyBlockFieldset::class,
         ],
+        'factories' => [
+            Form\SiteSettingsFieldset::class => Service\Form\SiteSettingsFieldsetFactory::class,
+        ],
     ],
     'translator' => [
         'translation_file_patterns' => [
@@ -33,6 +36,10 @@ return [
         ],
     ],
     'bibliography' => [
+        'site_settings' => [
+            'bibliography_csl_style' => '',
+            'bibliography_csl_locale' => '',
+        ],
         'block_settings' => [
             'bibliography' => [
                 'heading' => '',

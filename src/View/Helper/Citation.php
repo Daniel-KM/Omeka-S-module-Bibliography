@@ -13,7 +13,7 @@ class Citation extends AbstractHelper
      * @see https://docs.citationstyles.org/en/1.0.1/index.html
      *
      * @param AbstractResourceEntityRepresentation $resource
-     * @param array $options Managed options are: "format", "append_site",
+     * @param array $options Managed options are: "append_site",
      * "append_access_date", "bibliographic", "tag", and "template".
      * The default options are used for Omeka resources. So use "bibliographic"
      * for a real bibliographic resource. Other options are passed to template.
@@ -25,7 +25,6 @@ class Citation extends AbstractHelper
 
         if (empty($options['bibliographic'])) {
             $options += [
-                'format' => null,
                 'append_site' => true,
                 'append_access_date' => true,
                 'bibliographic' => false,
@@ -33,7 +32,6 @@ class Citation extends AbstractHelper
             ];
         } else {
             $options += [
-                'format' => null,
                 'append_site' => false,
                 'append_access_date' => false,
                 'tag' => 'p',
@@ -41,6 +39,10 @@ class Citation extends AbstractHelper
         }
         $options['resource'] = $resource;
         $options['csl'] = $this->convertToCsl($resource);
+
+        $siteSetting = $view->plugin('siteSetting');
+        $options['style'] = $siteSetting('bibliography_csl_style') ?: 'chicago-fullnote-bibliography';
+        $options['locale'] = $siteSetting('bibliography_csl_locale') ?: str_replace('_', '-', $siteSetting('locale'));
 
         $template = empty($options['template']) ? 'common/citation' : $options['template'];
         unset($options['template']);
