@@ -165,6 +165,9 @@ Copyright
 * Copyright Daniel Berthereau, 2018-2019 (see [Daniel-KM] on GitHub)
 * See third parties copyright for dependencies.
 
+First version of this module was built for Daniel Berthereau for [Collegium Musicæ]
+and LAM / Institut ∂’Alembert, of [Université Paris Sorbonne].
+
 
 [Omeka S]: https://omeka.org/s
 [Bibliography]: https://github.com/Daniel-KM/Omeka-S-module-Bibliography
@@ -191,4 +194,6 @@ Copyright
 [GNU/GPL]: https://www.gnu.org/licenses/gpl-3.0.html
 [FSF]: https://www.fsf.org
 [OSI]: http://opensource.org
+[Collegium Musicæ]: http://www.collegium.musicae.sorbonne-universite.fr
+[Université Paris Sorbonne]: https://www.sorbonne-universite.fr
 [Daniel-KM]: https://github.com/Daniel-KM "Daniel Berthereau"
