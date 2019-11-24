@@ -56,7 +56,7 @@ class Doi extends AbstractDataType
         $locale = $currentSetting('bibliography_csl_locale') ?: str_replace('_', '-', $currentSetting('locale'));
         $citeProc = new CiteProc($style, $locale);
 
-        return new DoiSuggest($client, $citeProc, $this->doiIdentifier);
+        return new DoiSuggest($client, $citeProc, $this->doiResource, $this->doiIdentifier);
     }
 
     public function setDoiName($doiName)

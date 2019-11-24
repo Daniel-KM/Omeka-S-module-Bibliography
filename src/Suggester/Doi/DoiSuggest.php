@@ -19,14 +19,20 @@ class DoiSuggest implements SuggesterInterface
     protected $citeProc;
 
     /**
+     * @var string
+     */
+    protected $resource;
+
+    /**
      * @var bool
      */
     protected $isIdentifier;
 
-    public function __construct(Client $client, CiteProc $citeProc, $isIdentifier)
+    public function __construct(Client $client, CiteProc $citeProc, $resource, $isIdentifier)
     {
         $this->client = $client;
         $this->citeProc = $citeProc;
+        $this->resource = $resource;
         $this->isIdentifier = $isIdentifier;
     }
 
@@ -45,6 +51,7 @@ class DoiSuggest implements SuggesterInterface
         } else {
             $args = [
                 'query' => $query,
+                // 'rows' => 20,
             ];
             if ($lang) {
                 $args['language'] = $lang;
@@ -57,8 +64,6 @@ class DoiSuggest implements SuggesterInterface
             return [];
         }
 
-        // Parse the JSON response.
-        $suggestions = [];
         // Don't convert to array: csl are objects.
         $results = json_decode($response->getBody());
 
@@ -67,6 +72,30 @@ class DoiSuggest implements SuggesterInterface
             $results->message->items = [$results->message];
         }
 
+        if (empty($results->message->items)) {
+            return [];
+        }
+
+        switch ($this->resource) {
+            case 'works':
+                return $this->suggestedWorks($results);
+            case 'journals':
+                return $this->suggestedJournals($results);
+            case 'funders':
+                return $this->suggestedFunders($results);
+            case 'members':
+                return $this->suggestedMembers($results);
+            case 'licenses':
+                return $this->suggestedLicenses($results);
+            case 'types':
+                return $this->suggestedTypes($results);
+            default:
+                return [];
+        }
+    }
+
+    protected function suggestedWorks($results)
+    {
         // Fix crossref output for CiteProc, that requires single strings.
         // @see https://github.com/Crossref/rest-api-doc/blob/master/api_format.md
         $toStrings = [
@@ -107,23 +136,124 @@ class DoiSuggest implements SuggesterInterface
 
         // The current version output notices when some common keys are missing.
         // TODO Fix CiteProc to allow missing keys.
-        $citations = @$this->citeProc->render($results->message->items, 'bibliography', [], true);
-        $citationsXml = new \SimpleXMLElement($citations);
-        $citations = [];
-        foreach ($citationsXml->div as $citation) {
-            $citations[] = substr($citation->asXml(), 23, -6);
+        $list = @$this->citeProc->render($results->message->items, 'bibliography', [], true);
+        $listXml = new \SimpleXMLElement($list);
+        $list = [];
+        foreach ($listXml->div as $item) {
+            $list[] = substr($item->asXml(), 23, -6);
         }
 
+        $suggestions = [];
         foreach ($results->message->items as $key => $result) {
             $suggestions[] = [
                 'value' => $result->DOI,
                 'data' => [
                     'uri' => $result->URL,
-                    'info' => $citations[$key],
+                    'info' => $list[$key],
                 ],
             ];
         }
+        return $suggestions;
+    }
 
+    protected function suggestedJournals($results)
+    {
+        $suggestions = [];
+        foreach ($results->message->items as $result) {
+            $info = $result->title . (isset($result->publisher) ? ' (' . $result->publisher . ')' : '');
+            if (!empty($result->DOI)) {
+                $value = $result->DOI;
+            } elseif (!empty($result->ISSN)) {
+                $value = is_array($result->ISSN) ? reset($result->ISSN) : $result->ISSN;
+            } else {
+                $value = $info;
+                $info = null;
+            }
+            if (!empty($result->URL)) {
+                $url = $result->URL;
+            } elseif (!empty($result->link[0]->URL)) {
+                $url = $result->link[0]->URL;
+            } else {
+                $url = null;
+            }
+            $suggestions[] = [
+                'value' => $value,
+                'data' => [
+                    'uri' => $url,
+                    'info' => $info,
+                ],
+            ];
+        }
+        return $suggestions;
+    }
+
+    protected function suggestedFunders($results)
+    {
+        $suggestions = [];
+        foreach ($results->message->items as $result) {
+            $value = $result->name;
+            $info = null;
+            if (!empty($result->uri)) {
+                $uri = $result->uri;
+            } else {
+                $uri = null;
+            }
+            $suggestions[] = [
+                'value' => $value,
+                'data' => [
+                    'uri' => $uri,
+                    'info' => $info,
+                ],
+            ];
+        }
+        return $suggestions;
+    }
+
+    protected function suggestedMembers($results)
+    {
+        $suggestions = [];
+        foreach ($results->message->items as $result) {
+            $info = $result->{primary-name};
+            $value = $result->id;
+            $uri = 'https://id.crossref.org/member/' . $value;
+            $suggestions[] = [
+                'value' => $value,
+                'data' => [
+                    'uri' => $uri,
+                    'info' => $info,
+                ],
+            ];
+        }
+        return $suggestions;
+    }
+
+    protected function suggestedLicenses($results)
+    {
+        $suggestions = [];
+        foreach ($results->message->items as $result) {
+            $suggestions[] = [
+                'value' => $result->URL,
+                'data' => [
+                    'uri' => $result->URL,
+                    'info' => null,
+                ],
+            ];
+        }
+        return $suggestions;
+    }
+
+    protected function suggestedTypes($results)
+    {
+        $suggestions = [];
+        foreach ($results->message->items as $result) {
+            $suggestions[] = [
+                'value' => $result->id,
+                'data' => [
+                    'uri' => null,
+                    'info' => $result->label,
+                ],
+            ];
+        }
         return $suggestions;
     }
 }
