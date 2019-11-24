@@ -37,6 +37,21 @@ are the same and improved in this module.
 Usage
 -----
 
+### Creation of the citation
+
+The citation can be displayed with any managed [citation style], in any of the
+managed languages.
+
+Remarks on the metadata:
+- The process is based on the resource class, that allows to adapt the style. If
+  the class is not present or [not managed], the citation may not be accurate.
+- The journal (for an article) or the book (for a part) should be referenced as
+  dcterms:relation or dcterms:isPartOf.
+- The date should be a numeric data type or an iso8601 formatted date, partial
+  or full. The year should be on 4 digits.
+
+### Display of the citation
+
 The citation is automatically added to the item/show page. You can have a better
 control on the display with module [Blocks Disposition] or direct edition of the
 theme.
@@ -66,7 +81,8 @@ The result can be customized via the template `common/citation` in `view/`.
 TODO
 ----
 
-* Use a csl-styling tool to be more accurate and allow automatic format.
+* Improve conversion from dcterms and bibo into csl, or find a library for it. See https://docs.citationstyles.org/en/1.0.1/index.html.
+* Use the dcterms:type if resource class is not present.
 
 
 Warning
@@ -122,6 +138,7 @@ Copyright
 [Installing a module]: http://dev.omeka.org/docs/s/user-manual/modules/#installing-modules
 [Blocks Disposition]: https://github.com/Daniel-KM/Omeka-S-module-BlocksDisposition
 [Citation]: https://github.com/Daniel-KM/Omeka-S-module-Citation
+[not managed]: https://github.com/Daniel-KM/Omeka-S-module-Bibliography/tree/master/data/mapping/resource_class_map.php
 [module issues]: https://github.com/Daniel-KM/Omeka-S-module-Bibliography/issues
 [CeCILL v2.1]: https://www.cecill.info/licences/Licence_CeCILL_V2.1-en.html
 [GNU/GPL]: https://www.gnu.org/licenses/gpl-3.0.html
