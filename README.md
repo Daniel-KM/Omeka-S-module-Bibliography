@@ -2,18 +2,35 @@ Bibliography (module for Omeka S)
 =============================
 
 [Bibliography] is a module for [Omeka S] that allows to display the canonical
-bibliographic citations of resources.
+bibliographic citations of resources, according to any managed [citation style].
 
 
 Installation
 ------------
 
-Uncompress files and rename module folder `Bibliography`. Then install it like
-any other Omeka module and follow the config instructions.
+This optional  module [Generic] may be installed first.
 
-See general end user documentation for [Installing a module].
+The module uses external libraries, so use the release zip to install it, or use
+and init the source.
 
-If you used the module `Citation`, it is automatically uninstalled: its features
+See general end user documentation for [installing a module].
+
+* From the zip
+
+Download the last release [Bibliography.zip] from the list of releases (the
+master does not contain the dependency), and uncompress it in the `modules`
+directory.
+
+* From the source and for development
+
+If the module was installed from the source, rename the name of the folder of
+the module to `Bibliography`, go to the root of the module, and run:
+
+```
+composer install
+```
+
+If you used the module [Citation], it is automatically uninstalled: its features
 are the same and improved in this module.
 
 
@@ -94,16 +111,20 @@ Copyright
 ---------
 
 * Copyright Daniel Berthereau, 2018-2019 (see [Daniel-KM] on GitHub)
+* See third parties copyright for dependencies.
 
 
 [Omeka S]: https://omeka.org/s
 [Bibliography]: https://github.com/Daniel-KM/Omeka-S-module-Bibliography
+[citation style]: https://citationstyles.org
+[Generic]: https://github.com/Daniel-KM/Omeka-S-module-Generic
+[Bibliography.zip]: https://github.com/Daniel-KM/Omeka-S-module-Bibliography/releases
 [Installing a module]: http://dev.omeka.org/docs/s/user-manual/modules/#installing-modules
 [Blocks Disposition]: https://github.com/Daniel-KM/Omeka-S-module-BlocksDisposition
+[Citation]: https://github.com/Daniel-KM/Omeka-S-module-Citation
 [module issues]: https://github.com/Daniel-KM/Omeka-S-module-Bibliography/issues
 [CeCILL v2.1]: https://www.cecill.info/licences/Licence_CeCILL_V2.1-en.html
 [GNU/GPL]: https://www.gnu.org/licenses/gpl-3.0.html
 [FSF]: https://www.fsf.org
 [OSI]: http://opensource.org
-[MIT]: http://http://opensource.org/licenses/MIT
 [Daniel-KM]: https://github.com/Daniel-KM "Daniel Berthereau"

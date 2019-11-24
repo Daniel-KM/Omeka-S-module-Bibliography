@@ -10,6 +10,7 @@ if (!class_exists(\Generic\AbstractModule::class)) {
 use Generic\AbstractModule;
 use Zend\EventManager\Event;
 use Zend\EventManager\SharedEventManagerInterface;
+use Zend\ModuleManager\ModuleManager;
 
 /**
  * Bibliography
@@ -22,6 +23,11 @@ use Zend\EventManager\SharedEventManagerInterface;
 class Module extends AbstractModule
 {
     const NAMESPACE = __NAMESPACE__;
+
+    public function init(ModuleManager $moduleManager)
+    {
+        require_once __DIR__ . '/vendor/autoload.php';
+    }
 
     protected function postInstall()
     {
