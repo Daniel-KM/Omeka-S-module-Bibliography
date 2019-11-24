@@ -154,6 +154,7 @@ class ConvertIntoCsl extends AbstractHelper
             foreach ($creators as $creator) {
                 $authors[] = (object) [
                     'family' => $creator,
+                    'given' => '',
                 ];
             }
         } else {
@@ -163,7 +164,7 @@ class ConvertIntoCsl extends AbstractHelper
                 $authors[] = (object) [
                     // 'name' => $creator,
                     'family' => $creator,
-                    // 'given' => '',
+                    'given' => '',
                     // 'non-dropping-particle' => '',
                     // 'dropping-particle' => '',
                     // 'suffix' => '',
