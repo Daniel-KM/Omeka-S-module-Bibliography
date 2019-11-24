@@ -18,10 +18,16 @@ class DoiSuggest implements SuggesterInterface
      */
     protected $citeProc;
 
-    public function __construct(Client $client, CiteProc $citeProc)
+    /**
+     * @var bool
+     */
+    protected $isIdentifier;
+
+    public function __construct(Client $client, CiteProc $citeProc, $isIdentifier)
     {
         $this->client = $client;
         $this->citeProc = $citeProc;
+        $this->isIdentifier = $isIdentifier;
     }
 
     /**
@@ -34,13 +40,17 @@ class DoiSuggest implements SuggesterInterface
      */
     public function getSuggestions($query, $lang = null)
     {
-        $args = [
-            'query' => $query,
-        ];
-        if ($lang) {
-            $args['language'] = $lang;
+        if ($this->isIdentifier) {
+            $this->client->setUri($this->client->getUri() . '/' . urlencode($query));
+        } else {
+            $args = [
+                'query' => $query,
+            ];
+            if ($lang) {
+                $args['language'] = $lang;
+            }
+            $this->client->setParameterGet($args);
         }
-        $this->client->setParameterGet($args);
 
         $response = $this->client->send();
         if (!$response->isSuccess()) {
@@ -51,6 +61,11 @@ class DoiSuggest implements SuggesterInterface
         $suggestions = [];
         // Don't convert to array: csl are objects.
         $results = json_decode($response->getBody());
+
+        if ($this->isIdentifier) {
+            $results->message->{'total-results'} = 1;
+            $results->message->items = [$results->message];
+        }
 
         // Fix crossref output for CiteProc, that requires single strings.
         // @see https://github.com/Crossref/rest-api-doc/blob/master/api_format.md

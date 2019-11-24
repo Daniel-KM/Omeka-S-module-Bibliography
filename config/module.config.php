@@ -6,10 +6,15 @@ return [
         'factories' => [
             /* DOI: Digital object identifiers */
             'valuesuggest:doi:works' => Service\DoiDataTypeFactory::class,
+            'valuesuggest:doi:works:id' => Service\DoiDataTypeFactory::class,
             'valuesuggest:doi:journals' => Service\DoiDataTypeFactory::class,
+            'valuesuggest:doi:journals:id' => Service\DoiDataTypeFactory::class,
             'valuesuggest:doi:funders' => Service\DoiDataTypeFactory::class,
+            'valuesuggest:doi:funders:id' => Service\DoiDataTypeFactory::class,
             'valuesuggest:doi:members' => Service\DoiDataTypeFactory::class,
+            'valuesuggest:doi:members:id' => Service\DoiDataTypeFactory::class,
             'valuesuggest:doi:licenses' => Service\DoiDataTypeFactory::class,
+            'valuesuggest:doi:licenses:id' => Service\DoiDataTypeFactory::class,
             'valuesuggest:doi:types' => Service\DoiDataTypeFactory::class,
         ],
     ],

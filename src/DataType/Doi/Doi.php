@@ -13,6 +13,7 @@ class Doi extends AbstractDataType
     protected $doiName;
     protected $doiLabel;
     protected $doiResource;
+    protected $doiIdentifier;
 
     public function getSuggester()
     {
@@ -55,7 +56,7 @@ class Doi extends AbstractDataType
         $locale = $currentSetting('bibliography_csl_locale') ?: str_replace('_', '-', $currentSetting('locale'));
         $citeProc = new CiteProc($style, $locale);
 
-        return new DoiSuggest($client, $citeProc);
+        return new DoiSuggest($client, $citeProc, $this->doiIdentifier);
     }
 
     public function setDoiName($doiName)
@@ -76,9 +77,9 @@ class Doi extends AbstractDataType
         return $this;
     }
 
-    public function setDoiSingle($doiResource)
+    public function setDoiIdentifier($doiIdentifier)
     {
-        $this->doiResource = $doiResource;
+        $this->doiIdentifier = (bool) $doiIdentifier;
         return $this;
     }
 
