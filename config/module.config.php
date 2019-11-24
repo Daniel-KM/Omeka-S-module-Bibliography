@@ -45,4 +45,11 @@ return [
             ],
         ],
     ],
+    'blocksdisposition' => [
+        'views' => [
+            'item_show' => [
+                'Bibliography',
+            ],
+        ],
+    ],
 ];
