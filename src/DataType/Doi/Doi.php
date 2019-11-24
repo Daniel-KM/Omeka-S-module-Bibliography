@@ -12,8 +12,7 @@ class Doi extends AbstractDataType
 
     protected $name;
     protected $label;
-    protected $resource;
-    protected $identifier;
+    protected $options;
 
     public function getSuggester()
     {
@@ -26,7 +25,7 @@ class Doi extends AbstractDataType
 
         /** @var \Zend\Http\Client $client */
         $client = $this->services->get('Omeka\HttpClient');
-        $client->setUri(self::API . '/' . $this->resource);
+        $client->setUri(self::API . '/' . $this->options['resource']);
         $client->getRequest()->getHeaders()
             ->addHeaderLine(
                 'User-Agent',
@@ -54,7 +53,7 @@ class Doi extends AbstractDataType
         $locale = $currentSetting('bibliography_csl_locale') ?: str_replace('_', '-', $currentSetting('locale'));
         $citeProc = new CiteProc($style, $locale);
 
-        return new DoiSuggest($client, $citeProc, $this->resource, $this->identifier);
+        return new DoiSuggest($client, $citeProc, $this->options);
     }
 
     public function setName($name)
@@ -69,15 +68,9 @@ class Doi extends AbstractDataType
         return $this;
     }
 
-    public function setResource($resource)
+    public function setOptions(array $options)
     {
-        $this->resource = $resource;
-        return $this;
-    }
-
-    public function setIdentifier($identifier)
-    {
-        $this->identifier = (bool) $identifier;
+        $this->options = $options;
         return $this;
     }
 

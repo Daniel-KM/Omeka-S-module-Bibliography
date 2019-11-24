@@ -10,58 +10,160 @@ class DoiDataTypeFactory implements FactoryInterface
     protected $types = [
         'valuesuggest:doi:works' => [
             'label' => 'DOI: Works', // @translate
-            'resource' => 'works',
-            'identifier' => false,
+            'options' => [
+                'resource' => 'works',
+                'identifier' => false,
+                'uri_label' => 'id',
+            ],
+        ],
+        'valuesuggest:doi:works:name' => [
+            'label' => 'DOI: Works (name)', // @translate
+            'options' => [
+                'resource' => 'works',
+                'identifier' => false,
+                'uri_label' => 'name',
+            ],
         ],
         'valuesuggest:doi:works:id' => [
-            'label' => 'DOI: Works (id)', // @translate
-            'resource' => 'works',
-            'identifier' => true,
+            'label' => 'DOI: Works (by id)', // @translate
+            'options' => [
+                'resource' => 'works',
+                'identifier' => true,
+                'uri_label' => 'id',
+            ],
         ],
+        'valuesuggest:doi:works:id:name' => [
+            'label' => 'DOI: Works (by id, name)', // @translate
+            'options' => [
+                'resource' => 'works',
+                'identifier' => true,
+                'uri_label' => 'name',
+            ],
+        ],
+
         'valuesuggest:doi:journals' => [
             'label' => 'DOI: Journals', // @translate
-            'resource' => 'journals',
-            'identifier' => false,
+            'options' => [
+                'resource' => 'journals',
+                'identifier' => false,
+                'uri_label' => 'id',
+            ],
+        ],
+        'valuesuggest:doi:journals:name' => [
+            'label' => 'DOI: Journals (name)', // @translate
+            'options' => [
+                'resource' => 'journals',
+                'identifier' => false,
+                'uri_label' => 'name',
+            ],
         ],
         'valuesuggest:doi:journals:id' => [
-            'label' => 'DOI: Journals (id)', // @translate
-            'resource' => 'journals',
-            'identifier' => true,
+            'label' => 'DOI: Journals (by id)', // @translate
+            'options' => [
+                'resource' => 'journals',
+                'identifier' => true,
+                'uri_label' => 'id',
+            ],
         ],
+        'valuesuggest:doi:journals:id:name' => [
+            'label' => 'DOI: Journals (by id, name)', // @translate
+            'options' => [
+                'resource' => 'journals',
+                'identifier' => true,
+                'uri_label' => 'name',
+            ],
+        ],
+
         'valuesuggest:doi:funders' => [
             'label' => 'DOI: Funders', // @translate
-            'resource' => 'funders',
-            'identifier' => false,
+            'options' => [
+                'resource' => 'funders',
+                'identifier' => false,
+                'uri_label' => 'id',
+            ],
+        ],
+        'valuesuggest:doi:funders:name' => [
+            'label' => 'DOI: Funders (name)', // @translate
+            'options' => [
+                'resource' => 'funders',
+                'identifier' => false,
+                'uri_label' => 'name',
+            ],
         ],
         'valuesuggest:doi:funders:id' => [
-            'label' => 'DOI: Funders (id)', // @translate
-            'resource' => 'funders',
-            'identifier' => true,
+            'label' => 'DOI: Funders (by id)', // @translate
+            'options' => [
+                'resource' => 'funders',
+                'identifier' => true,
+                'uri_label' => 'id',
+            ],
         ],
+        'valuesuggest:doi:funders:id:name' => [
+            'label' => 'DOI: Funders (by id, name)', // @translate
+            'options' => [
+                'resource' => 'funders',
+                'identifier' => true,
+                'uri_label' => 'name',
+            ],
+        ],
+
         'valuesuggest:doi:members' => [
             'label' => 'DOI: Members', // @translate
-            'resource' => 'members',
-            'identifier' => false,
+            'options' => [
+                'resource' => 'members',
+                'identifier' => false,
+                'uri_label' => 'id',
+            ],
+        ],
+        'valuesuggest:doi:members:name' => [
+            'label' => 'DOI: Members (name)', // @translate
+            'options' => [
+                'resource' => 'members',
+                'identifier' => false,
+                'uri_label' => 'name',
+            ],
         ],
         'valuesuggest:doi:members:id' => [
-            'label' => 'DOI: Member (id)', // @translate
-            'resource' => 'members',
-            'identifier' => true,
+            'label' => 'DOI: Member (by id)', // @translate
+            'options' => [
+                'resource' => 'members',
+                'identifier' => true,
+                'uri_label' => 'id',
+            ],
         ],
+        'valuesuggest:doi:members:id:name' => [
+            'label' => 'DOI: Member (by id, name)', // @translate
+            'options' => [
+                'resource' => 'members',
+                'identifier' => true,
+                'uri_label' => 'name',
+            ],
+        ],
+
         'valuesuggest:doi:licenses' => [
             'label' => 'DOI: Licenses', // @translate
-            'resource' => 'licenses',
-            'identifier' => false,
+            'options' => [
+                'resource' => 'licenses',
+                'identifier' => false,
+                'uri_label' => null,
+            ],
         ],
         'valuesuggest:doi:licenses:id' => [
-            'label' => 'DOI: License (id)', // @translate
-            'resource' => 'licenses',
-            'identifier' => true,
+            'label' => 'DOI: License (by id)', // @translate
+            'options' => [
+                'resource' => 'licenses',
+                'identifier' => true,
+                'uri_label' => null,
+            ],
         ],
+
         'valuesuggest:doi:types' => [
             'label' => 'DOI: Types', // @translate
-            'resource' => 'types',
-            'identifier' => false,
+            'options' => [
+                'resource' => 'types',
+                'identifier' => false,
+                'uri_label' => null,
+            ],
         ],
     ];
 
@@ -71,8 +173,7 @@ class DoiDataTypeFactory implements FactoryInterface
         return $dataType
             ->setName($requestedName)
             ->setLabel($this->types[$requestedName]['label'])
-            ->setResource($this->types[$requestedName]['resource'])
-            ->setIdentifier($this->types[$requestedName]['identifier'])
+            ->setOptions($this->types[$requestedName]['options'])
         ;
     }
 }

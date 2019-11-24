@@ -19,21 +19,20 @@ class OpenLibrarySuggest implements SuggesterInterface
     protected $citeProc;
 
     /**
-     * @var string
+     * Managed options are:
+     * - resource: the type of resource to query
+     * - identifier: search strictly the identifier
+     * - uri_label: the data that will be use for the label (id or name)
+     *
+     * @var array
      */
-    protected $resource;
+    protected $options;
 
-    /**
-     * @var bool
-     */
-    protected $isIdentifier;
-
-    public function __construct(Client $client, CiteProc $citeProc, $resource, $isIdentifier)
+    public function __construct(Client $client, CiteProc $citeProc, array $options)
     {
         $this->client = $client;
         $this->citeProc = $citeProc;
-        $this->resource = $resource;
-        $this->isIdentifier = $isIdentifier;
+        $this->options = $options;
     }
 
     /**
@@ -46,17 +45,16 @@ class OpenLibrarySuggest implements SuggesterInterface
      */
     public function getSuggestions($query, $lang = null)
     {
-        if (!$this->isIdentifier) {
+        if (!$this->options['identifier']) {
             return [];
         }
 
         $args = [
-            'bibkeys' => $this->resource . ':' . preg_replace('~\D~', '', $query),
+            'bibkeys' => $this->options['resource'] . ':' . preg_replace('~\D~', '', $query),
             'format' => 'json',
             'jscmd' => 'data',
         ];
         $this->client->setParameterGet($args);
-
 
         $response = $this->client->send();
         if (!$response->isSuccess()) {
@@ -81,12 +79,20 @@ class OpenLibrarySuggest implements SuggesterInterface
         $list[] = substr($item, 52, -13);
 
         $suggestions = [];
+        $useName = $this->options['uri_label'] === 'name';
         foreach ([$csl] as $key => $result) {
+            if ($useName) {
+                $value = $list[$key];
+                $info = $ids[$key];
+            } else {
+                $value = $ids[$key];
+                $info = $list[$key];
+            }
             $suggestions[] = [
-                'value' => $ids[$key],
+                'value' => $value,
                 'data' => [
                     'uri' => empty($result->url) ? null : $result->url,
-                    'info' => $list[$key],
+                    'info' => $info,
                 ],
             ];
         }

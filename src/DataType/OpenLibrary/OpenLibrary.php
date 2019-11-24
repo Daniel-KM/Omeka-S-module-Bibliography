@@ -12,8 +12,7 @@ class OpenLibrary extends AbstractDataType
 
     protected $name;
     protected $label;
-    protected $resource;
-    protected $identifier;
+    protected $options;
 
     public function getSuggester()
     {
@@ -52,7 +51,7 @@ class OpenLibrary extends AbstractDataType
         $locale = $currentSetting('bibliography_csl_locale') ?: str_replace('_', '-', $currentSetting('locale'));
         $citeProc = new CiteProc($style, $locale);
 
-        return new OpenLibrarySuggest($client, $citeProc, $this->resource, $this->identifier);
+        return new OpenLibrarySuggest($client, $citeProc, $this->options);
     }
 
     public function setName($name)
@@ -67,15 +66,9 @@ class OpenLibrary extends AbstractDataType
         return $this;
     }
 
-    public function setResource($resource)
+    public function setOptions(array $options)
     {
-        $this->resource = $resource;
-        return $this;
-    }
-
-    public function setIdentifier($identifier)
-    {
-        $this->identifier = (bool) $identifier;
+        $this->options = $options;
         return $this;
     }
 

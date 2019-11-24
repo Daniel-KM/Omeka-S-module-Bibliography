@@ -19,21 +19,20 @@ class DoiSuggest implements SuggesterInterface
     protected $citeProc;
 
     /**
-     * @var string
+     * Managed options are:
+     * - resource: the type of resource to query
+     * - identifier: search strictly the identifier
+     * - uri_label: the data that will be use for the label (id or name)
+     *
+     * @var array
      */
-    protected $resource;
+    protected $options;
 
-    /**
-     * @var bool
-     */
-    protected $isIdentifier;
-
-    public function __construct(Client $client, CiteProc $citeProc, $resource, $isIdentifier)
+    public function __construct(Client $client, CiteProc $citeProc, array $options)
     {
         $this->client = $client;
         $this->citeProc = $citeProc;
-        $this->resource = $resource;
-        $this->isIdentifier = $isIdentifier;
+        $this->options = $options;
     }
 
     /**
@@ -46,7 +45,7 @@ class DoiSuggest implements SuggesterInterface
      */
     public function getSuggestions($query, $lang = null)
     {
-        if ($this->isIdentifier) {
+        if ($this->options['identifier']) {
             $this->client->setUri($this->client->getUri() . '/' . urlencode($query));
         } else {
             $args = [
@@ -67,7 +66,7 @@ class DoiSuggest implements SuggesterInterface
         // Don't convert to array: csl are objects.
         $results = json_decode($response->getBody());
 
-        if ($this->isIdentifier) {
+        if ($this->options['identifier']) {
             $results->message->{'total-results'} = 1;
             $results->message->items = [$results->message];
         }
@@ -76,7 +75,7 @@ class DoiSuggest implements SuggesterInterface
             return [];
         }
 
-        switch ($this->resource) {
+        switch ($this->options['resource']) {
             case 'works':
                 return $this->suggestedWorks($results);
             case 'journals':
@@ -144,21 +143,37 @@ class DoiSuggest implements SuggesterInterface
         unset($item);
 
         $suggestions = [];
-        foreach ($results->message->items as $key => $result) {
-            $suggestions[] = [
-                'value' => $result->DOI,
-                'data' => [
-                    'uri' => $result->URL,
-                    'info' => $list[$key],
-                ],
-            ];
+
+        $useName = $this->options['uri_label'] === 'name';
+        if ($useName) {
+            foreach ($results->message->items as $key => $result) {
+                $suggestions[] = [
+                    'value' => $list[$key],
+                    'data' => [
+                        'uri' => $result->URL,
+                        'info' => $result->DOI,
+                    ],
+                ];
+            }
+        } else {
+            foreach ($results->message->items as $key => $result) {
+                $suggestions[] = [
+                    'value' => $result->DOI,
+                    'data' => [
+                        'uri' => $result->URL,
+                        'info' => $list[$key],
+                    ],
+                ];
+            }
         }
+
         return $suggestions;
     }
 
     protected function suggestedJournals($results)
     {
         $suggestions = [];
+        $useName = $this->options['uri_label'] === 'name';
         foreach ($results->message->items as $result) {
             $info = $result->title . (isset($result->publisher) ? ' (' . $result->publisher . ')' : '');
             if (!empty($result->DOI)) {
@@ -176,6 +191,13 @@ class DoiSuggest implements SuggesterInterface
             } else {
                 $url = null;
             }
+
+            if ($useName && $info) {
+                $v = $value;
+                $value = $info;
+                $info = $v;
+            }
+
             $suggestions[] = [
                 'value' => $value,
                 'data' => [
@@ -190,14 +212,16 @@ class DoiSuggest implements SuggesterInterface
     protected function suggestedFunders($results)
     {
         $suggestions = [];
+        $useName = $this->options['uri_label'] === 'name';
         foreach ($results->message->items as $result) {
-            $value = $result->name;
-            $info = null;
-            if (!empty($result->uri)) {
-                $uri = $result->uri;
+            if ($useName) {
+                $value = $result->name;
+                $info = $result->id;
             } else {
-                $uri = null;
+                $value = $result->id;
+                $info = $result->name;
             }
+            $uri = empty($result->uri) ? null : $result->uri;
             $suggestions[] = [
                 'value' => (string) $value,
                 'data' => [
@@ -212,10 +236,16 @@ class DoiSuggest implements SuggesterInterface
     protected function suggestedMembers($results)
     {
         $suggestions = [];
+        $useName = $this->options['uri_label'] === 'name';
         foreach ($results->message->items as $result) {
-            $info = $result->{'primary-name'};
-            $value = $result->id;
-            $uri = 'https://id.crossref.org/member/' . $value;
+            if ($useName) {
+                $value = $result->{'primary-name'};
+                $info = $result->id;
+            } else {
+                $value = $result->id;
+                $info = $result->{'primary-name'};
+            }
+            $uri = 'https://id.crossref.org/member/' . $result->id;
             $suggestions[] = [
                 'value' => (string) $value,
                 'data' => [

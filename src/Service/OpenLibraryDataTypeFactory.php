@@ -9,24 +9,68 @@ class OpenLibraryDataTypeFactory implements FactoryInterface
 {
     protected $types = [
         'valuesuggest:isbn:id' => [
-            'label' => 'ISBN: International standard book number (id)', // @translate
-            'resource' => 'ISBN',
-            'identifier' => true,
+            'label' => 'ISBN: International standard book number (by id)', // @translate
+            'options' => [
+                'resource' => 'ISBN',
+                'identifier' => true,
+                'uri_label' => 'id',
+            ],
+        ],
+        'valuesuggest:isbn:id:name' => [
+            'label' => 'ISBN: International standard book number (by id, name)', // @translate
+            'options' => [
+                'resource' => 'ISBN',
+                'identifier' => true,
+                'uri_label' => 'name',
+            ],
         ],
         'valuesuggest:lccn:id' => [
-            'label' => 'LCCN: Library of Congress Control Number (id)', // @translate
-            'resource' => 'LCCN',
-            'identifier' => true,
+            'label' => 'LCCN: Library of Congress Control Number (by id)', // @translate
+            'options' => [
+                'resource' => 'LCCN',
+                'identifier' => true,
+                'uri_label' => 'id',
+            ],
+        ],
+        'valuesuggest:lccn:id:name' => [
+            'label' => 'LCCN: Library of Congress Control Number (by id, name)', // @translate
+            'options' => [
+                'resource' => 'LCCN',
+                'identifier' => true,
+                'uri_label' => 'name',
+            ],
         ],
         'valuesuggest:oclc:id' => [
-            'label' => 'OCLC: Online computer library center (id)', // @translate
-            'resource' => 'OCLC',
-            'identifier' => true,
+            'label' => 'OCLC: Online computer library center (by id)', // @translate
+            'options' => [
+                'resource' => 'OCLC',
+                'identifier' => true,
+                'uri_label' => 'id',
+            ],
+        ],
+        'valuesuggest:oclc:id:name' => [
+            'label' => 'OCLC: Online computer library center (by id, name)', // @translate
+            'options' => [
+                'resource' => 'OCLC',
+                'identifier' => true,
+                'uri_label' => 'name',
+            ],
         ],
         'valuesuggest:olid:id' => [
-            'label' => 'OLID: Open library id from Internet Archive (id)', // @translate
-            'resource' => 'OLID',
-            'identifier' => true,
+            'label' => 'OLID: Open library id from Internet Archive (by id)', // @translate
+            'options' => [
+                'resource' => 'OLID',
+               'identifier' => true,
+                'uri_label' => 'id',
+            ],
+        ],
+        'valuesuggest:olid:id:name' => [
+            'label' => 'OLID: Open library id from Internet Archive (by id, name)', // @translate
+            'options' => [
+                'resource' => 'OLID',
+                'identifier' => true,
+                'uri_label' => 'name',
+            ],
         ],
     ];
 
@@ -36,8 +80,7 @@ class OpenLibraryDataTypeFactory implements FactoryInterface
         return $dataType
             ->setName($requestedName)
             ->setLabel($this->types[$requestedName]['label'])
-            ->setResource($this->types[$requestedName]['resource'])
-            ->setIdentifier($this->types[$requestedName]['identifier'])
+            ->setOptions($this->types[$requestedName]['options'])
         ;
     }
 }
