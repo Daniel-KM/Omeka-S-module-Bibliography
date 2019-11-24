@@ -18,9 +18,9 @@ return [
         ],
     ],
     'form_elements' => [
-        'factories' => [
-            Form\BibliographyBlockFieldset::class => Service\Form\BibliographyBlockFieldsetFactory::class,
-            Form\SiteSettingsFieldset::class => Service\Form\SiteSettingsFieldsetFactory::class,
+        'invokables' => [
+            Form\BibliographyBlockFieldset::class => Form\BibliographyBlockFieldset::class,
+            Form\SiteSettingsFieldset::class => Form\SiteSettingsFieldset::class,
         ],
     ],
     'translator' => [
