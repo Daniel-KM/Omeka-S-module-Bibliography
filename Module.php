@@ -1,10 +1,15 @@
 <?php
 namespace Bibliography;
 
-use Omeka\Module\AbstractModule;
+if (!class_exists(\Generic\AbstractModule::class)) {
+    require file_exists(dirname(__DIR__) . '/Generic/AbstractModule.php')
+        ? dirname(__DIR__) . '/Generic/AbstractModule.php'
+        : __DIR__ . '/src/Generic/AbstractModule.php';
+}
+
+use Generic\AbstractModule;
 use Zend\EventManager\Event;
 use Zend\EventManager\SharedEventManagerInterface;
-use Zend\ServiceManager\ServiceLocatorInterface;
 
 /**
  * Bibliography
@@ -16,17 +21,7 @@ use Zend\ServiceManager\ServiceLocatorInterface;
  */
 class Module extends AbstractModule
 {
-    public function getConfig()
-    {
-        return include __DIR__ . '/config/module.config.php';
-    }
-
-    public function upgrade($oldVersion, $newVersion, ServiceLocatorInterface $serviceLocator)
-    {
-        $filepath = __DIR__ . '/data/scripts/upgrade.php';
-        $this->setServiceLocator($serviceLocator);
-        require_once $filepath;
-    }
+    const NAMESPACE = __NAMESPACE__;
 
     public function attachListeners(SharedEventManagerInterface $sharedEventManager)
     {
