@@ -10,9 +10,13 @@ class Doi extends AbstractDataType
 {
     const CROSSREF_DOI_API = 'https://api.crossref.org';
 
+    protected $doiName;
+    protected $doiLabel;
+    protected $doiResource;
+
     public function getSuggester()
     {
-        $resource = 'works';
+        $resource = $this->doiResource ?: 'works';
 
         $viewHelpers = $this->services->get('ViewHelperManager');
         $setting = $viewHelpers->get('setting');
@@ -54,13 +58,37 @@ class Doi extends AbstractDataType
         return new DoiSuggest($client, $citeProc);
     }
 
+    public function setDoiName($doiName)
+    {
+        $this->doiName = $doiName;
+        return $this;
+    }
+
+    public function setDoiLabel($doiLabel)
+    {
+        $this->doiLabel = $doiLabel;
+        return $this;
+    }
+
+    public function setDoiResource($doiResource)
+    {
+        $this->doiResource = $doiResource;
+        return $this;
+    }
+
+    public function setDoiSingle($doiResource)
+    {
+        $this->doiResource = $doiResource;
+        return $this;
+    }
+
     public function getName()
     {
-        return 'valuesuggest:doi';
+        return $this->doiName;
     }
 
     public function getLabel()
     {
-        return 'DOI: The digital object identifiers for research'; // @translate
+        return $this->doiLabel;
     }
 }

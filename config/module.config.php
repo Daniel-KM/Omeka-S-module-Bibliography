@@ -5,7 +5,12 @@ return [
     'data_types' => [
         'factories' => [
             /* DOI: Digital object identifiers */
-            'valuesuggest:doi' => Service\DoiDataTypeFactory::class,
+            'valuesuggest:doi:works' => Service\DoiDataTypeFactory::class,
+            'valuesuggest:doi:journals' => Service\DoiDataTypeFactory::class,
+            'valuesuggest:doi:funders' => Service\DoiDataTypeFactory::class,
+            'valuesuggest:doi:members' => Service\DoiDataTypeFactory::class,
+            'valuesuggest:doi:licenses' => Service\DoiDataTypeFactory::class,
+            'valuesuggest:doi:types' => Service\DoiDataTypeFactory::class,
         ],
     ],
     'view_manager' => [
