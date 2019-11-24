@@ -6,6 +6,8 @@ use Zend\Form\Fieldset;
 
 class BibliographyBlockFieldset extends Fieldset
 {
+    use TraitCslData;
+
     public function init()
     {
         $this
@@ -18,17 +20,27 @@ class BibliographyBlockFieldset extends Fieldset
                 ],
             ])
             ->add([
-                'name' => 'o:block[__blockIndex__][o:data][format]',
+                'name' => 'o:block[__blockIndex__][o:data][style]',
                 'type' => Element\Select::class,
                 'options' => [
-                    'label' => 'Citation format', // @translate
-                    'value_options' => [
-                        'Chicago' => 'Chicago', // @translate
-                    ],
+                    'label' => 'Citation style', // @translate
+                    'value_options' => $this->getCitationStyles(),
                 ],
                 'attributes' => [
                     'class' => 'chosen-select',
-                    'value' => 'Chicago',
+                    'data-placeholder' => 'Select your citation style…', // @translate
+                ],
+            ])
+            ->add([
+                'name' => 'o:block[__blockIndex__][o:data][locale]',
+                'type' => Element\Select::class,
+                'options' => [
+                    'label' => 'Citation locale', // @translate
+                    'value_options' => $this->getCitationLocales(),
+                ],
+                'attributes' => [
+                    'class' => 'chosen-select',
+                    'data-placeholder' => 'Select your locale for citation…', // @translate
                 ],
             ])
             ->add([

@@ -1,17 +1,17 @@
 <?php
 namespace Bibliography\Service\Form;
 
-use Bibliography\Form\SiteSettingsFieldset;
+use Bibliography\Form\BibliographyBlockFieldset;
 use Interop\Container\ContainerInterface;
 use Zend\ServiceManager\Factory\FactoryInterface;
 
-class SiteSettingsFieldsetFactory implements FactoryInterface
+class BibliographyBlockFieldsetFactory implements FactoryInterface
 {
     use TraitCslData;
 
     public function __invoke(ContainerInterface $services, $requestedName, array $options = null)
     {
-        $fieldset = new SiteSettingsFieldset(null, $options);
+        $fieldset = new BibliographyBlockFieldset(null, $options);
         return $fieldset
             ->setCitationStyles($this->getCitationStyles())
             ->setCitationLocales($this->getCitationLocales());

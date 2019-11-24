@@ -35,6 +35,9 @@ class Bibliography extends AbstractBlockLayout
         $defaultSettings = $services->get('Config')['bibliography']['block_settings']['bibliography'];
         $blockFieldset = \Bibliography\Form\BibliographyBlockFieldset::class;
 
+        $defaultSettings['style'] = $view->siteSetting('bibliography_csl_style') ?: 'chicago-fullnote-bibliography';
+        $defaultSettings['locale'] = $view->siteSetting('bibliography_csl_locale') ?: str_replace('_', '-', $view->siteSetting('locale'));
+
         $data = $block ? $block->data() + $defaultSettings : $defaultSettings;
 
         $dataForm = [];
@@ -79,7 +82,8 @@ class Bibliography extends AbstractBlockLayout
             'query' => $originalQuery,
             'resources' => $resources,
             'options' => [
-                'format' => $block->dataValue('format', 'Chicago'),
+                'style' => $block->dataValue('style'),
+                'locale' => $block->dataValue('locale'),
                 'append_site' => $block->dataValue('append_site'),
                 'append_access_date' => $block->dataValue('append_access_date'),
                 'bibliographic' => $block->dataValue('bibliographic'),

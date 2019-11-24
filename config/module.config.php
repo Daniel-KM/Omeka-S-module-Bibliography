@@ -18,10 +18,8 @@ return [
         ],
     ],
     'form_elements' => [
-        'invokables' => [
-            Form\BibliographyBlockFieldset::class => Form\BibliographyBlockFieldset::class,
-        ],
         'factories' => [
+            Form\BibliographyBlockFieldset::class => Service\Form\BibliographyBlockFieldsetFactory::class,
             Form\SiteSettingsFieldset::class => Service\Form\SiteSettingsFieldsetFactory::class,
         ],
     ],
@@ -37,13 +35,14 @@ return [
     ],
     'bibliography' => [
         'site_settings' => [
-            'bibliography_csl_style' => '',
+            'bibliography_csl_style' => 'chicago-fullnote-bibliography',
             'bibliography_csl_locale' => '',
         ],
         'block_settings' => [
             'bibliography' => [
                 'heading' => '',
-                'format' => 'Chicago',
+                'style' => 'chicago-fullnote-bibliography',
+                'locale' => '',
                 'query' => '',
                 'append_site' => false,
                 'append_access_date' => false,
