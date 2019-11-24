@@ -1,5 +1,5 @@
 <?php
-namespace Citation;
+namespace Bibliography;
 
 /**
  * @var Module $this

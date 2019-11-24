@@ -1,5 +1,5 @@
 <?php
-namespace Citation\Site\BlockLayout;
+namespace Bibliography\Site\BlockLayout;
 
 use Omeka\Api\Representation\SitePageBlockRepresentation;
 use Omeka\Api\Representation\SitePageRepresentation;
@@ -32,8 +32,8 @@ class Bibliography extends AbstractBlockLayout
         // Factory is not used to make rendering simpler.
         $services = $site->getServiceLocator();
         $formElementManager = $services->get('FormElementManager');
-        $defaultSettings = $services->get('Config')['citation']['block_settings']['bibliography'];
-        $blockFieldset = \Citation\Form\BibliographyBlockFieldset::class;
+        $defaultSettings = $services->get('Config')['bibliography']['block_settings']['bibliography'];
+        $blockFieldset = \Bibliography\Form\BibliographyBlockFieldset::class;
 
         $data = $block ? $block->data() + $defaultSettings : $defaultSettings;
 

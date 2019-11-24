@@ -1,5 +1,5 @@
 <?php
-namespace Citation\View\Helper;
+namespace Bibliography\View\Helper;
 
 use Omeka\Api\Representation\AbstractResourceEntityRepresentation;
 use Zend\View\Helper\AbstractHelper;

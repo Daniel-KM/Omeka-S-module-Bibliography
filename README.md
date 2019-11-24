@@ -1,24 +1,27 @@
-Citation (module for Omeka S)
+Bibliography (module for Omeka S)
 =============================
 
-[Citation] is a module for [Omeka S] that allows to display the canonical
-bibliographic citation of resources.
+[Bibliography] is a module for [Omeka S] that allows to display the canonical
+bibliographic citations of resources.
 
 
 Installation
 ------------
 
-Uncompress files and rename module folder `Citation`. Then install it like any
-other Omeka module and follow the config instructions.
+Uncompress files and rename module folder `Bibliography`. Then install it like
+any other Omeka module and follow the config instructions.
 
 See general end user documentation for [Installing a module].
+
+If you used the module `Citation`, it is automatically uninstalled: its features
+are the same and improved in this module.
 
 
 Usage
 -----
 
 The citation is automatically added to the item/show page. You can have a better
-control on the display with module [BlocksDisposition] or direct edition of the
+control on the display with module [Blocks Disposition] or direct edition of the
 theme.
 
 To insert a citation in the theme, add this anywhere in any partial:
@@ -33,9 +36,9 @@ Default options are:
 * `append_access_date` (boolean): to append the access date.
 * `bibliographic` (boolean): used for a real bibliographic reference, when an
   item is a simple book or article. It implies no site and no access date.
-* `mode` (string): how to display the citation in order to display the citation
-  differently in various contexts. Default managed values are "list" and "single"
-  (default). It may avoid to use a specific partial.
+* `mode` (string): how to display the citation (option used to display it
+  differently in various contexts). Default managed values are "list" and
+  "single" (default). It may avoid to use a specific partial.
 * `template` (string): partial to use for display, default is `common/citation`.
   currently).
   Any other option is passed to the template.
@@ -94,10 +97,10 @@ Copyright
 
 
 [Omeka S]: https://omeka.org/s
-[Citation]: https://github.com/Daniel-KM/Omeka-S-module-Citation
+[Bibliography]: https://github.com/Daniel-KM/Omeka-S-module-Bibliography
 [Installing a module]: http://dev.omeka.org/docs/s/user-manual/modules/#installing-modules
-[BlocksDisposition]: https://github.com/Daniel-KM/Omeka-S-module-BlocksDisposition
-[module issues]: https://github.com/Daniel-KM/Omeka-S-module-Citation/issues
+[Blocks Disposition]: https://github.com/Daniel-KM/Omeka-S-module-BlocksDisposition
+[module issues]: https://github.com/Daniel-KM/Omeka-S-module-Bibliography/issues
 [CeCILL v2.1]: https://www.cecill.info/licences/Licence_CeCILL_V2.1-en.html
 [GNU/GPL]: https://www.gnu.org/licenses/gpl-3.0.html
 [FSF]: https://www.fsf.org

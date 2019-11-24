@@ -1,5 +1,5 @@
 <?php
-namespace Citation;
+namespace Bibliography;
 
 use Omeka\Module\AbstractModule;
 use Zend\EventManager\Event;
@@ -7,9 +7,9 @@ use Zend\EventManager\SharedEventManagerInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 
 /**
- * Citation
+ * Bibliography
  *
- * Displays a standard citation for items and bibliographic resources.
+ * Tools to manage bibliographic items.
  *
  * @copyright Daniel Berthereau, 2018-2019
  * @license http://www.cecill.info/licences/Licence_CeCILL_V2.1-en.txt

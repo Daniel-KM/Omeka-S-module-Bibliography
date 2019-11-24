@@ -1,5 +1,5 @@
 <?php
-namespace Citation;
+namespace Bibliography;
 
 return [
     'view_manager' => [
@@ -32,7 +32,7 @@ return [
             ],
         ],
     ],
-    'citation' => [
+    'bibliography' => [
         'block_settings' => [
             'bibliography' => [
                 'heading' => '',
