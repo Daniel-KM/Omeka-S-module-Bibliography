@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-08-19 00:00+0200\n"
+"POT-Creation-Date: 2019-11-25 00:00+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,74 +17,222 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: view/common/citation.phtml:29
+#: Module.php:133
+msgid ""
+"The module Bibliography replaces the module Citation, that cannot be "
+"automatically uninstalled."
+msgstr ""
+
+#: Module.php:143
+msgid ""
+"The module Bibliography replaces the module Citation, that was automatically "
+"uninstalled."
+msgstr ""
+
+#: src/Generic/AbstractModule.php:518
+#, php-format
+msgid "This module requires the module \"%s\"."
+msgstr ""
+
+#: src/Generic/AbstractModule.php:538
+#, php-format
+msgid "This module requires modules \"%s\"."
+msgstr ""
+
+#: src/Generic/AbstractModule.php:606
+#, php-format
+msgid ""
+"The module \"%s\" was automatically deactivated because the dependencies are "
+"unavailable."
+msgstr ""
+
+#: view/common/citation.phtml:48
 #, php-format
 msgid "%1$s and %2$s"
 msgstr ""
 
-#: view/common/citation.phtml:33
+#: view/common/citation.phtml:52
 #, php-format
 msgid "%1$s, %2$s, and %3$s"
 msgstr ""
 
-#: view/common/citation.phtml:37
+#: view/common/citation.phtml:56
 #, php-format
 msgid "%s et al."
 msgstr ""
 
-#: view/common/citation.phtml:72
+#: view/common/citation.phtml:91
 #, php-format
 msgid "accessed %1$s, %2$s"
 msgstr ""
 
-#: src/Form/BibliographyBlockFieldset.php:16
+#: src/Form/SettingsFieldset.php:15 src/Form/SiteSettingsFieldset.php:15
+#: src/Site/BlockLayout/Bibliography.php:16
+msgid "Bibliography"
+msgstr ""
+
+#: src/Form/SettingsFieldset.php:24
+msgid "Crossref account email"
+msgstr ""
+
+#: src/Form/SettingsFieldset.php:25
+msgid "This email allows to be connected to better servers of crossref."
+msgstr ""
+
+#: src/Form/SettingsFieldset.php:36 src/Form/SiteSettingsFieldset.php:24
+#: src/Form/BibliographyBlockFieldset.php:27
+msgid "Citation style"
+msgstr ""
+
+#: src/Form/SettingsFieldset.php:43 src/Form/SiteSettingsFieldset.php:31
+#: src/Form/BibliographyBlockFieldset.php:32
+msgid "Select your citation style…"
+msgstr ""
+
+#: src/Form/SettingsFieldset.php:50 src/Form/SiteSettingsFieldset.php:38
+#: src/Form/BibliographyBlockFieldset.php:39
+msgid "Citation locale"
+msgstr ""
+
+#: src/Form/SettingsFieldset.php:57 src/Form/SiteSettingsFieldset.php:45
+#: src/Form/BibliographyBlockFieldset.php:44
+msgid "Select your locale for citation…"
+msgstr ""
+
+#: src/Form/BibliographyBlockFieldset.php:19
 msgid "Block title"
 msgstr ""
 
-#: src/Form/BibliographyBlockFieldset.php:17
+#: src/Form/BibliographyBlockFieldset.php:20
 msgid "Heading for the block, if any."
 msgstr ""
 
-#: src/Form/BibliographyBlockFieldset.php:24
-msgid "Citation format"
-msgstr ""
-
-#: src/Form/BibliographyBlockFieldset.php:26
-msgid "Chicago"
-msgstr ""
-
-#: src/Form/BibliographyBlockFieldset.php:39
+#: src/Form/BibliographyBlockFieldset.php:52
 msgid "Display items using this search query"
 msgstr ""
 
-#: src/Form/BibliographyBlockFieldset.php:47
+#: src/Form/BibliographyBlockFieldset.php:60
 msgid "Append the site"
 msgstr ""
 
-#: src/Form/BibliographyBlockFieldset.php:54
+#: src/Form/BibliographyBlockFieldset.php:67
 msgid "Append access date"
 msgstr ""
 
-#: src/Form/BibliographyBlockFieldset.php:61
-msgid "Bibliographic"
+#: src/Form/BibliographyBlockFieldset.php:78
+msgid "Template to display"
 msgstr ""
 
-#: src/Form/BibliographyBlockFieldset.php:62
+#: src/Form/BibliographyBlockFieldset.php:79
 msgid ""
-"Indicate if the items are records of external books, articles, etc., and not "
-"Omeka common resources."
+"Templates are in folder \"common/block-layout\" of the theme and should "
+"start with \"bibliography\"."
 msgstr ""
 
-#: src/Form/BibliographyBlockFieldset.php:72
-msgid "Partial to display"
+#: src/Service/DoiDataTypeFactory.php:12
+msgid "DOI: Works"
 msgstr ""
 
-#: src/Form/BibliographyBlockFieldset.php:73
-msgid ""
-"Partials are in folder \"common/block-layout\" of the theme and should start "
-"with \"bibliography\"."
+#: src/Service/DoiDataTypeFactory.php:20
+msgid "DOI: Works (name)"
 msgstr ""
 
-#: src/Site/BlockLayout/Bibliography.php:16
-msgid "Bibliography"
+#: src/Service/DoiDataTypeFactory.php:28
+msgid "DOI: Works (by id)"
+msgstr ""
+
+#: src/Service/DoiDataTypeFactory.php:36
+msgid "DOI: Works (by id, name)"
+msgstr ""
+
+#: src/Service/DoiDataTypeFactory.php:45
+msgid "DOI: Journals"
+msgstr ""
+
+#: src/Service/DoiDataTypeFactory.php:53
+msgid "DOI: Journals (name)"
+msgstr ""
+
+#: src/Service/DoiDataTypeFactory.php:61
+msgid "DOI: Journals (by id)"
+msgstr ""
+
+#: src/Service/DoiDataTypeFactory.php:69
+msgid "DOI: Journals (by id, name)"
+msgstr ""
+
+#: src/Service/DoiDataTypeFactory.php:78
+msgid "DOI: Funders"
+msgstr ""
+
+#: src/Service/DoiDataTypeFactory.php:86
+msgid "DOI: Funders (name)"
+msgstr ""
+
+#: src/Service/DoiDataTypeFactory.php:94
+msgid "DOI: Funders (by id)"
+msgstr ""
+
+#: src/Service/DoiDataTypeFactory.php:102
+msgid "DOI: Funders (by id, name)"
+msgstr ""
+
+#: src/Service/DoiDataTypeFactory.php:111
+msgid "DOI: Members"
+msgstr ""
+
+#: src/Service/DoiDataTypeFactory.php:119
+msgid "DOI: Members (name)"
+msgstr ""
+
+#: src/Service/DoiDataTypeFactory.php:127
+msgid "DOI: Member (by id)"
+msgstr ""
+
+#: src/Service/DoiDataTypeFactory.php:135
+msgid "DOI: Member (by id, name)"
+msgstr ""
+
+#: src/Service/DoiDataTypeFactory.php:144
+msgid "DOI: Licenses"
+msgstr ""
+
+#: src/Service/DoiDataTypeFactory.php:152
+msgid "DOI: License (by id)"
+msgstr ""
+
+#: src/Service/DoiDataTypeFactory.php:161
+msgid "DOI: Types"
+msgstr ""
+
+#: src/Service/OpenLibraryDataTypeFactory.php:12
+msgid "ISBN: International standard book number (by id)"
+msgstr ""
+
+#: src/Service/OpenLibraryDataTypeFactory.php:20
+msgid "ISBN: International standard book number (by id, name)"
+msgstr ""
+
+#: src/Service/OpenLibraryDataTypeFactory.php:28
+msgid "LCCN: Library of Congress Control Number (by id)"
+msgstr ""
+
+#: src/Service/OpenLibraryDataTypeFactory.php:36
+msgid "LCCN: Library of Congress Control Number (by id, name)"
+msgstr ""
+
+#: src/Service/OpenLibraryDataTypeFactory.php:44
+msgid "OCLC: Online computer library center (by id)"
+msgstr ""
+
+#: src/Service/OpenLibraryDataTypeFactory.php:52
+msgid "OCLC: Online computer library center (by id, name)"
+msgstr ""
+
+#: src/Service/OpenLibraryDataTypeFactory.php:60
+msgid "OLID: Open library id from Internet Archive (by id)"
+msgstr ""
+
+#: src/Service/OpenLibraryDataTypeFactory.php:68
+msgid "OLID: Open library id from Internet Archive (by id, name)"
 msgstr ""
