@@ -66,14 +66,7 @@ class BibliographyBlockFieldset extends Fieldset
                     'label' => 'Append access date', // @translate
                 ],
             ])
-            ->add([
-                'name' => 'o:block[__blockIndex__][o:data][bibliographic]',
-                'type' => Element\Checkbox::class,
-                'options' => [
-                    'label' => 'Bibliographic', // @translate
-                    'info' => 'Indicate if the items are records of external books, articles, etc., and not Omeka common resources.', // @translate
-                ],
-            ]);
+        ;
 
         if (class_exists('BlockPlus\Form\Element\TemplateSelect')) {
             $this

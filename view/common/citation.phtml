@@ -7,7 +7,6 @@
  * @var string $locale
  * @var bool $append_site
  * @var bool $append_access_date
- * @var bool $bibliographic
  * @var string $tag
  */
 
@@ -17,69 +16,48 @@ $escape = $plugins->get('escapeHtml');
 
 if ($csl):
 
-if (empty($style)):
-    $style = 'chicago-fullnote-bibliography';
-endif;
-$style = \Seboettg\CiteProc\StyleSheet::loadStyleSheet($style);
-$citeProc = new \Seboettg\CiteProc\CiteProc($style, $locale);
-
-// CiteProc works on a list of bibliographic objects.
-$csl = [(object) $csl];
-$citation = trim(strip_tags($citeProc->render($csl, 'bibliography')));
-
-if (!$bibliographic):
-    if ($append_site || $append_access_date):
-        $citation = rtrim($citation, '. ');
-        if ($append_site):
-            if ($site = $this->viewModel()->getRoot()->getVariable('site')):
-                $citation .= ', <i>' . $site->title() . '</i>';
-            endif;
-        endif;
-
-        if ($append_access_date):
-            // TODO Use the locale for the citation access date.
-            $accessed = $escape((new \DateTime())->format('j F Y'));
-            $url = '<span class="citation-url">' . $escape($resource->siteUrl(null, true)) . '</span>';
-            $citation .= ', ' . sprintf($translate('accessed %1$s, %2$s'), $accessed, $url);
-        endif;
+    if (empty($style)):
+        $style = 'chicago-fullnote-bibliography';
     endif;
+    $style = \Seboettg\CiteProc\StyleSheet::loadStyleSheet($style);
+    $citeProc = new \Seboettg\CiteProc\CiteProc($style, $locale);
 
-endif;
+    // CiteProc works on a list of bibliographic objects.
+    $csl = [(object) $csl];
+    $citation = trim(strip_tags($citeProc->render($csl, 'bibliography')));
 
 else:
 
-// Format: only pseudo-Chicago is managed when there is no csl.
+    // Format: only pseudo-Chicago is managed when there is no csl.
 
-$citation = '';
+    $citation = '';
 
-$creators = $resource->value('dcterms:creator', ['all' => true]) ?: [];
-// Strip formatting and remove empty creator elements.
-$creators = array_values(array_filter(array_map('strip_tags', $creators)));
-if ($creators) {
-    switch (count($creators)):
-    case 1:
-        $creator = $creators[0];
-        break;
-    case 2:
-        // Chicago-style item citation: two authors.
-        $creator = sprintf($translate('%1$s and %2$s'), $creators[0], $creators[1]);
-        break;
-    case 3:
-        // Chicago-style item citation: three authors.
-        $creator = sprintf($translate('%1$s, %2$s, and %3$s'), $creators[0], $creators[1], $creators[2]);
-        break;
-    default:
-        // Chicago-style item citation: more than three authors.
-        $creator = sprintf($translate('%s et al.'), $creators[0]);
-        break;
-    endswitch;
-    $citation .= $creator;
-}
+    $creators = $resource->value('dcterms:creator', ['all' => true]) ?: [];
+    // Strip formatting and remove empty creator elements.
+    $creators = array_values(array_filter(array_map('strip_tags', $creators)));
+    if ($creators) {
+        switch (count($creators)):
+        case 1:
+            $creator = $creators[0];
+            break;
+        case 2:
+            // Chicago-style item citation: two authors.
+            $creator = sprintf($translate('%1$s and %2$s'), $creators[0], $creators[1]);
+            break;
+        case 3:
+            // Chicago-style item citation: three authors.
+            $creator = sprintf($translate('%1$s, %2$s, and %3$s'), $creators[0], $creators[1], $creators[2]);
+            break;
+        default:
+            // Chicago-style item citation: more than three authors.
+            $creator = sprintf($translate('%s et al.'), $creators[0]);
+            break;
+        endswitch;
+        $citation .= $creator;
+    }
 
-$title = $resource->displayTitle();
-$citation .= ($citation ? ', ' : '') . '“' . $title . '”';
-
-if ($bibliographic):
+    $title = $resource->displayTitle();
+    $citation .= ($citation ? ', ' : '') . '“' . $title . '”';
 
     $publisher = $resource->value('dcterms:publisher');
     if ($publisher):
@@ -91,30 +69,24 @@ if ($bibliographic):
         $citation .= ', ' . $date;
     endif;
 
-else:
-
-    if ($append_site || $append_access_date):
-        $citation = rtrim($citation, '. ');
-
-        if ($append_site):
-            if ($site = $this->viewModel()->getRoot()->getVariable('site')):
-                $citation .= ', <i>' . $site->title() . '</i>';
-            endif;
-        endif;
-
-        if ($append_access_date):
-            // TODO Use the locale for the citation access date.
-            $accessed = $escape((new \DateTime())->format('j F Y'));
-            $url = '<span class="citation-url">' . $escape($resource->siteUrl(null, true)) . '</span>';
-            // Chicago-style item citation: access date and URL.
-            $citation .= ', ' . sprintf($translate('accessed %1$s, %2$s'), $accessed, $url);
-        endif;
-
-    endif;
-
 endif;
 
-$citation .= '.';
+if ($append_site || $append_access_date):
+    $citation = rtrim($citation, '. ');
+
+    if ($append_site):
+        if ($site = $this->viewModel()->getRoot()->getVariable('site')):
+            $citation .= ', <i>' . $site->title() . '</i>';
+        endif;
+    endif;
+
+    if ($append_access_date):
+        // TODO Use the locale for the citation access date.
+        $accessed = $escape((new \DateTime())->format('j F Y'));
+        $url = '<span class="citation-url">' . $escape($resource->siteUrl(null, true)) . '</span>';
+        // Chicago-style item citation: access date and URL.
+        $citation .= ', ' . sprintf($translate('accessed %1$s, %2$s'), $accessed, $url);
+    endif;
 
 endif;
 

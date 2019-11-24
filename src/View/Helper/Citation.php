@@ -14,29 +14,22 @@ class Citation extends AbstractHelper
      *
      * @param AbstractResourceEntityRepresentation $resource
      * @param array $options Managed options are: "append_site",
-     * "append_access_date", "bibliographic", "tag", and "template".
-     * The default options are used for Omeka resources. So use "bibliographic"
-     * for a real bibliographic resource. Other options are passed to template.
+     * "append_access_date", "tag", and "template".
+     * The default options are used for Omeka resources. You may unset options
+     * to append the site and the access date for real bibliographic resources.
+     * Other options are passed to template.
      * @return string
      */
     public function __invoke(AbstractResourceEntityRepresentation $resource, array $options = [])
     {
         $view = $this->getView();
 
-        if (empty($options['bibliographic'])) {
-            $options += [
-                'append_site' => true,
-                'append_access_date' => true,
-                'bibliographic' => false,
-                'tag' => 'p',
-            ];
-        } else {
-            $options += [
-                'append_site' => false,
-                'append_access_date' => false,
-                'tag' => 'p',
-            ];
-        }
+        // Set default options.
+        $options += [
+            'append_site' => true,
+            'append_access_date' => true,
+            'tag' => 'p',
+        ];
         $options['resource'] = $resource;
         $options['csl'] = $this->convertToCsl($resource);
 

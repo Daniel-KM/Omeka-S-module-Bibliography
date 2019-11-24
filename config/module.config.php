@@ -46,7 +46,6 @@ return [
                 'query' => '',
                 'append_site' => false,
                 'append_access_date' => false,
-                'bibliographic' => false,
                 'template' => '',
             ],
         ],

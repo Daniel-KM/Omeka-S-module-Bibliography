@@ -67,14 +67,15 @@ Default options are:
   language and the country are separated with "-", not "_".
 * `append_site` (boolean): to append the site or not.
 * `append_access_date` (boolean): to append the access date.
-* `bibliographic` (boolean): used for a real bibliographic reference, when an
-  item is a simple book or article. It implies no site and no access date.
 * `mode` (string): how to display the citation (option used to display it
   differently in various contexts). Default managed values are "list" and
   "single" (default). It may avoid to use a specific partial.
 * `template` (string): partial to use for display, default is `common/citation`.
   currently).
-  Any other option is passed to the template.
+
+The default options are used for Omeka resources. You may unset options to
+append the site and the access date for real bibliographic resources. Any other
+option is passed to template.
 
 The result can be customized via the template `common/citation` in `view/`.
 
