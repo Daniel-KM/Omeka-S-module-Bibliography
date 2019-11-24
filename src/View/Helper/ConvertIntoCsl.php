@@ -93,7 +93,7 @@ class ConvertIntoCsl extends AbstractHelper
 
         $subjects = $resource->value('dcterms:subject', ['all' => true]) ?: [];
         $subjects = $this->stripTags($subjects);
-        $csl['keyword'] = implode(', ', $subjects);
+        $csl['subject'] = $subjects;
 
         $csl['medium'] = $resource->value('dcterms:medium');
 
