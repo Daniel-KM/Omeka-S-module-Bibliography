@@ -138,7 +138,12 @@ class DoiSuggest implements SuggesterInterface
             // CiteProc automatically sort the list of citations, and it's complex
             // to not sort, so the rendering is made one by one.
             // TODO Fix CiteProc to allow missing keys and to keep order.
-            $value = @$this->citeProc->render([$item], 'bibliography');
+            // CiteProc fails when the metadata are incomplete.
+            try {
+                $value = @$this->citeProc->render([$item], 'bibliography');
+            } catch (\Exception $e) {
+                continue;
+            }
             $list[] = substr($value, 52, -13);
         }
         unset($item);

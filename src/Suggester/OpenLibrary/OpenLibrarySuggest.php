@@ -75,7 +75,13 @@ class OpenLibrarySuggest implements SuggesterInterface
         $ids = [$id];
 
         $list = [];
-        $item = @$this->citeProc->render([$csl], 'bibliography');
+        // TODO Fix CiteProc to allow missing keys and to keep order.
+        // CiteProc fails when the metadata are incomplete.
+        try {
+            $item = @$this->citeProc->render([$csl], 'bibliography');
+        } catch (\Exception $e) {
+            return [];
+        }
         $list[] = substr($item, 52, -13);
 
         $suggestions = [];
