@@ -50,7 +50,8 @@ class OpenLibrarySuggest implements SuggesterInterface
         }
 
         $args = [
-            'bibkeys' => $this->options['resource'] . ':' . preg_replace('~\D~', '', $query),
+            // A 10-digits ISBN may have a check code of X (10) appended.
+            'bibkeys' => $this->options['resource'] . ':' . preg_replace('~[^\dxX]~', '', $query),
             'format' => 'json',
             'jscmd' => 'data',
         ];
