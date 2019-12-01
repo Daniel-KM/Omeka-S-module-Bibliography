@@ -51,6 +51,8 @@ class Doi extends AbstractDataType
             $style = StyleSheet::loadStyleSheet('chicago-fullnote-bibliography');
         }
         $locale = $currentSetting('bibliography_csl_locale') ?: str_replace('_', '-', $currentSetting('locale'));
+        // A default locale is currently required by CiteProc.
+        $locale = $locale ?: 'en-US';
         $citeProc = new CiteProc($style, $locale);
 
         return new DoiSuggest($client, $citeProc, $this->options);
