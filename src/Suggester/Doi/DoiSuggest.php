@@ -51,7 +51,7 @@ class DoiSuggest implements SuggesterInterface
         } else {
             $args = [
                 'query' => $query,
-                'rows' => 2,
+                'rows' => 20,
             ];
             if ($lang) {
                 $args['language'] = $lang;
