@@ -40,6 +40,8 @@ class Citation extends AbstractHelper
         }
         if (is_null($options['locale'])) {
             $options['locale'] = $currentSetting('bibliography_csl_locale') ?: str_replace('_', '-', $currentSetting('locale'));
+        } elseif (empty($options['locale'])) {
+            $options['locale'] = 'en-US';
         }
 
         $template = empty($options['template']) ? 'common/citation' : $options['template'];

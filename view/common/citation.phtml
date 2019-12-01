@@ -13,7 +13,7 @@ $plugins = $this->getHelperPluginManager();
 $translate = $plugins->get('translate');
 $escape = $plugins->get('escapeHtml');
 
-if (empty($style)):
+if (is_null($style)):
     $style = 'chicago-fullnote-bibliography';
 endif;
 
@@ -27,7 +27,16 @@ if ($style):
 
     $citeProc = new \Seboettg\CiteProc\CiteProc($style, $locale);
     $csl = $this->convertIntoCsl($resource);
-    $citation = substr(@$citeProc->render([$csl], 'bibliography'), 52, -13);
+    // CiteProc fails when the metadata are incomplete.
+    try {
+        $citation = @$citeProc->render([$csl], 'bibliography');
+    } catch (\Exception $e) {
+        $vars = $this->vars();
+        $vars->offsetSet('style', '');
+        echo $this->partial('common/citation', $this->vars());
+        return;
+    }
+    $citation = substr($citation, 52, -13);
 
 else:
 
