@@ -24,6 +24,14 @@ class OpenLibraryDataTypeFactory implements FactoryInterface
                 'uri_label' => 'name',
             ],
         ],
+        'valuesuggest:isbn:id:reference' => [
+            'label' => 'ISBN: International standard book number (by id, reference)', // @translate
+            'options' => [
+                'resource' => 'ISBN',
+                'identifier' => true,
+                'uri_label' => 'reference',
+            ],
+        ],
         'valuesuggest:lccn:id' => [
             'label' => 'LCCN: Library of Congress Control Number (by id)', // @translate
             'options' => [
@@ -38,6 +46,14 @@ class OpenLibraryDataTypeFactory implements FactoryInterface
                 'resource' => 'LCCN',
                 'identifier' => true,
                 'uri_label' => 'name',
+            ],
+        ],
+        'valuesuggest:lccn:id:reference' => [
+            'label' => 'LCCN: Library of Congress Control Number (by id, reference)', // @translate
+            'options' => [
+                'resource' => 'LCCN',
+                'identifier' => true,
+                'uri_label' => 'reference',
             ],
         ],
         'valuesuggest:oclc:id' => [
@@ -56,6 +72,14 @@ class OpenLibraryDataTypeFactory implements FactoryInterface
                 'uri_label' => 'name',
             ],
         ],
+        'valuesuggest:oclc:id:reference' => [
+            'label' => 'OCLC: Online computer library center (by id, reference)', // @translate
+            'options' => [
+                'resource' => 'OCLC',
+                'identifier' => true,
+                'uri_label' => 'reference',
+            ],
+        ],
         'valuesuggest:olid:id' => [
             'label' => 'OLID: Open library id from Internet Archive (by id)', // @translate
             'options' => [
@@ -70,6 +94,14 @@ class OpenLibraryDataTypeFactory implements FactoryInterface
                 'resource' => 'OLID',
                 'identifier' => true,
                 'uri_label' => 'name',
+            ],
+        ],
+        'valuesuggest:olid:id:reference' => [
+            'label' => 'OLID: Open library id from Internet Archive (by id, reference)', // @translate
+            'options' => [
+                'resource' => 'OLID',
+                'identifier' => true,
+                'uri_label' => 'reference',
             ],
         ],
     ];

@@ -86,23 +86,44 @@ class OpenLibrarySuggest implements SuggesterInterface
         $list[] = substr($item, 52, -13);
 
         $suggestions = [];
-        $useName = $this->options['uri_label'] === 'name';
-        foreach ([$csl] as $key => $result) {
-            if ($useName) {
-                $value = $list[$key];
-                $info = $ids[$key];
-            } else {
-                $value = $ids[$key];
-                $info = $list[$key];
-            }
-            $suggestions[] = [
-                'value' => $value,
-                'data' => [
-                    'uri' => empty($result->url) ? null : $result->url,
-                    'info' => $info,
-                ],
-            ];
+
+        switch ($this->options['uri_label']) {
+            case 'name':
+                foreach ([$csl] as $key => $result) {
+                    $suggestions[] = [
+                        'value' => $list[$key],
+                        'data' => [
+                            'uri' => empty($result->url) ? null : $result->url,
+                            'info' => $ids[$key],
+                        ],
+                    ];
+                }
+                break;
+            case 'reference':
+                foreach ([$csl] as $key => $result) {
+                    $suggestions[] = [
+                        'value' => strip_tags($list[$key]),
+                        'data' => [
+                            'uri' => null,
+                            'info' => $ids[$key],
+                        ],
+                    ];
+                }
+                break;
+            case 'id':
+            default:
+                foreach ([$csl] as $key => $result) {
+                    $suggestions[] = [
+                        'value' => $ids[$key],
+                        'data' => [
+                            'uri' => empty($result->url) ? null : $result->url,
+                            'info' => $list[$key],
+                        ],
+                    ];
+                }
+                break;
         }
+
         return $suggestions;
     }
 

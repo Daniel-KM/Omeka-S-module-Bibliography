@@ -150,27 +150,41 @@ class DoiSuggest implements SuggesterInterface
 
         $suggestions = [];
 
-        $useName = $this->options['uri_label'] === 'name';
-        if ($useName) {
-            foreach ($results->message->items as $key => $result) {
-                $suggestions[] = [
-                    'value' => $list[$key],
-                    'data' => [
-                        'uri' => $result->URL,
-                        'info' => $result->DOI,
-                    ],
-                ];
-            }
-        } else {
-            foreach ($results->message->items as $key => $result) {
-                $suggestions[] = [
-                    'value' => $result->DOI,
-                    'data' => [
-                        'uri' => $result->URL,
-                        'info' => $list[$key],
-                    ],
-                ];
-            }
+        switch ($this->options['uri_label']) {
+            case 'name':
+                foreach ($results->message->items as $key => $result) {
+                    $suggestions[] = [
+                        'value' => $list[$key],
+                        'data' => [
+                            'uri' => $result->URL,
+                            'info' => $result->DOI,
+                        ],
+                    ];
+                }
+                break;
+            case 'reference':
+                foreach ($results->message->items as $key => $result) {
+                    $suggestions[] = [
+                        'value' => strip_tags($list[$key]),
+                        'data' => [
+                            'uri' => null,
+                            'info' => $result->DOI,
+                        ],
+                    ];
+                }
+                break;
+            case 'id':
+            default:
+                foreach ($results->message->items as $key => $result) {
+                    $suggestions[] = [
+                        'value' => $result->DOI,
+                        'data' => [
+                            'uri' => $result->URL,
+                            'info' => $list[$key],
+                        ],
+                    ];
+                }
+                break;
         }
 
         return $suggestions;
