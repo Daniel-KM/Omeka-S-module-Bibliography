@@ -1,6 +1,12 @@
 <?php
 namespace Bibliography\DataType;
 
+// This check avoids a dependency on module ValueSuggest.
+// TODO Find a way to avoid the check of class of the dependency here.
+if (!class_exists(\ValueSuggest\DataType\AbstractDataType::class)) {
+    require_once __DIR__ . '/AbstractDataType.php';
+}
+
 use Seboettg\CiteProc\CiteProc;
 use Seboettg\CiteProc\StyleSheet;
 use ValueSuggest\DataType\AbstractDataType;
