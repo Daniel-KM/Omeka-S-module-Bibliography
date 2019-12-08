@@ -61,7 +61,7 @@ class BibliographyBlockFieldset extends Fieldset
                 ],
             ])
             ->add([
-                'name' => 'o:block[__blockIndex__][o:data][append_access_date]',
+                'name' => 'o:block[__blockIndex__][o:data][append_date]',
                 'type' => Element\Checkbox::class,
                 'options' => [
                     'label' => 'Append access date', // @translate

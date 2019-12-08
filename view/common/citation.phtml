@@ -4,8 +4,9 @@
  * @var \Omeka\Api\Representation\AbstractResourceEntityRepresentation $resource
  * @var string $style
  * @var string $locale
+ * @var bool $bibliographic
  * @var bool $append_site
- * @var bool $append_access_date
+ * @var bool $append_date
  * @var string $tag
  */
 
@@ -83,7 +84,7 @@ else:
 
 endif;
 
-if ($append_site || $append_access_date):
+if ($append_site || $append_date):
     $citation = rtrim($citation, '. ');
 
     if ($append_site):
@@ -92,7 +93,7 @@ if ($append_site || $append_access_date):
         endif;
     endif;
 
-    if ($append_access_date):
+    if ($append_date):
         // TODO Use the locale for the citation access date.
         $accessed = $escape((new \DateTime())->format('j F Y'));
         $url = '<span class="citation-url">' . $escape($resource->siteUrl(null, true)) . '</span>';

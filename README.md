@@ -100,7 +100,8 @@ Default options are:
 * `locale` (string): the locale for the citation (default to "en-US"). The
   language and the country are separated with "-", not "_".
 * `append_site` (boolean): to append the site or not.
-* `append_access_date` (boolean): to append the access date.
+* `append_date` (boolean): to append the access date.
+* `bibliographic` (boolean): if true, set `append_site` and `append_date` false.
 * `mode` (string): how to display the citation (option used to display it
   differently in various contexts). Default managed values are "list" and
   "single" (default). It may avoid to use a specific partial.

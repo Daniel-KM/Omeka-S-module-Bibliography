@@ -97,7 +97,7 @@ return [
                 'locale' => '',
                 'query' => '',
                 'append_site' => false,
-                'append_access_date' => false,
+                'append_date' => false,
                 'template' => '',
             ],
         ],

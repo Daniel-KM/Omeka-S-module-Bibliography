@@ -85,7 +85,7 @@ class Bibliography extends AbstractBlockLayout
                 'style' => $block->dataValue('style'),
                 'locale' => $block->dataValue('locale'),
                 'append_site' => $block->dataValue('append_site'),
-                'append_access_date' => $block->dataValue('append_access_date'),
+                'append_date' => $block->dataValue('append_date'),
             ],
         ]);
     }
