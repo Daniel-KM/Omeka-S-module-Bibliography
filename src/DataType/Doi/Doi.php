@@ -1,18 +1,12 @@
 <?php
 namespace Bibliography\DataType\Doi;
 
+use Bibliography\DataType\AbstractBibliographyDataType;
 use Bibliography\Suggester\Doi\DoiSuggest;
-use Seboettg\CiteProc\CiteProc;
-use Seboettg\CiteProc\StyleSheet;
-use ValueSuggest\DataType\AbstractDataType;
 
-class Doi extends AbstractDataType
+class Doi extends AbstractBibliographyDataType
 {
     const API = 'https://api.crossref.org';
-
-    protected $name;
-    protected $label;
-    protected $options;
 
     public function getSuggester()
     {
@@ -38,51 +32,8 @@ class Doi extends AbstractDataType
             ->addHeaderLine('Accept', 'application/json')
         ;
 
-        $currentSite = $this->services->get('ControllerPluginManager')->get('currentSite');
-        $currentSite = $currentSite();
-        $currentSetting = $currentSite
-            ? $viewHelpers->get('siteSetting')
-            : $setting;
-
-        $style = $currentSetting('bibliography_csl_style') ?: 'chicago-fullnote-bibliography';
-        try {
-            $style = @StyleSheet::loadStyleSheet($style);
-        } catch (\Seboettg\CiteProc\Exception\CiteProcException $e) {
-            $style = StyleSheet::loadStyleSheet('chicago-fullnote-bibliography');
-        }
-        $locale = $currentSetting('bibliography_csl_locale') ?: str_replace('_', '-', $currentSetting('locale'));
-        // A default locale is currently required by CiteProc.
-        $locale = $locale ?: 'en-US';
-        $citeProc = new CiteProc($style, $locale);
+        $citeProc = $this->prepareCiteProc();
 
         return new DoiSuggest($client, $citeProc, $this->options);
-    }
-
-    public function setName($name)
-    {
-        $this->name = $name;
-        return $this;
-    }
-
-    public function setLabel($label)
-    {
-        $this->label = $label;
-        return $this;
-    }
-
-    public function setOptions(array $options)
-    {
-        $this->options = $options;
-        return $this;
-    }
-
-    public function getName()
-    {
-        return $this->name;
-    }
-
-    public function getLabel()
-    {
-        return $this->label;
     }
 }

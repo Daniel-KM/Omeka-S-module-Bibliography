@@ -1,24 +1,15 @@
 <?php
 namespace Bibliography\DataType\OpenLibrary;
 
+use Bibliography\DataType\AbstractBibliographyDataType;
 use Bibliography\Suggester\OpenLibrary\OpenLibrarySuggest;
-use Seboettg\CiteProc\CiteProc;
-use Seboettg\CiteProc\StyleSheet;
-use ValueSuggest\DataType\AbstractDataType;
 
-class OpenLibrary extends AbstractDataType
+class OpenLibrary extends AbstractBibliographyDataType
 {
     const API = 'https://openlibrary.org/api/books';
 
-    protected $name;
-    protected $label;
-    protected $options;
-
     public function getSuggester()
     {
-        $viewHelpers = $this->services->get('ViewHelperManager');
-        $setting = $viewHelpers->get('setting');
-
         /** @var \Omeka\Entity\Module $module */
         $module = $this->services->get('Omeka\ModuleManager')->getModule('Bibliography');
 
@@ -36,51 +27,8 @@ class OpenLibrary extends AbstractDataType
             ->addHeaderLine('Accept', 'application/json')
         ;
 
-        $currentSite = $this->services->get('ControllerPluginManager')->get('currentSite');
-        $currentSite = $currentSite();
-        $currentSetting = $currentSite
-            ? $viewHelpers->get('siteSetting')
-            : $setting;
-
-        $style = $currentSetting('bibliography_csl_style') ?: 'chicago-fullnote-bibliography';
-        try {
-            $style = @StyleSheet::loadStyleSheet($style);
-        } catch (\Seboettg\CiteProc\Exception\CiteProcException $e) {
-            $style = StyleSheet::loadStyleSheet('chicago-fullnote-bibliography');
-        }
-        $locale = $currentSetting('bibliography_csl_locale') ?: str_replace('_', '-', $currentSetting('locale'));
-        // A default locale is currently required by CiteProc.
-        $locale = $locale ?: 'en-US';
-        $citeProc = new CiteProc($style, $locale);
+        $citeProc = $this->prepareCiteProc();
 
         return new OpenLibrarySuggest($client, $citeProc, $this->options);
-    }
-
-    public function setName($name)
-    {
-        $this->name = $name;
-        return $this;
-    }
-
-    public function setLabel($label)
-    {
-        $this->label = $label;
-        return $this;
-    }
-
-    public function setOptions(array $options)
-    {
-        $this->options = $options;
-        return $this;
-    }
-
-    public function getName()
-    {
-        return $this->name;
-    }
-
-    public function getLabel()
-    {
-        return $this->label;
     }
 }
