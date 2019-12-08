@@ -136,7 +136,7 @@ class ConvertIntoCsl extends AbstractHelper
         }
         $class = $class->term();
         $map = require dirname(dirname(dirname(__DIR__))) . '/data/mapping/resource_class_map.php';
-        return isset($map[$class]) ? $map[$class] : 'standard';
+        return empty($map[$class]) ? 'standard' : $map[$class];
     }
 
     /**
