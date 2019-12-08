@@ -10,8 +10,8 @@ class Citation extends AbstractHelper
      * Return a valid citation for this resource.
      *
      * @param AbstractResourceEntityRepresentation $resource
-     * @param array $options Managed options are: "style", "locale", "bibliographic",
-     * "append_site", "append_date", "tag", and "template".
+     * @param array $options Managed options are: "style", "locale", "defaults",
+     * "bibliographic", "append_site", "append_date", "tag", and "template".
      * The default options are used for Omeka resources. You may unset options
      * to append the site and the access date for real bibliographic resources.
      * Other options are passed to template.
@@ -25,6 +25,7 @@ class Citation extends AbstractHelper
         $options += [
             'style' => null,
             'locale' => null,
+            'defaults' => [],
             'append_site' => true,
             'append_date' => true,
             'bibliographic' => false,

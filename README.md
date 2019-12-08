@@ -99,6 +99,9 @@ Default options are:
 * `style` (string): the citation style (default to "chicago-fullnote-bibliography").
 * `locale` (string): the locale for the citation (default to "en-US"). The
   language and the country are separated with "-", not "_".
+* `defaults` (array): The default values to use when a property is not set. It
+  is mainly used for own specific items to set the creator, the date, and the
+  publisher of own specific records.
 * `append_site` (boolean): to append the site or not.
 * `append_date` (boolean): to append the access date.
 * `bibliographic` (boolean): if true, set `append_site` and `append_date` false.

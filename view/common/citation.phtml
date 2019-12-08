@@ -4,6 +4,7 @@
  * @var \Omeka\Api\Representation\AbstractResourceEntityRepresentation $resource
  * @var string $style
  * @var string $locale
+ * @var array $defaults
  * @var bool $bibliographic
  * @var bool $append_site
  * @var bool $append_date
@@ -27,7 +28,7 @@ try {
 if ($style):
 
     $citeProc = new \Seboettg\CiteProc\CiteProc($style, $locale);
-    $csl = $this->convertIntoCsl($resource);
+    $csl = $this->convertIntoCsl($resource, $defaults);
     // CiteProc fails when the metadata are incomplete.
     try {
         $citation = @$citeProc->render([$csl], 'bibliography');
@@ -45,7 +46,7 @@ else:
 
     $citation = '';
 
-    $creators = $resource->value('dcterms:creator', ['all' => true]) ?: [];
+    $creators = $resource->value('dcterms:creator', ['all' => true]) ?: (@$defaults['dcterms:creator'][0]['@value'] ? [$defaults['dcterms:creator'][0]['@value']] : []);
     // Strip formatting and remove empty creator elements.
     $creators = array_values(array_filter(array_map('strip_tags', $creators)));
     if ($creators) {
@@ -72,12 +73,12 @@ else:
     $title = $resource->displayTitle();
     $citation .= ($citation ? ', ' : '') . '“' . $title . '”';
 
-    $publisher = $resource->value('dcterms:publisher');
+    $publisher = $resource->value('dcterms:publisher') ?: @$defaults['dcterms:publisher'][0]['@value'];
     if ($publisher):
         $citation .= ', <i>' . $publisher . '</i>';
     endif;
 
-    $date = $resource->value('dcterms:date');
+    $date = $resource->value('dcterms:date') ?: @$defaults['dcterms:date'][0]['@value'];
     if ($date):
         $citation .= ', ' . $date;
     endif;
