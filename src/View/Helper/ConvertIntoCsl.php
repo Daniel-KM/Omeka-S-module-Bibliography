@@ -20,6 +20,9 @@ class ConvertIntoCsl extends AbstractHelper
     {
         $csl = [];
 
+        $this->resource = $resource;
+        $this->defaults = $defaults;
+
         // Some mappings are useless for a standard bibliographic reference, but
         // formats are very numerous, so try to map as many fields as possible.
 
@@ -32,9 +35,9 @@ class ConvertIntoCsl extends AbstractHelper
         ];
         $csl['id'] = $types[$resource->resourceName()] . '-' . $resource->id();
 
-        $csl['type'] = $this->cslType($resource);
+        $csl['type'] = $this->cslType();
 
-        $csl['author'] = $this->cslAuthors($resource);
+        $csl['author'] = $this->cslAuthors();
 
         // TODO Use displayTitle() ?
         $csl['title'] = $resource->value('dcterms:title') ?: $resource->value('bibo:shortTitle');
@@ -44,11 +47,11 @@ class ConvertIntoCsl extends AbstractHelper
         // $csl['publisher-place'] = $resource->value('');
 
         // TODO Check the format of the date if module NumericDataType is installed.
-        $csl['created'] = $this->cslDate($resource, 'dcterms:created');
-        $csl['deposited'] = $this->cslDate($resource, 'dcterms:dateSubmitted');
-        $csl['approved'] = $this->cslDate($resource, 'dcterms:dateAccepted');
-        $csl['issued'] = $this->cslDate($resource, 'dcterms:issued') ?: $this->cslDate($resource, 'dcterms:date');
-        // $csl['published-print'] = $this->cslDate($resource, 'dcterms:issued') ?: $this->cslDate($resource, 'dcterms:date');
+        $csl['created'] = $this->cslDate('dcterms:created');
+        $csl['deposited'] = $this->cslDate('dcterms:dateSubmitted');
+        $csl['approved'] = $this->cslDate('dcterms:dateAccepted');
+        $csl['issued'] = $this->cslDate('dcterms:issued') ?: $this->cslDate('dcterms:date');
+        // $csl['published-print'] = $this->cslDate('dcterms:issued') ?: $this->cslDate(dcterms:date');
 
         $csl['edition'] = $resource->value('bibo:edition');
 
@@ -123,12 +126,11 @@ class ConvertIntoCsl extends AbstractHelper
      *
      * @todo Improve mapping of the resource classes to csl type and check dcterms:type else.
      *
-     * @param AbstractResourceEntityRepresentation $resource
      * @return string Default type is "standard".
      */
-    protected function cslType(AbstractResourceEntityRepresentation $resource)
+    protected function cslType()
     {
-        $class = $resource->resourceClass();
+        $class = $this->resource->resourceClass();
         if (!$class) {
             return 'standard';
         }
@@ -143,13 +145,12 @@ class ConvertIntoCsl extends AbstractHelper
      * @todo Check FOAF and related items for the authors.
      * @todo Explode family/given. Check name for an organization.
      *
-     * @param AbstractResourceEntityRepresentation $resource
      * @return \stdClass[]
      */
-    protected function cslAuthors(AbstractResourceEntityRepresentation $resource)
+    protected function cslAuthors()
     {
         $authors = [];
-        $creators = $resource->value('bibo:authorList', ['all' => true]) ?: [];
+        $creators = $this->resource->value('bibo:authorList', ['all' => true]) ?: [];
         if ($creators) {
             foreach ($creators as $creator) {
                 $authors[] = (object) [
@@ -158,7 +159,7 @@ class ConvertIntoCsl extends AbstractHelper
                 ];
             }
         } else {
-            $creators = $resource->value('dcterms:creator', ['all' => true]) ?: [];
+            $creators = $this->resource->value('dcterms:creator', ['all' => true]) ?: [];
             $creators = $this->stripTags($creators);
             foreach ($creators as $creator) {
                 $authors[] = (object) [
@@ -179,13 +180,12 @@ class ConvertIntoCsl extends AbstractHelper
     /**
      * Get the csl date of a resource.
      *
-     * @param AbstractResourceEntityRepresentation $resource
      * @param string $term
      * @return \stdClass|null
      */
-    protected function cslDate(AbstractResourceEntityRepresentation $resource, $term)
+    protected function cslDate($term)
     {
-        $date = $resource->value($term);
+        $date = $this->resource->value($term);
         if (!$date) {
             return null;
         }
