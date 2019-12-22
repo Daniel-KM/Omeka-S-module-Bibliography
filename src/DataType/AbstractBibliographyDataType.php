@@ -44,6 +44,38 @@ abstract class AbstractBibliographyDataType extends AbstractDataType
         return new CiteProc($style, $locale);
     }
 
+    /**
+     * Get all property ids by term.
+     *
+     * @return array Associative array of ids by term.
+     */
+    protected function getPropertyIds()
+    {
+        $properties = $this->services->get('Omeka\ApiManager')
+            ->search('properties', [], ['responseContent' => 'resource'])->getContent();
+        foreach ($properties as $property) {
+            $term = $property->getVocabulary()->getPrefix() . ':' . $property->getLocalName();
+            $properties[$term] = $property->getId();
+        }
+        return $properties;
+    }
+
+    /**
+     * Get all resource class ids by term.
+     *
+     * @return array Associative array of ids by term.
+     */
+    protected function getResourceClassIds()
+    {
+        $classes = $this->services->get('Omeka\ApiManager')
+            ->search('resource_classes', [], ['responseContent' => 'resource'])->getContent();
+        foreach ($classes as $class) {
+            $term = $class->getVocabulary()->getPrefix() . ':' . $class->getLocalName();
+            $classes[$term] = $class->getId();
+        }
+        return $classes;
+    }
+
     public function setName($name)
     {
         $this->name = $name;

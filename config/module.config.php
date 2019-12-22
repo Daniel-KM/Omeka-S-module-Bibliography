@@ -12,39 +12,54 @@ return [
             'valuesuggest:doi:works' => Service\DoiDataTypeFactory::class,
             'valuesuggest:doi:works:name' => Service\DoiDataTypeFactory::class,
             'valuesuggest:doi:works:reference' => Service\DoiDataTypeFactory::class,
+            'valuesuggest:doi:works:record' => Service\DoiDataTypeFactory::class,
             'valuesuggest:doi:works:id' => Service\DoiDataTypeFactory::class,
             'valuesuggest:doi:works:id:name' => Service\DoiDataTypeFactory::class,
             'valuesuggest:doi:works:id:reference' => Service\DoiDataTypeFactory::class,
+            'valuesuggest:doi:works:id:record' => Service\DoiDataTypeFactory::class,
+
             'valuesuggest:doi:journals' => Service\DoiDataTypeFactory::class,
             'valuesuggest:doi:journals:name' => Service\DoiDataTypeFactory::class,
             'valuesuggest:doi:journals:id' => Service\DoiDataTypeFactory::class,
             'valuesuggest:doi:journals:id:name' => Service\DoiDataTypeFactory::class,
+
             'valuesuggest:doi:funders' => Service\DoiDataTypeFactory::class,
             'valuesuggest:doi:funders:name' => Service\DoiDataTypeFactory::class,
             'valuesuggest:doi:funders:id' => Service\DoiDataTypeFactory::class,
             'valuesuggest:doi:funders:id:name' => Service\DoiDataTypeFactory::class,
+
             'valuesuggest:doi:members' => Service\DoiDataTypeFactory::class,
             'valuesuggest:doi:members:name' => Service\DoiDataTypeFactory::class,
             'valuesuggest:doi:members:id' => Service\DoiDataTypeFactory::class,
             'valuesuggest:doi:members:id:name' => Service\DoiDataTypeFactory::class,
+
             'valuesuggest:doi:licenses' => Service\DoiDataTypeFactory::class,
+
             'valuesuggest:doi:types' => Service\DoiDataTypeFactory::class,
+
             /* ISBN: International standard book numbers */
             'valuesuggest:isbn:id' => Service\OpenLibraryDataTypeFactory::class,
             'valuesuggest:isbn:id:name' => Service\OpenLibraryDataTypeFactory::class,
             'valuesuggest:isbn:id:reference' => Service\OpenLibraryDataTypeFactory::class,
+            'valuesuggest:isbn:id:record' => Service\OpenLibraryDataTypeFactory::class,
+
             /* LCCN: Library of Congress control number */
             'valuesuggest:lccn:id' => Service\OpenLibraryDataTypeFactory::class,
             'valuesuggest:lccn:id:name' => Service\OpenLibraryDataTypeFactory::class,
             'valuesuggest:lccn:id:reference' => Service\OpenLibraryDataTypeFactory::class,
+            'valuesuggest:lccn:id:record' => Service\OpenLibraryDataTypeFactory::class,
+
             /* OCLC: Online computer library center */
             'valuesuggest:oclc:id' => Service\OpenLibraryDataTypeFactory::class,
             'valuesuggest:oclc:id:name' => Service\OpenLibraryDataTypeFactory::class,
             'valuesuggest:oclc:id:reference' => Service\OpenLibraryDataTypeFactory::class,
+            'valuesuggest:oclc:id:record' => Service\OpenLibraryDataTypeFactory::class,
+
             /* OLID: Open library id from Internet Archive */
             'valuesuggest:olid:id' => Service\OpenLibraryDataTypeFactory::class,
             'valuesuggest:olid:id:name' => Service\OpenLibraryDataTypeFactory::class,
             'valuesuggest:olid:id:reference' => Service\OpenLibraryDataTypeFactory::class,
+            'valuesuggest:olid:id:record' => Service\OpenLibraryDataTypeFactory::class,
         ],
     ],
     'view_manager' => [

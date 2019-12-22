@@ -32,6 +32,14 @@ class DoiDataTypeFactory implements FactoryInterface
                 'uri_label' => 'reference',
             ],
         ],
+        'valuesuggest:doi:works:record' => [
+            'label' => 'DOI: Works (collected record)', // @translate
+            'options' => [
+                'resource' => 'works',
+                'identifier' => false,
+                'uri_label' => 'record',
+            ],
+        ],
         'valuesuggest:doi:works:id' => [
             'label' => 'DOI: Works (by id)', // @translate
             'options' => [
@@ -54,6 +62,14 @@ class DoiDataTypeFactory implements FactoryInterface
                 'resource' => 'works',
                 'identifier' => true,
                 'uri_label' => 'reference',
+            ],
+        ],
+        'valuesuggest:doi:works:id:record' => [
+            'label' => 'DOI: Works (by id, collected record)', // @translate
+            'options' => [
+                'resource' => 'works',
+                'identifier' => true,
+                'uri_label' => 'record',
             ],
         ],
 

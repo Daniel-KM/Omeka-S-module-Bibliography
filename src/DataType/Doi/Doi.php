@@ -34,6 +34,14 @@ class Doi extends AbstractBibliographyDataType
 
         $citeProc = $this->prepareCiteProc();
 
-        return new DoiSuggest($client, $citeProc, $this->options);
+        if ($this->options['uri_label'] === 'record') {
+            $propertyIds = $this->getPropertyIds();
+            $resourceClassIds = $this->getResourceClassIds();
+        } else {
+            $propertyIds = null;
+            $resourceClassIds = null;
+        }
+
+        return new DoiSuggest($client, $citeProc, $this->options, $propertyIds, $resourceClassIds);
     }
 }
