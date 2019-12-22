@@ -291,6 +291,9 @@ class DoiSuggest extends AbstractBibliographySuggest
 
     protected function convertIntoRdf($data)
     {
+        // Avoid recursion issues with useless data.
+        unset($data->items);
+
         // Convert data into recursive array for easier process (with default).
         $data = json_decode(json_encode($data), true);
 
