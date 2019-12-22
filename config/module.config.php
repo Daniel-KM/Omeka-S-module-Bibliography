@@ -72,6 +72,9 @@ return [
             'citation' => View\Helper\Citation::class,
             'rdfToCsl' => View\Helper\RdfToCsl::class,
         ],
+        'factories' => [
+            'cslToRdf' => Service\ViewHelper\CslToRdfFactory::class,
+        ],
     ],
     'block_layouts' => [
         'invokables' => [

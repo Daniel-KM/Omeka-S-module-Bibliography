@@ -414,7 +414,7 @@ class DoiSuggest extends AbstractBibliographySuggest
             ],
             'funder' => [
                 'dcterms:contributor',
-                'append' => ''
+                'append' => '',
             ],
             'DOI' => 'bibo:doi',
             'URL' => 'bibo:uri',
@@ -428,11 +428,14 @@ class DoiSuggest extends AbstractBibliographySuggest
             // Other informations are available: orcid, affiliation, order of
             // authors ("first" or "additional"), etc.
             // TODO Add an option to check/create/update the author, journal, etc.
-            $item['dcterms:creator'][] = [
-                'type' => 'literal',
-                'property_id' => $this->propertyIds['dcterms:creator'],
-                '@value' => $value['family'] . ($value['given'] ? ', ' . $value['given'] : ''),
-            ];
+            $value = $this->extractName($value);
+            if ($value) {
+                $item['dcterms:creator'][] = [
+                    'type' => 'literal',
+                    'property_id' => $this->propertyIds['dcterms:creator'],
+                    '@value' => $value,
+                ];
+            }
         }
 
         foreach (['created', 'deposited', 'issued', 'indexed', 'published-print', 'published-online'] as $key) {
@@ -557,7 +560,25 @@ class DoiSuggest extends AbstractBibliographySuggest
     }
 
     /**
+     * Convert a name data value into a string.
+     *
+     * @see \Bibliography\View\Helper\CslToRdf::extractName()
+     *
+     * @param array $value
+     * @return string
+     */
+    protected function extractName($value)
+    {
+        if (!empty($value['name'])) {
+            return $value['name'];
+        }
+        return $value['family'] . (empty($value['given']) ? '' : (', ' . $value['given']));
+    }
+
+    /**
      * Convert a date into a standard ISO-8601 string.
+     *
+     * @see \Bibliography\View\Helper\CslToRdf::extractDate()
      *
      * @param array $date
      * @return string|null

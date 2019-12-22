@@ -9,7 +9,7 @@ return [
     'bibo:AcademicArticle'          => 'article-journal',
     'bibo:Article'                  => 'article-newspaper',
     'bibo:AudioDocument'            => 'speech', // song? interview? broadcast?
-    'bibo:AudioVisualDocument'      => 'motion_picture',
+    'bibo:AudioVisualDocument'      => 'broadcast', // Find more precise.
     'bibo:Bill'                     => 'bill',
     'bibo:Book'                     => 'book',
     'bibo:BookSection'              => 'chapter',
@@ -100,4 +100,27 @@ return [
     'dctype:Sound'                  => 'speech', // song? interview? broadcast?
     'dctype:StillImage'             => 'graphic', // figure?
     'dctype:Text'                   => 'personal_communication', // To check.
+
+    // Mapping of original types of Zotero from the added specific resource classes.
+    'bibo:Article'                  => 'article',
+    'bibo:LegalDocument'            => 'bill', // So various.
+    'bibo:Book'                     => 'book',
+    'bibo:Chapter'                  => 'chapter',
+    'dctype:Dataset'                => 'dataset',
+    'dctype:StillImage'             => 'graphic', // Find more precise.
+    'bibo:Interview'                => 'interview',
+    'bibo:Legislation'              => 'legislation',
+    'bibo:LegalCaseDocument'        => 'legal_case',
+    'bibo:Manuscript'               => 'manuscript',
+    'bibo:Map'                      => 'map',
+    'dctype:MovingImage'            => 'motion_picture',
+    // ''                           =>  // To check 'pamphlet'. Short paper?
+    'bibo:Patent'                   => 'patent',
+    'bibo:Report'                   => 'report',
+    'dctype:Sound'                  => 'speech', // Find more precise.
+    'bibo:Thesis'                   => 'thesis',
+    // ''                           => 'treaty', // To check
+    'bibo:Webpage'                  => 'webpage',
+    // Specific case: during conversion, everything else is unknown type of document.
+    'dcterms:BibliographicResource' => '',
 ];
