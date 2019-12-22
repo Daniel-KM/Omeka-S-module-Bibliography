@@ -32,6 +32,7 @@ class Module extends AbstractModule
     protected function postInstall()
     {
         $this->uninstallModuleCitation();
+        $this->installResources();
     }
 
     public function attachListeners(SharedEventManagerInterface $sharedEventManager)
@@ -145,5 +146,31 @@ class Module extends AbstractModule
         $messenger->addNotice($message);
 
         $module->setState(\Omeka\Module\Manager::STATE_NOT_INSTALLED);
+    }
+
+    protected function installResources()
+    {
+        if (!class_exists(\Generic\InstallResources::class)) {
+            require_once file_exists(dirname(__DIR__) . '/Generic/InstallResources.php')
+                ? dirname(__DIR__) . '/Generic/InstallResources.php'
+                : __DIR__ . '/src/Generic/InstallResources.php';
+        }
+
+        $services = $this->getServiceLocator();
+        $installResources = new \Generic\InstallResources($services);
+        $installResources = $installResources();
+
+        $vocabulary = [
+            'vocabulary' => [
+                'o:namespace_uri' => 'http://purl.org/spar/fabio/',
+                'o:prefix' => 'fabio',
+                'o:label' => 'FaBiO', // @translate
+                'o:comment' => 'FaBiO, the FRBR-aligned Bibliographic Ontology', // @translate
+            ],
+            'strategy' => 'file',
+            'file' => __DIR__ . '/data/vocabularies/fabio_2019-02-19.ttl',
+            'format' => 'turtle',
+        ];
+        $installResources->createVocabulary($vocabulary);
     }
 }

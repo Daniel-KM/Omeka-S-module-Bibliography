@@ -103,10 +103,18 @@ return [
 
     // Mapping of original types of Zotero from the added specific resource classes.
     'bibo:Article'                  => 'article',
+    'fabio:MagazineArticle'         => 'article-magazine',
+    'fabio:NewspaperArticle'        => 'article-newspaper',
+    'fabio:JournalArticle'          => 'article-journal',
     'bibo:LegalDocument'            => 'bill', // So various.
     'bibo:Book'                     => 'book',
+    'mo:Stream'                     => 'broadcast',
     'bibo:Chapter'                  => 'chapter',
     'dctype:Dataset'                => 'dataset',
+    'fabio:Entry'                   => 'entry',
+    'fabio:ReferenceEntry'          => 'entry-dictionary', // Find more precise.
+    'fabio:ReferenceEntry'          => 'entry-encyclopedia',
+    'fabio:Figure'                  => 'figure',
     'dctype:StillImage'             => 'graphic', // Find more precise.
     'bibo:Interview'                => 'interview',
     'bibo:Legislation'              => 'legislation',
@@ -114,9 +122,18 @@ return [
     'bibo:Manuscript'               => 'manuscript',
     'bibo:Map'                      => 'map',
     'dctype:MovingImage'            => 'motion_picture',
+    'fabio:MusicalComposition'      => 'musical_score',
+    'mo:PublishedScore'             => 'musical_score', // http://rdaregistry.info/termList/formatNoteMus/1007 ? mo:Score ? mo:PublishedScore ?
     // ''                           =>  // To check 'pamphlet'. Short paper?
+    'fabio:ConferencePaper'         => 'paper-conference',
     'bibo:Patent'                   => 'patent',
+    'fabio:Micropost'               => 'post',
+    'fabio:BlocPost'                => 'post-weblog',
+    'fabio:PersonalCommunication'   => 'personal_communication',
     'bibo:Report'                   => 'report',
+    'fabio:Review'                  => 'review',
+    'fabio:BookReview'              => 'review-book',
+    'fabio:Song'                    => 'song',
     'dctype:Sound'                  => 'speech', // Find more precise.
     'bibo:Thesis'                   => 'thesis',
     // ''                           => 'treaty', // To check

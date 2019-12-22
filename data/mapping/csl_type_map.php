@@ -7,18 +7,18 @@
 
 return [
     'article'                   => 'bibo:Article',
-    'article-magazine'          => '',
-    'article-newspaper'         => '',
-    'article-journal'           => '',
+    'article-magazine'          => 'fabio:MagazineArticle',
+    'article-newspaper'         => 'fabio:NewspaperArticle',
+    'article-journal'           => 'fabio:JournalArticle',
     'bill'                      => 'bibo:LegalDocument',
     'book'                      => 'bibo:Book',
-    'broadcast'                 => 'bibo:AudioVisualDocument',
+    'broadcast'                 => 'bibo:AudioVisualDocument', // 'mo:Stream',
     'chapter'                   => 'bibo:Chapter',
     'dataset'                   => 'dctype:Dataset',
-    'entry'                     => '',
-    'entry-dictionary'          => '',
-    'entry-encyclopedia'        => '',
-    'figure'                    => '',
+    'entry'                     => 'fabio:Entry',
+    'entry-dictionary'          => 'fabio:ReferenceEntry', // Find more precise.
+    'entry-encyclopedia'        => 'fabio:ReferenceEntry',
+    'figure'                    => 'fabio:Figure',
     'graphic'                   => 'dctype:StillImage', // Find more precise.
     'interview'                 => 'bibo:Interview',
     'legislation'               => 'bibo:Legislation',
@@ -26,19 +26,19 @@ return [
     'manuscript'                => 'bibo:Manuscript',
     'map'                       => 'bibo:Map',
     'motion_picture'            => 'dctype:MovingImage',
-    'musical_score'             => '',
-    'pamphlet'                  => '',
-    'paper-conference'          => '',
+    'musical_score'             => 'fabio:MusicalComposition', // http://rdaregistry.info/termList/formatNoteMus/1007 ? mo:Score ? mo:PublishedScore ?
+    'pamphlet'                  => '', // To check. Short paper?
+    'paper-conference'          => 'fabio:ConferencePaper',
     'patent'                    => 'bibo:Patent',
-    'post'                      => '',
-    'post-weblog'               => '',
+    'post'                      => 'fabio:Micropost',
+    'post-weblog'               => 'fabio:BlogPost',
     'personal_communication'    => 'bibo:PersonalCommunication',
     'report'                    => 'bibo:Report',
-    'review'                    => '',
-    'review-book'               => '',
-    'song'                      => '',
+    'review'                    => 'fabio:Review',
+    'review-book'               => 'fabio:BookReview',
+    'song'                      => 'fabio:Song',
     'speech'                    => 'dctype:Sound', // Find more precise.
     'thesis'                    => 'bibo:Thesis',
-    'treaty'                    => '',
+    'treaty'                    => '', // To check.
     'webpage'                   => 'bibo:Webpage',
 ];

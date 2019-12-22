@@ -67,7 +67,7 @@ return [
         'property' => '',
     ],
     'genre' => [
-        'property' => 'dcterms:subject',
+        'property' => 'fabio:hasPrimarySubjectTerm', // Module Zotero uses dcterms:type'
     ],
     'ISBN' => [
         'property' => 'bibo:isbn',
@@ -79,7 +79,7 @@ return [
         'property' => '',
     ],
     'keyword' => [
-        'property' => 'dcterms:subject',
+        'property' => 'dcterms:subject', // fabio:hasSubjectTerm // prism:keyword
         'multiple' => true,
     ],
     'locator' => [
@@ -96,7 +96,7 @@ return [
         'property' => 'dcterms:publisher',
     ],
     'original-publisher-place' => [
-        'property' => '',
+        'property' => 'fabio:hasPlaceOfPublication',
     ],
     'original-title' => [
         'property' => 'dctemrs:title',
@@ -122,7 +122,7 @@ return [
         'property' => 'dcterms:publisher',
     ],
     'publisher-place' => [
-        'property' => '',
+        'property' => 'fabio:hasPlaceOfPublication',
     ],
     'references' => [
         'property' => 'dcterms:references',
@@ -152,11 +152,10 @@ return [
         'property' => 'bibo:uri',
     ],
     'version' => [
-        'property' => '',
+        'property' => 'fabio:hasSequenceIdentifier', // prism:versionIdentifier
     ],
-    // Useless.
     'year-suffix' => [
-        'property' => '',
+        'property' => 'fabio:hasPublicationYear',
     ],
 
     // Number Variables.

@@ -32,3 +32,7 @@ SQL;
 if (version_compare($oldVersion, '3.0.6', '<')) {
     $this->uninstallModuleCitation();
 }
+
+if (version_compare($oldVersion, '3.1.1', '<')) {
+    $this->installResources();
+}
