@@ -4,11 +4,13 @@ namespace Bibliography;
 return [
     'data_types' => [
         'factories' => [
-            /* DOI: Digital object identifiers */
             // There are multiple times the same type to bypass a technical issue
             // in order to manage large query or query by id only, and to set
             // the label, that can be a name or id according to properties (for
-            // example the title or the article for dcterms:title, but the id for bibo:doi.
+            // example the title or the article for dcterms:title, but the id
+            // for bibo:doi of the reference for dcterms:bibliographicCitation.
+
+            /* DOI: Digital object identifiers */
             'valuesuggest:doi:works' => Service\DoiDataTypeFactory::class,
             'valuesuggest:doi:works:name' => Service\DoiDataTypeFactory::class,
             'valuesuggest:doi:works:reference' => Service\DoiDataTypeFactory::class,

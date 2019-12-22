@@ -1,11 +1,17 @@
 Bibliography (module for Omeka S)
 =============================
 
-[Bibliography] is a module for [Omeka S] that allows to display the canonical
-bibliographic citations of resources, according to any managed [citation style].
-Furthermore, it adds some new suggesters to the module [Value Suggest] in order
-to get multiple unique identifiers from [DOI], [ISBN], [ISSN], [OCLC], [LCCN],
-[OLID].
+[Bibliography] is a module for [Omeka S] that adds features to manage a
+bibliography with standard citations, reference lists, suggested values, and
+collected records from doi, isbn and other identifiers.
+
+- The canonical bibliographic citations of resources are displayed according to
+  any managed [citation style].
+- Some record suggesters are added for the module [Value Suggest] in order to
+  get multiple unique identifiers from [DOI], [ISBN], [ISSN], [OCLC], [LCCN],
+  [OLID].
+- Full bibliographic citation can be added through the module [Collecting], and
+  even the full record.
 
 The doi and the issn are retrieved from the open service of [crossref] (a free
 registration allows to get a better performance for service). The isbn, the
@@ -50,6 +56,13 @@ are the same and improved in this module.
 Usage
 -----
 
+### Ontology FaBiO
+
+The ontology FaBiO uses external ontologies for some classes and properties,
+mainly the Dublin Core and [Prism], and some others like [FRBR]. For easier
+management, these related ontologies are not installed automatically, because
+generally, the elements they uses are rare or can be replaced by the bibo ones.
+
 ### Suggesters
 
 Once the specific [version of Value Suggest] is installed, the following
@@ -69,7 +82,9 @@ In the config of the resource template or the collecting form, some items above
 can be requested with different values. It allows to choose between a large
 query with keywords, or a strict query with the id. It allows to set the label
 too, that can be a name or an id according to properties, for example the title
-or the article for dcterms:title, but the id for bibo:doi.
+or the article for dcterms:title, but the id for bibo:doi, or even the full
+reference for dcterms:bibliographicCitation, or even the full record as a
+resource.
 
 ### Creation of the citation
 
@@ -123,6 +138,7 @@ TODO
 
 * Improve conversion from dcterms and bibo into csl, or find a library for it. See https://docs.citationstyles.org/en/1.0.1/index.html.
 * Use the dcterms:type if resource class is not present.
+* Add a bulk replacement from bibo to fabio.
 
 
 Warning
@@ -169,14 +185,15 @@ Copyright
 * Copyright Daniel Berthereau, 2018-2019 (see [Daniel-KM] on GitHub)
 * See third parties copyright for dependencies.
 
-First version of this module was built for Daniel Berthereau for [Collegium Musicæ]
-and LAM / Institut ∂’Alembert, of [Université Paris Sorbonne].
+First version of this module was built for Daniel Berthereau for [Collegium Musicæ],
+of [Sorbonne Université].
 
 
 [Omeka S]: https://omeka.org/s
 [Bibliography]: https://github.com/Daniel-KM/Omeka-S-module-Bibliography
 [citation style]: https://citationstyles.org
 [Value Suggest]: https://github.com/omeka-s-modules/ValueSuggest
+[Collecting]: https://github.com/omeka-s-modules/Collecting
 [DOI]: https://doi.org
 [ISBN]: https://www.isbn-international.org
 [ISSN]: http://www.issn.org
@@ -192,6 +209,8 @@ and LAM / Institut ∂’Alembert, of [Université Paris Sorbonne].
 [Citation]: https://github.com/Daniel-KM/Omeka-S-module-Citation
 [version of Value Suggest]: https://github.com/Daniel-KM/Omeka-S-module-ValueSuggest
 [version of Collecting]: https://github.com/Daniel-KM/Omeka-S-module-Collecting
+[Prism]: http://prismstandard.org
+[FRBR]: http://vocab.org/frbr/core.html
 [not managed]: https://github.com/Daniel-KM/Omeka-S-module-Bibliography/tree/master/data/mapping/csl_resource_class_map.php
 [module issues]: https://github.com/Daniel-KM/Omeka-S-module-Bibliography/issues
 [CeCILL v2.1]: https://www.cecill.info/licences/Licence_CeCILL_V2.1-en.html
@@ -199,5 +218,5 @@ and LAM / Institut ∂’Alembert, of [Université Paris Sorbonne].
 [FSF]: https://www.fsf.org
 [OSI]: http://opensource.org
 [Collegium Musicæ]: http://www.collegium.musicae.sorbonne-universite.fr
-[Université Paris Sorbonne]: https://www.sorbonne-universite.fr
+[Sorbonne Université]: https://www.sorbonne-universite.fr
 [Daniel-KM]: https://github.com/Daniel-KM "Daniel Berthereau"
