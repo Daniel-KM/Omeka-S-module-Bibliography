@@ -68,11 +68,9 @@ class ConvertIntoCsl extends AbstractHelper
             $csl['ISSN'] = count($issn) > 1 ? $issn : reset($issn);
         }
         $csl['EISSN'] = $this->resourceValue('bibo:eissn');
-        $isbn = [];
-        $isbn += $this->resourceValue('bibo:isbn13', ['all' => true, 'default' => []]);
-        $isbn += $this->resourceValue('bibo:isbn10', ['all' => true, 'default' => []]);
-        $isbn += $this->resourceValue('bibo:isbn', ['all' => true, 'default' => []]);
-        $isbn = array_filter($isbn);
+        $isbn = $this->resourceValue('bibo:isbn13', ['all' => true, 'default' => []]);
+        $isbn = array_merge($isbn, $this->resourceValue('bibo:isbn10', ['all' => true, 'default' => []]));
+        $isbn = array_merge($this->resourceValue('bibo:isbn', ['all' => true, 'default' => []]));
         if ($isbn) {
             $csl['ISBN'] = count($isbn) > 1 ? $isbn : reset($isbn);
         }
