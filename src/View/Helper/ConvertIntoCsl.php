@@ -131,17 +131,17 @@ class ConvertIntoCsl extends AbstractHelper
      *
      * @todo Improve mapping of the resource classes to csl type and check dcterms:type else.
      *
-     * @return string Default type is "standard".
+     * @return string
      */
     protected function cslType()
     {
         $class = $this->resource->resourceClass();
         if (!$class) {
-            return 'standard';
+            return '';
         }
         $class = $class->term();
         $map = require dirname(dirname(dirname(__DIR__))) . '/data/mapping/resource_class_map.php';
-        return empty($map[$class]) ? 'standard' : $map[$class];
+        return empty($map[$class]) ? '' : $map[$class];
     }
 
     /**
