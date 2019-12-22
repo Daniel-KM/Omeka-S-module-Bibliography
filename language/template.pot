@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-11-25 00:00+0100\n"
+"POT-Creation-Date: 2019-12-23 00:00+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,13 +17,13 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: Module.php:133
+#: Module.php:134
 msgid ""
 "The module Bibliography replaces the module Citation, that cannot be "
 "automatically uninstalled."
 msgstr ""
 
-#: Module.php:143
+#: Module.php:144
 msgid ""
 "The module Bibliography replaces the module Citation, that was automatically "
 "uninstalled."
@@ -46,24 +46,44 @@ msgid ""
 "unavailable."
 msgstr ""
 
-#: view/common/citation.phtml:48
+#: view/common/citation.phtml:59
 #, php-format
 msgid "%1$s and %2$s"
 msgstr ""
 
-#: view/common/citation.phtml:52
+#: view/common/citation.phtml:63
 #, php-format
 msgid "%1$s, %2$s, and %3$s"
 msgstr ""
 
-#: view/common/citation.phtml:56
+#: view/common/citation.phtml:67
 #, php-format
 msgid "%s et al."
 msgstr ""
 
-#: view/common/citation.phtml:91
+#: view/common/citation.phtml:102
 #, php-format
 msgid "accessed %1$s, %2$s"
+msgstr ""
+
+#: view/common/data-type/suggested.phtml:12
+msgid "Select a vocabulary…"
+msgstr ""
+
+#: view/common/data-type/suggested.phtml:20
+msgid "Remove language"
+msgstr ""
+
+#: view/common/data-type/suggested.phtml:32
+msgid "Remove URI"
+msgstr ""
+
+#: Module.php:167
+msgid "FaBiO"
+msgstr ""
+
+#: Module.php:168
+msgid "FaBiO, the FRBR-aligned Bibliographic Ontology"
 msgstr ""
 
 #: src/Form/SettingsFieldset.php:15 src/Form/SiteSettingsFieldset.php:15
@@ -129,6 +149,10 @@ msgid ""
 "start with \"bibliography\"."
 msgstr ""
 
+#: src/DataType/AbstractDataType.php:14
+msgid "Value Suggest"
+msgstr ""
+
 #: src/Service/DoiDataTypeFactory.php:12
 msgid "DOI: Works"
 msgstr ""
@@ -138,70 +162,86 @@ msgid "DOI: Works (name)"
 msgstr ""
 
 #: src/Service/DoiDataTypeFactory.php:28
-msgid "DOI: Works (by id)"
+msgid "DOI: Works (reference)"
 msgstr ""
 
 #: src/Service/DoiDataTypeFactory.php:36
+msgid "DOI: Works (collected record)"
+msgstr ""
+
+#: src/Service/DoiDataTypeFactory.php:44
+msgid "DOI: Works (by id)"
+msgstr ""
+
+#: src/Service/DoiDataTypeFactory.php:52
 msgid "DOI: Works (by id, name)"
 msgstr ""
 
-#: src/Service/DoiDataTypeFactory.php:45
+#: src/Service/DoiDataTypeFactory.php:60
+msgid "DOI: Works (by id, reference)"
+msgstr ""
+
+#: src/Service/DoiDataTypeFactory.php:68
+msgid "DOI: Works (by id, collected record)"
+msgstr ""
+
+#: src/Service/DoiDataTypeFactory.php:77
 msgid "DOI: Journals"
 msgstr ""
 
-#: src/Service/DoiDataTypeFactory.php:53
+#: src/Service/DoiDataTypeFactory.php:85
 msgid "DOI: Journals (name)"
 msgstr ""
 
-#: src/Service/DoiDataTypeFactory.php:61
+#: src/Service/DoiDataTypeFactory.php:93
 msgid "DOI: Journals (by id)"
 msgstr ""
 
-#: src/Service/DoiDataTypeFactory.php:69
+#: src/Service/DoiDataTypeFactory.php:101
 msgid "DOI: Journals (by id, name)"
 msgstr ""
 
-#: src/Service/DoiDataTypeFactory.php:78
+#: src/Service/DoiDataTypeFactory.php:110
 msgid "DOI: Funders"
 msgstr ""
 
-#: src/Service/DoiDataTypeFactory.php:86
+#: src/Service/DoiDataTypeFactory.php:118
 msgid "DOI: Funders (name)"
 msgstr ""
 
-#: src/Service/DoiDataTypeFactory.php:94
+#: src/Service/DoiDataTypeFactory.php:126
 msgid "DOI: Funders (by id)"
 msgstr ""
 
-#: src/Service/DoiDataTypeFactory.php:102
+#: src/Service/DoiDataTypeFactory.php:134
 msgid "DOI: Funders (by id, name)"
 msgstr ""
 
-#: src/Service/DoiDataTypeFactory.php:111
+#: src/Service/DoiDataTypeFactory.php:143
 msgid "DOI: Members"
 msgstr ""
 
-#: src/Service/DoiDataTypeFactory.php:119
+#: src/Service/DoiDataTypeFactory.php:151
 msgid "DOI: Members (name)"
 msgstr ""
 
-#: src/Service/DoiDataTypeFactory.php:127
+#: src/Service/DoiDataTypeFactory.php:159
 msgid "DOI: Member (by id)"
 msgstr ""
 
-#: src/Service/DoiDataTypeFactory.php:135
+#: src/Service/DoiDataTypeFactory.php:167
 msgid "DOI: Member (by id, name)"
 msgstr ""
 
-#: src/Service/DoiDataTypeFactory.php:144
+#: src/Service/DoiDataTypeFactory.php:176
 msgid "DOI: Licenses"
 msgstr ""
 
-#: src/Service/DoiDataTypeFactory.php:152
+#: src/Service/DoiDataTypeFactory.php:184
 msgid "DOI: License (by id)"
 msgstr ""
 
-#: src/Service/DoiDataTypeFactory.php:161
+#: src/Service/DoiDataTypeFactory.php:193
 msgid "DOI: Types"
 msgstr ""
 
@@ -214,25 +254,123 @@ msgid "ISBN: International standard book number (by id, name)"
 msgstr ""
 
 #: src/Service/OpenLibraryDataTypeFactory.php:28
-msgid "LCCN: Library of Congress Control Number (by id)"
+msgid "ISBN: International standard book number (by id, reference)"
 msgstr ""
 
 #: src/Service/OpenLibraryDataTypeFactory.php:36
+msgid "ISBN: International standard book number (collected record)"
+msgstr ""
+
+#: src/Service/OpenLibraryDataTypeFactory.php:45
+msgid "LCCN: Library of Congress Control Number (by id)"
+msgstr ""
+
+#: src/Service/OpenLibraryDataTypeFactory.php:53
 msgid "LCCN: Library of Congress Control Number (by id, name)"
 msgstr ""
 
-#: src/Service/OpenLibraryDataTypeFactory.php:44
+#: src/Service/OpenLibraryDataTypeFactory.php:61
+msgid "LCCN: Library of Congress Control Number (by id, reference)"
+msgstr ""
+
+#: src/Service/OpenLibraryDataTypeFactory.php:69
+msgid "LCCN: Library of Congress Control Number (collected record)"
+msgstr ""
+
+#: src/Service/OpenLibraryDataTypeFactory.php:78
 msgid "OCLC: Online computer library center (by id)"
 msgstr ""
 
-#: src/Service/OpenLibraryDataTypeFactory.php:52
+#: src/Service/OpenLibraryDataTypeFactory.php:86
 msgid "OCLC: Online computer library center (by id, name)"
 msgstr ""
 
-#: src/Service/OpenLibraryDataTypeFactory.php:60
+#: src/Service/OpenLibraryDataTypeFactory.php:94
+msgid "OCLC: Online computer library center (by id, reference)"
+msgstr ""
+
+#: src/Service/OpenLibraryDataTypeFactory.php:102
+msgid "OCLC: Online computer library center (collected record)"
+msgstr ""
+
+#: src/Service/OpenLibraryDataTypeFactory.php:111
 msgid "OLID: Open library id from Internet Archive (by id)"
 msgstr ""
 
-#: src/Service/OpenLibraryDataTypeFactory.php:68
+#: src/Service/OpenLibraryDataTypeFactory.php:119
 msgid "OLID: Open library id from Internet Archive (by id, name)"
+msgstr ""
+
+#: src/Service/OpenLibraryDataTypeFactory.php:127
+msgid "OLID: Open library id from Internet Archive (by id, reference)"
+msgstr ""
+
+#: src/Service/OpenLibraryDataTypeFactory.php:135
+msgid "OLID: Open library id from Internet Archive (collected record)"
+msgstr ""
+
+#: src/Generic/InstallResources.php:76
+#, php-format
+msgid "The file \"%s\" cannot be read. Check your file system."
+msgstr ""
+
+#: src/Generic/InstallResources.php:101
+#, php-format
+msgid ""
+"An error occured when adding the prefix \"%s\": another vocabulary exists. "
+"Resolve the conflict before installing this module."
+msgstr ""
+
+#: src/Generic/InstallResources.php:131
+#, php-format
+msgid ""
+"A resource template named \"%s\" exists: rename it or remove it before "
+"installing this module."
+msgstr ""
+
+#: src/Generic/InstallResources.php:161
+msgid "The current version of this module requires the module Custom Vocab."
+msgstr ""
+
+#: src/Generic/InstallResources.php:168
+#, php-format
+msgid ""
+"A custom vocab named \"%s\" exists and has not the needed terms: rename it "
+"or remove it before installing this module."
+msgstr ""
+
+#: src/Generic/InstallResources.php:178
+#, php-format
+msgid ""
+"A custom vocab named \"%s\" exists and has not the needed language (\"%s\"): "
+"check it or remove it before installing this module."
+msgstr ""
+
+#: src/Generic/InstallResources.php:218
+#, php-format
+msgid "The vocabulary \"%s\" was already installed and was kept."
+msgstr ""
+
+#: src/Generic/InstallResources.php:228
+#, php-format
+msgid ""
+"An error occured when adding the prefix \"%s\": another vocabulary exists "
+"with the same prefix. Resolve the conflict before installing this module."
+msgstr ""
+
+#: src/Generic/InstallResources.php:248
+#, php-format
+msgid ""
+"An error occured when adding the prefix \"%s\" and the associated "
+"properties: %s"
+msgstr ""
+
+#: src/Generic/InstallResources.php:278
+#, php-format
+msgid "The resource template named \"%s\" is already available and is skipped."
+msgstr ""
+
+#: src/Generic/InstallResources.php:303 src/Generic/InstallResources.php:436
+#, php-format
+msgid "The custom vocab named \"%s\" is not available."
 msgstr ""
