@@ -250,8 +250,10 @@ class OpenLibrarySuggest extends AbstractBibliographySuggest
         ];
         $data += $defaults;
 
-        // Omeka property 3 = "dcterms:BibliographicResource".
-        $item['o:resource_class'] = ['o:id' => 3];
+        // Open Library manages books only.
+        // Omeka property 3 = "dcterms:BibliographicResource":
+        // Omeka property 40 = "bibo:Book".
+        $item['o:resource_class'] = ['o:id' => 40];
 
         $mappingSingle = [
             // 'url' => 'bibo:uri',
