@@ -70,7 +70,7 @@ return [
     'view_helpers' => [
         'invokables' => [
             'citation' => View\Helper\Citation::class,
-            'convertIntoCsl' => View\Helper\ConvertIntoCsl::class,
+            'rdfToCsl' => View\Helper\RdfToCsl::class,
         ],
     ],
     'block_layouts' => [

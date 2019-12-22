@@ -192,7 +192,7 @@ and LAM / Institut ∂’Alembert, of [Université Paris Sorbonne].
 [Citation]: https://github.com/Daniel-KM/Omeka-S-module-Citation
 [version of Value Suggest]: https://github.com/Daniel-KM/Omeka-S-module-ValueSuggest
 [version of Collecting]: https://github.com/Daniel-KM/Omeka-S-module-Collecting
-[not managed]: https://github.com/Daniel-KM/Omeka-S-module-Bibliography/tree/master/data/mapping/resource_class_map.php
+[not managed]: https://github.com/Daniel-KM/Omeka-S-module-Bibliography/tree/master/data/mapping/csl_resource_class_map.php
 [module issues]: https://github.com/Daniel-KM/Omeka-S-module-Bibliography/issues
 [CeCILL v2.1]: https://www.cecill.info/licences/Licence_CeCILL_V2.1-en.html
 [GNU/GPL]: https://www.gnu.org/licenses/gpl-3.0.html

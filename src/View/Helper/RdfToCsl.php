@@ -4,8 +4,13 @@ namespace Bibliography\View\Helper;
 use Omeka\Api\Representation\AbstractResourceEntityRepresentation;
 use Zend\View\Helper\AbstractHelper;
 
-class ConvertIntoCsl extends AbstractHelper
+class RdfToCsl extends AbstractHelper
 {
+    /**
+     * @var AbstractResourceEntityRepresentation
+     */
+    protected $resource;
+
     /**
      * @var array
      */
@@ -140,7 +145,7 @@ class ConvertIntoCsl extends AbstractHelper
             return '';
         }
         $class = $class->term();
-        $map = require dirname(dirname(dirname(__DIR__))) . '/data/mapping/resource_class_map.php';
+        $map = require dirname(dirname(dirname(__DIR__))) . '/data/mapping/csl_resource_class_map.php';
         return empty($map[$class]) ? '' : $map[$class];
     }
 
@@ -154,7 +159,7 @@ class ConvertIntoCsl extends AbstractHelper
         return $this->cslAuthorsResource($this->resource, $this->defaults);
     }
 
-        /**
+    /**
      * Get the authors of the specified resource.
      *
      * @todo Check FOAF and related items for the authors.

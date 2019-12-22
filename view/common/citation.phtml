@@ -28,7 +28,7 @@ try {
 if ($style):
 
     $citeProc = new \Seboettg\CiteProc\CiteProc($style, $locale);
-    $csl = $this->convertIntoCsl($resource, $defaults);
+    $csl = $this->rdfToCsl($resource, $defaults);
     // CiteProc fails when the metadata are incomplete.
     try {
         $citation = @$citeProc->render([$csl], 'bibliography');

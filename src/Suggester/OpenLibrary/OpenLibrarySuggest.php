@@ -114,7 +114,7 @@ class OpenLibrarySuggest extends AbstractBibliographySuggest
         return $suggestions;
     }
 
-    protected function convertIntoCsl($id, array $data)
+    protected function convertToCsl($id, array $data)
     {
         $csl = [];
 
