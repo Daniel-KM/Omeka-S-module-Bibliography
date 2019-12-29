@@ -91,7 +91,8 @@ class InstallResources
         }
 
         // Check if it is the same vocabulary.
-        if ($vocabularyRepresentation->namespaceUri() === $vocabulary['vocabulary']['o:namespace_uri']) {
+        // See createVocabulary() about the trim.
+        if (rtrim($vocabularyRepresentation->namespaceUri(), '#/') === rtrim($vocabulary['vocabulary']['o:namespace_uri'], '#/')) {
             return true;
         }
 
