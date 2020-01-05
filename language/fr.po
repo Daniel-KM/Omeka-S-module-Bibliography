@@ -1,0 +1,403 @@
+# Copyright (C) YEAR THE PACKAGE’S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Daniel Berthereau <Daniel.github@Berthereau.net>, 2020.
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-12-23 00:00+0100\n"
+"PO-Revision-Date: 2020-01-06 00:00+0100\n"
+"Last-Translator: Daniel Berthereau <Daniel.fr@Berthereau.net>\n"
+"Language-Team: French <kde-i18n-doc@kde.org>\n"
+"Language: fr\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Generator: Poedit 2.2.4\n"
+
+#: Module.php:134
+msgid ""
+"The module Bibliography replaces the module Citation, that cannot be "
+"automatically uninstalled."
+msgstr ""
+"Le module Bibliography remplace le module Citation, qui ne peut pas être "
+"supprimé automatiquement."
+
+#: Module.php:144
+msgid ""
+"The module Bibliography replaces the module Citation, that was automatically "
+"uninstalled."
+msgstr ""
+"Le module Bibliography remplace le module Citation, qui a été "
+"automatiquement désinstallé."
+
+#: src/Generic/AbstractModule.php:518
+#, php-format
+msgid "This module requires the module \"%s\"."
+msgstr "Ce module requiert le module \"%s\"."
+
+#: src/Generic/AbstractModule.php:538
+#, php-format
+msgid "This module requires modules \"%s\"."
+msgstr "Ce module requiert les modules \"%s\"."
+
+#: src/Generic/AbstractModule.php:606
+#, php-format
+msgid ""
+"The module \"%s\" was automatically deactivated because the dependencies are "
+"unavailable."
+msgstr ""
+"Le module %s\" a été automatiquement désactivé car ses dépendances ne sont "
+"plus disponibles."
+
+#: view/common/citation.phtml:59
+#, php-format
+msgid "%1$s and %2$s"
+msgstr "%1$s et %2$s"
+
+#: view/common/citation.phtml:63
+#, php-format
+msgid "%1$s, %2$s, and %3$s"
+msgstr "%1$s, %2$s, et %3$s"
+
+#: view/common/citation.phtml:67
+#, php-format
+msgid "%s et al."
+msgstr "%s et al."
+
+#: view/common/citation.phtml:102
+#, php-format
+msgid "accessed %1$s, %2$s"
+msgstr "consulté le %1$s, %2$s"
+
+#: view/common/data-type/suggested.phtml:12
+msgid "Select a vocabulary…"
+msgstr "Choisir un vocabulaire…"
+
+#: view/common/data-type/suggested.phtml:20
+msgid "Remove language"
+msgstr "Supprimer la langue"
+
+#: view/common/data-type/suggested.phtml:32
+msgid "Remove URI"
+msgstr "Supprimer l’URI"
+
+#: Module.php:167
+msgid "FaBiO"
+msgstr "FaBiO"
+
+#: Module.php:168
+msgid "FaBiO, the FRBR-aligned Bibliographic Ontology"
+msgstr "FaBiO, l’ontologie bibliographique alignée sur le FRBR"
+
+#: src/Form/SettingsFieldset.php:15 src/Form/SiteSettingsFieldset.php:15
+#: src/Site/BlockLayout/Bibliography.php:16
+msgid "Bibliography"
+msgstr "Bibliographie"
+
+#: src/Form/SettingsFieldset.php:24
+msgid "Crossref account email"
+msgstr "Email du compte crossref"
+
+#: src/Form/SettingsFieldset.php:25
+msgid "This email allows to be connected to better servers of crossref."
+msgstr ""
+"Cet email permet de disposer d’une meilleure connexion aux serveurs de "
+"crossref."
+
+#: src/Form/SettingsFieldset.php:36 src/Form/SiteSettingsFieldset.php:24
+#: src/Form/BibliographyBlockFieldset.php:27
+msgid "Citation style"
+msgstr "Style de citation"
+
+#: src/Form/SettingsFieldset.php:43 src/Form/SiteSettingsFieldset.php:31
+#: src/Form/BibliographyBlockFieldset.php:32
+msgid "Select your citation style…"
+msgstr "Choisir son style de citation…"
+
+#: src/Form/SettingsFieldset.php:50 src/Form/SiteSettingsFieldset.php:38
+#: src/Form/BibliographyBlockFieldset.php:39
+msgid "Citation locale"
+msgstr "Langue de la citation"
+
+#: src/Form/SettingsFieldset.php:57 src/Form/SiteSettingsFieldset.php:45
+#: src/Form/BibliographyBlockFieldset.php:44
+msgid "Select your locale for citation…"
+msgstr "Choisir la langue pour la citation…"
+
+#: src/Form/BibliographyBlockFieldset.php:19
+msgid "Block title"
+msgstr "Titre du bloc"
+
+#: src/Form/BibliographyBlockFieldset.php:20
+msgid "Heading for the block, if any."
+msgstr "Entête du bloc, si présent."
+
+#: src/Form/BibliographyBlockFieldset.php:52
+msgid "Display items using this search query"
+msgstr "Afficher les items correspondants à cette recherche"
+
+#: src/Form/BibliographyBlockFieldset.php:60
+msgid "Append the site"
+msgstr "Ajouter le site"
+
+#: src/Form/BibliographyBlockFieldset.php:67
+msgid "Append access date"
+msgstr "Ajouter la date d’accès"
+
+#: src/Form/BibliographyBlockFieldset.php:78
+msgid "Template to display"
+msgstr "Gabarit à afficher"
+
+#: src/Form/BibliographyBlockFieldset.php:79
+msgid ""
+"Templates are in folder \"common/block-layout\" of the theme and should "
+"start with \"bibliography\"."
+msgstr ""
+"Les gabarits sont dans le dossier \"common/block-layout\" du thème et "
+"doivent commencer avec \"bibliography\"."
+
+#: src/DataType/AbstractDataType.php:14
+msgid "Value Suggest"
+msgstr ""
+
+#: src/Service/DoiDataTypeFactory.php:12
+msgid "DOI: Works"
+msgstr ""
+
+#: src/Service/DoiDataTypeFactory.php:20
+msgid "DOI: Works (name)"
+msgstr ""
+
+#: src/Service/DoiDataTypeFactory.php:28
+msgid "DOI: Works (reference)"
+msgstr ""
+
+#: src/Service/DoiDataTypeFactory.php:36
+msgid "DOI: Works (collected record)"
+msgstr ""
+
+#: src/Service/DoiDataTypeFactory.php:44
+msgid "DOI: Works (by id)"
+msgstr ""
+
+#: src/Service/DoiDataTypeFactory.php:52
+msgid "DOI: Works (by id, name)"
+msgstr ""
+
+#: src/Service/DoiDataTypeFactory.php:60
+msgid "DOI: Works (by id, reference)"
+msgstr ""
+
+#: src/Service/DoiDataTypeFactory.php:68
+msgid "DOI: Works (by id, collected record)"
+msgstr ""
+
+#: src/Service/DoiDataTypeFactory.php:77
+msgid "DOI: Journals"
+msgstr ""
+
+#: src/Service/DoiDataTypeFactory.php:85
+msgid "DOI: Journals (name)"
+msgstr ""
+
+#: src/Service/DoiDataTypeFactory.php:93
+msgid "DOI: Journals (by id)"
+msgstr ""
+
+#: src/Service/DoiDataTypeFactory.php:101
+msgid "DOI: Journals (by id, name)"
+msgstr ""
+
+#: src/Service/DoiDataTypeFactory.php:110
+msgid "DOI: Funders"
+msgstr ""
+
+#: src/Service/DoiDataTypeFactory.php:118
+msgid "DOI: Funders (name)"
+msgstr ""
+
+#: src/Service/DoiDataTypeFactory.php:126
+msgid "DOI: Funders (by id)"
+msgstr ""
+
+#: src/Service/DoiDataTypeFactory.php:134
+msgid "DOI: Funders (by id, name)"
+msgstr ""
+
+#: src/Service/DoiDataTypeFactory.php:143
+msgid "DOI: Members"
+msgstr ""
+
+#: src/Service/DoiDataTypeFactory.php:151
+msgid "DOI: Members (name)"
+msgstr ""
+
+#: src/Service/DoiDataTypeFactory.php:159
+msgid "DOI: Member (by id)"
+msgstr ""
+
+#: src/Service/DoiDataTypeFactory.php:167
+msgid "DOI: Member (by id, name)"
+msgstr ""
+
+#: src/Service/DoiDataTypeFactory.php:176
+msgid "DOI: Licenses"
+msgstr ""
+
+#: src/Service/DoiDataTypeFactory.php:184
+msgid "DOI: License (by id)"
+msgstr ""
+
+#: src/Service/DoiDataTypeFactory.php:193
+msgid "DOI: Types"
+msgstr ""
+
+#: src/Service/OpenLibraryDataTypeFactory.php:12
+msgid "ISBN: International standard book number (by id)"
+msgstr ""
+
+#: src/Service/OpenLibraryDataTypeFactory.php:20
+msgid "ISBN: International standard book number (by id, name)"
+msgstr ""
+
+#: src/Service/OpenLibraryDataTypeFactory.php:28
+msgid "ISBN: International standard book number (by id, reference)"
+msgstr ""
+
+#: src/Service/OpenLibraryDataTypeFactory.php:36
+msgid "ISBN: International standard book number (collected record)"
+msgstr ""
+
+#: src/Service/OpenLibraryDataTypeFactory.php:45
+msgid "LCCN: Library of Congress Control Number (by id)"
+msgstr ""
+
+#: src/Service/OpenLibraryDataTypeFactory.php:53
+msgid "LCCN: Library of Congress Control Number (by id, name)"
+msgstr ""
+
+#: src/Service/OpenLibraryDataTypeFactory.php:61
+msgid "LCCN: Library of Congress Control Number (by id, reference)"
+msgstr ""
+
+#: src/Service/OpenLibraryDataTypeFactory.php:69
+msgid "LCCN: Library of Congress Control Number (collected record)"
+msgstr ""
+
+#: src/Service/OpenLibraryDataTypeFactory.php:78
+msgid "OCLC: Online computer library center (by id)"
+msgstr ""
+
+#: src/Service/OpenLibraryDataTypeFactory.php:86
+msgid "OCLC: Online computer library center (by id, name)"
+msgstr ""
+
+#: src/Service/OpenLibraryDataTypeFactory.php:94
+msgid "OCLC: Online computer library center (by id, reference)"
+msgstr ""
+
+#: src/Service/OpenLibraryDataTypeFactory.php:102
+msgid "OCLC: Online computer library center (collected record)"
+msgstr ""
+
+#: src/Service/OpenLibraryDataTypeFactory.php:111
+msgid "OLID: Open library id from Internet Archive (by id)"
+msgstr ""
+
+#: src/Service/OpenLibraryDataTypeFactory.php:119
+msgid "OLID: Open library id from Internet Archive (by id, name)"
+msgstr ""
+
+#: src/Service/OpenLibraryDataTypeFactory.php:127
+msgid "OLID: Open library id from Internet Archive (by id, reference)"
+msgstr ""
+
+#: src/Service/OpenLibraryDataTypeFactory.php:135
+msgid "OLID: Open library id from Internet Archive (collected record)"
+msgstr ""
+
+#: src/Generic/InstallResources.php:76
+#, php-format
+msgid "The file \"%s\" cannot be read. Check your file system."
+msgstr ""
+"Le fichier \"%s\" ne peut pas être lu. Merci de vérifier le système de "
+"fichiers."
+
+#: src/Generic/InstallResources.php:101
+#, php-format
+msgid ""
+"An error occured when adding the prefix \"%s\": another vocabulary exists. "
+"Resolve the conflict before installing this module."
+msgstr ""
+"Une erreur est survenue en ajoutant le préfixe \"%s\" : un autre vocabulaire "
+"existe. Merci de résoudre le conflit avant d’installer ce module."
+
+#: src/Generic/InstallResources.php:131
+#, php-format
+msgid ""
+"A resource template named \"%s\" exists: rename it or remove it before "
+"installing this module."
+msgstr ""
+"Un modèle de ressource nommé \"%s\" existe : merci de le renommer ou de le "
+"supprimer avant d’installer ce module."
+
+#: src/Generic/InstallResources.php:161
+msgid "The current version of this module requires the module Custom Vocab."
+msgstr "Cette version du module requiert le module Custom Vocab."
+
+#: src/Generic/InstallResources.php:168
+#, php-format
+msgid ""
+"A custom vocab named \"%s\" exists and has not the needed terms: rename it "
+"or remove it before installing this module."
+msgstr ""
+"Un vocabulaire personnalisé nommé \"%s\" existe et n’a pas les mêmes "
+"termes : merci de le renommer ou de le supprimer avant d’installer ce module."
+
+#: src/Generic/InstallResources.php:178
+#, php-format
+msgid ""
+"A custom vocab named \"%s\" exists and has not the needed language (\"%s\"): "
+"check it or remove it before installing this module."
+msgstr ""
+"Un vocabulaire personnalisé nommé \"%s\" existe et n’utilise pas la même "
+"langue (\"%s\") : merci de vérifier ou de le supprimer avant d’installer ce "
+"module."
+
+#: src/Generic/InstallResources.php:218
+#, php-format
+msgid "The vocabulary \"%s\" was already installed and was kept."
+msgstr "Le vocabulaire \"%s\" a déjà été installé et a été conservé."
+
+#: src/Generic/InstallResources.php:228
+#, php-format
+msgid ""
+"An error occured when adding the prefix \"%s\": another vocabulary exists "
+"with the same prefix. Resolve the conflict before installing this module."
+msgstr ""
+"Une erreur est survenue lors de l’ajout du préfixe \"%s\" : un autre "
+"vocabulaire existe avec le même préfixe. Merci de résoudre le conflit avant "
+"d’installer ce module."
+
+#: src/Generic/InstallResources.php:248
+#, php-format
+msgid ""
+"An error occured when adding the prefix \"%s\" and the associated "
+"properties: %s"
+msgstr ""
+"Une erreur est survenue en ajoutant le préfixe \"%s\" et les propriétés "
+"associées : %s"
+
+#: src/Generic/InstallResources.php:278
+#, php-format
+msgid "The resource template named \"%s\" is already available and is skipped."
+msgstr ""
+"Le modèle de ressource nommé \"%s\" est déjà disponible et a été conservé."
+
+#: src/Generic/InstallResources.php:303 src/Generic/InstallResources.php:436
+#, php-format
+msgid "The custom vocab named \"%s\" is not available."
+msgstr "Le vocabulaire personnalisé nommé \"%s\" n’est pas disponible."
