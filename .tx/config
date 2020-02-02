@@ -1,7 +1,7 @@
 [main]
 host = https://www.transifex.com
 
-[omeka-s.module-Citation]
+[omeka-s.module-Bibliography]
 file_filter = language/<lang>.po
 source_file = language/template.pot
 source_lang = en
