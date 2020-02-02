@@ -78,6 +78,7 @@ return [
     'view_helpers' => [
         'invokables' => [
             'citation' => View\Helper\Citation::class,
+            'rdfToBibtex' => View\Helper\RdfToBibtex::class,
             'rdfToCsl' => View\Helper\RdfToCsl::class,
             'rdfToCsv' => View\Helper\RdfToCsv::class,
         ],
@@ -115,7 +116,7 @@ return [
                                     'route' => '.:output',
                                     'constraints' => [
                                         'action' => 'item',
-                                        'output' => 'json|csv|tsv',
+                                        'output' => 'bibtex|bib|csv|tsv|json',
                                     ],
                                     'defaults' => [
                                         '__NAMESPACE__' => 'Bibliography\Controller',

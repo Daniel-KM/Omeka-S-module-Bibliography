@@ -21,6 +21,9 @@ class BibliographyController extends AbstractActionController
 
         $output = $params->fromRoute('output');
         switch ($output) {
+            case 'bib':
+            case 'bibtex':
+                return $this->outputBibtex($resource);
             case 'csv':
                 return $this->outputCsv($resource, 'csv');
             case 'tsv':
@@ -33,6 +36,25 @@ class BibliographyController extends AbstractActionController
                     $output
                 ));
         }
+    }
+
+    protected function outputBibtex(AbstractResourceEntityRepresentation $resource)
+    {
+        $converter = $this->viewHelpers()->get('rdfToBibtex');
+        $content = $converter($resource);
+
+        $filename = $this->outputFilename($resource, 'bib');
+
+        $response = $this->getResponse();
+        $response->setContent($content);
+        /** @var \Zend\Http\Headers $headers */
+        $response->getHeaders()
+            ->addHeaderLine('Content-Disposition: attachment; filename=' . $filename)
+            ->addHeaderLine('Content-type: ' . 'text/plain')
+            ->addHeaderLine('Content-length: ' . strlen($content))
+            ->addHeaderLine('Expires: 0')
+            ->addHeaderLine('Pragma: public');
+        return $response;
     }
 
     protected function outputCsv(AbstractResourceEntityRepresentation $resource, $format)
