@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "3121277f82e8c241705df539bb4d6f14",
+    "content-hash": "b6355dee0386c18b11f88ba726ab9cdd",
     "packages": [
         {
             "name": "citation-style-language/locales",
@@ -25,6 +25,57 @@
                 "reference": "master"
             },
             "type": "library"
+        },
+        {
+            "name": "geissler/converter",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/geissler/converter.git",
+                "reference": "453163abdd0c8b255751bb8a0793686894070d3a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/geissler/converter/zipball/453163abdd0c8b255751bb8a0793686894070d3a",
+                "reference": "453163abdd0c8b255751bb8a0793686894070d3a",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0",
+                "technosophos/libris": "dev-master"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Geissler": "src/"
+                },
+                "files": [
+                    "library/bibtexParse/PARSEENTRIES.php",
+                    "library/bibtexParse/PARSECREATORS.php",
+                    "library/bibtexParse/PARSEMONTH.php",
+                    "library/bibtexParse/PARSEPAGE.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Benjamin Geissler",
+                    "email": "benjamin.geissler@gmail.com"
+                }
+            ],
+            "description": "A small library to convert different bibliography formats into each other",
+            "homepage": "https://github.com/geissler/converter",
+            "keywords": [
+                "Bibliography",
+                "RIS",
+                "bibtex",
+                "csl",
+                "endnote"
+            ],
+            "time": "2017-08-20T16:41:52+00:00"
         },
         {
             "name": "myclabs/php-enum",
@@ -212,16 +263,61 @@
                 "shim"
             ],
             "time": "2018-09-21T13:07:52+00:00"
+        },
+        {
+            "name": "technosophos/LibRIS",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/technosophos/LibRIS.git",
+                "reference": "5b6628ece0e57e90bd54f3b2d8de922dc4cc662c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/technosophos/LibRIS/zipball/5b6628ece0e57e90bd54f3b2d8de922dc4cc662c",
+                "reference": "5b6628ece0e57e90bd54f3b2d8de922dc4cc662c",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "LibRIS": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT or GPLv2"
+            ],
+            "authors": [
+                {
+                    "name": "M Butcher",
+                    "homepage": "http://technosophos.com"
+                }
+            ],
+            "description": "An RIS parser. RIS is a format for reference metadata.",
+            "homepage": "https://github.com/technosophos/LibRIS",
+            "keywords": [
+                "Bibliography",
+                "File parser",
+                "RIS",
+                "Reference"
+            ],
+            "abandoned": true,
+            "time": "2012-03-14T16:36:15+00:00"
         }
     ],
     "packages-dev": [],
     "aliases": [],
-    "minimum-stability": "stable",
+    "minimum-stability": "dev",
     "stability-flags": {
         "citation-style-language/locales": 20,
-        "citation-style-language/styles-distribution": 20
+        "citation-style-language/styles-distribution": 20,
+        "geissler/converter": 20
     },
-    "prefer-stable": false,
+    "prefer-stable": true,
     "prefer-lowest": false,
     "platform": [],
     "platform-dev": []
