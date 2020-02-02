@@ -10,6 +10,7 @@ if (!class_exists(\Generic\AbstractModule::class)) {
 use Generic\AbstractModule;
 use Zend\EventManager\Event;
 use Zend\EventManager\SharedEventManagerInterface;
+use Zend\Mvc\MvcEvent;
 use Zend\ModuleManager\ModuleManager;
 
 /**
@@ -33,6 +34,19 @@ class Module extends AbstractModule
     {
         $this->uninstallModuleCitation();
         $this->installResources();
+    }
+
+    public function onBootstrap(MvcEvent $event)
+    {
+        parent::onBootstrap($event);
+
+        $this->getServiceLocator()->get('Omeka\Acl')
+            ->allow(
+                null,
+                ['Bibliography\Controller\Bibliography'],
+                ['output']
+            )
+        ;
     }
 
     public function attachListeners(SharedEventManagerInterface $sharedEventManager)

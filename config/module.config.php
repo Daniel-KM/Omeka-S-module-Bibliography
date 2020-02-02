@@ -68,6 +68,12 @@ return [
         'template_path_stack' => [
             dirname(__DIR__) . '/view',
         ],
+        'strategies' => [
+            'ViewJsonStrategy',
+        ],
+        'template_map' => [
+            'bibliography/bibliography/output' => dirname(__DIR__) .'/view/common/no-view.phtml',
+        ],
     ],
     'view_helpers' => [
         'invokables' => [
@@ -88,6 +94,40 @@ return [
             Form\BibliographyBlockFieldset::class => Form\BibliographyBlockFieldset::class,
             Form\SettingsFieldset::class => Form\SettingsFieldset::class,
             Form\SiteSettingsFieldset::class => Form\SiteSettingsFieldset::class,
+        ],
+    ],
+    'controllers' => [
+        'invokables' => [
+            'Bibliography\Controller\Bibliography' => Controller\BibliographyController::class,
+        ],
+    ],
+    'router' => [
+        'routes' => [
+            'site' => [
+                'child_routes' => [
+                    'resource-id' => [
+                        'may_terminate' => true,
+                        'child_routes' => [
+                            'output' => [
+                                'type' => \Zend\Router\Http\Segment::class,
+                                'options' => [
+                                    'route' => '.:output',
+                                    'constraints' => [
+                                        'action' => 'item',
+                                        'output' => 'json',
+                                    ],
+                                    'defaults' => [
+                                        '__NAMESPACE__' => 'Bibliography\Controller',
+                                        'controller' => 'Bibliography',
+                                        'action' => 'output',
+                                        'output' => 'json',
+                                    ],
+                                ],
+                            ],
+                        ],
+                    ],
+                ],
+            ],
         ],
     ],
     'translator' => [
