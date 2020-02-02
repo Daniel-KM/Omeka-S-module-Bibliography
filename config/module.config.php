@@ -79,6 +79,7 @@ return [
         'invokables' => [
             'citation' => View\Helper\Citation::class,
             'rdfToCsl' => View\Helper\RdfToCsl::class,
+            'rdfToCsv' => View\Helper\RdfToCsv::class,
         ],
         'factories' => [
             'cslToRdf' => Service\ViewHelper\CslToRdfFactory::class,
