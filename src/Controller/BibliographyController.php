@@ -28,6 +28,8 @@ class BibliographyController extends AbstractActionController
                 return $this->outputCsv($resource, 'csv');
             case 'tsv':
                 return $this->outputCsv($resource, 'tsv');
+            case 'ris':
+                return $this->outputRis($resource);
             case 'json':
                 return $this->outputJson($resource);
             default:
@@ -92,6 +94,25 @@ class BibliographyController extends AbstractActionController
         $response->getHeaders()
             ->addHeaderLine('Content-Disposition: attachment; filename=' . $filename)
             ->addHeaderLine('Content-type: ' . $mediaType)
+            ->addHeaderLine('Content-length: ' . strlen($content))
+            ->addHeaderLine('Expires: 0')
+            ->addHeaderLine('Pragma: public');
+        return $response;
+    }
+
+    protected function outputRis(AbstractResourceEntityRepresentation $resource)
+    {
+        $converter = $this->viewHelpers()->get('rdfToRis');
+        $content = $converter($resource);
+
+        $filename = $this->outputFilename($resource, 'ris');
+
+        $response = $this->getResponse();
+        $response->setContent($content);
+        /** @var \Zend\Http\Headers $headers */
+        $response->getHeaders()
+            ->addHeaderLine('Content-Disposition: attachment; filename=' . $filename)
+            ->addHeaderLine('Content-type: ' . 'text/plain')
             ->addHeaderLine('Content-length: ' . strlen($content))
             ->addHeaderLine('Expires: 0')
             ->addHeaderLine('Pragma: public');

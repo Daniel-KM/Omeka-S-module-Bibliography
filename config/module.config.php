@@ -81,6 +81,7 @@ return [
             'rdfToBibtex' => View\Helper\RdfToBibtex::class,
             'rdfToCsl' => View\Helper\RdfToCsl::class,
             'rdfToCsv' => View\Helper\RdfToCsv::class,
+            'rdfToRis' => View\Helper\RdfToRis::class,
         ],
         'factories' => [
             'cslToRdf' => Service\ViewHelper\CslToRdfFactory::class,
@@ -116,7 +117,7 @@ return [
                                     'route' => '.:output',
                                     'constraints' => [
                                         'action' => 'item',
-                                        'output' => 'bibtex|bib|csv|tsv|json',
+                                        'output' => 'bibtex|bib|csv|tsv|ris|json',
                                     ],
                                     'defaults' => [
                                         '__NAMESPACE__' => 'Bibliography\Controller',
