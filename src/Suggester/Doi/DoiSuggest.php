@@ -461,7 +461,7 @@ class DoiSuggest extends AbstractBibliographySuggest
         $item['bibo:doi'][] = [
             'type' => 'uri',
             'property_id' => $this->propertyIds['bibo:doi'],
-            '@id' => strlen($data['URL'])
+            '@id' => mb_strlen($data['URL'])
                 // Use https to allow safe browsing and easier api.
                 ? str_replace('http://', 'https://', $data['URL'])
                 : 'https://dx.doi.org/' . $data['DOI'],

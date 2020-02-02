@@ -90,12 +90,12 @@ class RdfToCsl extends AbstractHelper
         if ($pages) {
             $csl['page'] = $pages;
         } else {
-            $csl['page'] = $pageStart . (strlen($pageStart) && strlen($pageEnd) ? '-' : '') . $pageEnd;
+            $csl['page'] = $pageStart . (mb_strlen($pageStart) && mb_strlen($pageEnd) ? '-' : '') . $pageEnd;
         }
-        if (strlen($pageStart)) {
+        if (mb_strlen($pageStart)) {
             $csl['page-first'] = $pageStart;
         }
-        if (strlen($pageEnd)) {
+        if (mb_strlen($pageEnd)) {
             $csl['page-last'] = $pageEnd;
         }
         $csl['number-of-pages'] = $this->resourceValue('bibo:numPages');
