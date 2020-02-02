@@ -114,7 +114,7 @@ return [
                                     'route' => '.:output',
                                     'constraints' => [
                                         'action' => 'item',
-                                        'output' => 'json',
+                                        'output' => 'json|csv|tsv',
                                     ],
                                     'defaults' => [
                                         '__NAMESPACE__' => 'Bibliography\Controller',
