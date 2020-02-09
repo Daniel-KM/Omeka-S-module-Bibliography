@@ -23,15 +23,25 @@ class BibliographyController extends AbstractActionController
         switch ($output) {
             case 'bib':
             case 'bibtex':
-                return $this->outputBibtex($resource);
+                $content = $this->outputBibtex($resource);
+                $filename = $this->outputFilename($resource, 'bib');
+                return $this->sendBibtex($content, $filename);
             case 'csv':
-                return $this->outputCsv($resource, 'csv');
+                $content = $this->outputCsv($resource, 'csv');
+                $filename = $this->outputFilename($resource, 'csv');
+                return $this->sendCsv($content, $filename, 'text/csv');
             case 'tsv':
-                return $this->outputCsv($resource, 'tsv');
+                $content = $this->outputCsv($resource, 'tsv');
+                $filename = $this->outputFilename($resource, 'tsv');
+                return $this->sendCsv($content, $filename, 'text/tab-separated-values');
             case 'ris':
-                return $this->outputRis($resource);
+                $content = $this->outputRis($resource);
+                $filename = $this->outputFilename($resource, 'ris');
+                return $this->sendRis($content, $filename);
             case 'json':
-                return $this->outputJson($resource);
+                $content = $resource->jsonSerialize();
+                $filename = $this->outputFilename($resource, 'json');
+                return $this->sendJson($content, $filename);
             default:
                 throw new \Omeka\Mvc\Exception\RuntimeException(sprintf(
                     $this->translate('Unsupported format: %s'), // @translated
@@ -43,10 +53,11 @@ class BibliographyController extends AbstractActionController
     protected function outputBibtex(AbstractResourceEntityRepresentation $resource)
     {
         $converter = $this->viewHelpers()->get('rdfToBibtex');
-        $content = $converter($resource);
+        return $converter($resource);
+    }
 
-        $filename = $this->outputFilename($resource, 'bib');
-
+    protected function sendBibtex($content, $filename)
+    {
         $response = $this->getResponse();
         $response->setContent($content);
         /** @var \Zend\Http\Headers $headers */
@@ -63,8 +74,7 @@ class BibliographyController extends AbstractActionController
     {
         switch ($format) {
             case 'tsv':
-                $mediaType = 'text/tab-separated-values';
-                $params = [
+                $options = [
                     'delimiter' => "\t",
                     'enclosure' => chr(0),
                     'escape' => chr(0),
@@ -73,8 +83,7 @@ class BibliographyController extends AbstractActionController
                 break;
             case 'csv':
             default:
-                $mediaType = 'text/csv';
-                $params = [
+                $options = [
                     'delimiter' => ',',
                     'enclosure' => '"',
                     'escape' => '\\',
@@ -84,10 +93,11 @@ class BibliographyController extends AbstractActionController
         }
 
         $converter = $this->viewHelpers()->get('rdfToCsv');
-        $content = $converter($resource, [], $params);
+        return $converter($resource, [], $options);
+    }
 
-        $filename = $this->outputFilename($resource, $format);
-
+    protected function sendCsv($content, $filename, $mediaType)
+    {
         $response = $this->getResponse();
         $response->setContent($content);
         /** @var \Zend\Http\Headers $headers */
@@ -103,10 +113,11 @@ class BibliographyController extends AbstractActionController
     protected function outputRis(AbstractResourceEntityRepresentation $resource)
     {
         $converter = $this->viewHelpers()->get('rdfToRis');
-        $content = $converter($resource);
+        return $converter($resource);
+    }
 
-        $filename = $this->outputFilename($resource, 'ris');
-
+    protected function sendRis($content, $filename)
+    {
         $response = $this->getResponse();
         $response->setContent($content);
         /** @var \Zend\Http\Headers $headers */
@@ -119,16 +130,14 @@ class BibliographyController extends AbstractActionController
         return $response;
     }
 
-    protected function outputJson(AbstractResourceEntityRepresentation $resource)
+    protected function sendJson($content, $filename)
     {
-        $filename = $this->outputFilename($resource, 'json');
-
         $this->getResponse()->getHeaders()
             ->addHeaderLine('Content-Disposition: attachment; filename=' . $filename)
             ->addHeaderLine('Expires: 0')
             ->addHeaderLine('Pragma: public');
 
-        $view = new JsonModel($resource->jsonSerialize());
+        $view = new JsonModel($content);
         return $view
             ->setOption('prettyPrint', true)
             ->setTerminal(true);
