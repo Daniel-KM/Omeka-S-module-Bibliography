@@ -123,7 +123,7 @@ class BibliographyController extends AbstractActionController
         /** @var \Zend\Http\Headers $headers */
         $response->getHeaders()
             ->addHeaderLine('Content-Disposition: attachment; filename=' . $filename)
-            ->addHeaderLine('Content-type: ' . 'text/plain')
+            ->addHeaderLine('Content-type: ' . 'application/x-research-info-systems')
             ->addHeaderLine('Content-length: ' . strlen($content))
             ->addHeaderLine('Expires: 0')
             ->addHeaderLine('Pragma: public');
