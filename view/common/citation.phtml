@@ -38,7 +38,7 @@ if ($style):
         echo $this->partial('common/citation', $this->vars());
         return;
     }
-    $citation = substr($citation, 52, -13);
+    $citation = mb_substr($citation, 52, -13);
 
 else:
 
@@ -95,8 +95,7 @@ if ($append_site || $append_date):
     endif;
 
     if ($append_date):
-        // TODO Use the locale for the citation access date.
-        $accessed = $escape((new \DateTime())->format('j F Y'));
+        $accessed = $escape($this->i18n()->dateFormat(new \DateTime(), \Omeka\View\Helper\I18n::DATE_FORMAT_LONG));
         $url = '<span class="citation-url">' . $escape($resource->siteUrl(null, true)) . '</span>';
         // Chicago-style item citation: access date and URL.
         $citation .= ', ' . sprintf($translate('accessed %1$s, %2$s'), $accessed, $url);
