@@ -11,6 +11,11 @@ use Zend\View\Renderer\PhpRenderer;
 
 class Bibliography extends AbstractBlockLayout
 {
+    /**
+     * The default partial view script.
+     */
+    const PARTIAL_NAME = 'common/block-layout/bibliography';
+
     public function getLabel()
     {
         return 'Bibliography'; // @translate
@@ -75,9 +80,7 @@ class Bibliography extends AbstractBlockLayout
         $response = $view->api()->search('items', $query);
         $resources = $response->getContent();
 
-        $template = $block->dataValue('template') ?: 'common/block-layout/bibliography';
-
-        return $view->partial($template, [
+        $vars = [
             'heading' => $block->dataValue('heading'),
             'query' => $originalQuery,
             'resources' => $resources,
@@ -87,6 +90,10 @@ class Bibliography extends AbstractBlockLayout
                 'append_site' => $block->dataValue('append_site'),
                 'append_date' => $block->dataValue('append_date'),
             ],
-        ]);
+        ];
+        $template = $block->dataValue('template', self::PARTIAL_NAME);
+        return $view->resolver($template)
+            ? $view->partial($template, $vars)
+            : $view->partial(self::PARTIAL_NAME, $vars);
     }
 }
