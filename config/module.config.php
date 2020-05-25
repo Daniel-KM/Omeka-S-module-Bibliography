@@ -175,10 +175,12 @@ return [
     'formatters' => [
         'factories' => [
             Formatter\Bibtex::class => \BulkExport\Service\Formatter\FormatterFactory::class,
+            Formatter\Csl::class => \BulkExport\Service\Formatter\FormatterFactory::class,
             Formatter\Ris::class => \BulkExport\Service\Formatter\FormatterFactory::class,
         ],
         'aliases' => [
             'bibtex' => Formatter\Bibtex::class,
+            'csl' => Formatter\Csl::class,
             'ris' => Formatter\Ris::class,
         ],
     ],
