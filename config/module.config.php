@@ -172,4 +172,14 @@ return [
             ],
         ],
     ],
+    'formatters' => [
+        'factories' => [
+            Formatter\Bibtex::class => \BulkExport\Service\Formatter\FormatterFactory::class,
+            Formatter\Ris::class => \BulkExport\Service\Formatter\FormatterFactory::class,
+        ],
+        'aliases' => [
+            'bibtex' => Formatter\Bibtex::class,
+            'ris' => Formatter\Ris::class,
+        ],
+    ],
 ];
