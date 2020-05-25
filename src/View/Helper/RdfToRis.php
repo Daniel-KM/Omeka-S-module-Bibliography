@@ -25,6 +25,7 @@ class RdfToRis extends AbstractHelper
      *
      * Currently, the process uses the csl converter.
      * @uses \Bibliography\View\Helper\RdfToCsl
+     * @todo Use a direct conversion from Omeka to ris via another library.
      *
      * @param AbstractResourceEntityRepresentation $resource
      * @param array $defaults Not used currently. See RdfToCsl.
@@ -40,7 +41,7 @@ class RdfToRis extends AbstractHelper
 
         // Convert to array to manage the library geissler/converter.
         $csl = $view->rdfToCsl($resource, $defaults);
-        // For converter, Csl should be a list of json item encoded as a string.
+        // For converter, Csl must be a list of json items encoded as a string.
         $csl = json_encode([$csl], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_LINE_TERMINATORS);
 
         $converter = new Converter();

@@ -51,11 +51,11 @@ class RdfToCsl extends AbstractHelper
 
         $csl['author'] = $this->cslAuthors();
 
-        // TODO Use displayTitle() ?
-        $csl['title'] = $this->resourceValue('dcterms:title');
+        // TODO Use displayTitle().
+        $csl['title'] = (string) $this->resourceValue('dcterms:title');
 
         // TODO Check FOAF and related items for the publisher.
-        $csl['publisher'] = $this->resourceValue('dcterms:publisher');
+        $csl['publisher'] = (string) $this->resourceValue('dcterms:publisher');
         // $csl['publisher-place'] = $this->resourceValue('');
 
         // TODO Check the format of the date if module NumericDataType is installed.
@@ -65,28 +65,28 @@ class RdfToCsl extends AbstractHelper
         $csl['issued'] = $this->cslDate('dcterms:issued') ?: $this->cslDate('dcterms:date');
         // $csl['published-print'] = $this->cslDate('dcterms:issued') ?: $this->cslDate(dcterms:date');
 
-        $csl['edition'] = $this->resourceValue('bibo:edition');
+        $csl['edition'] = (string) $this->resourceValue('bibo:edition');
 
-        $csl['DOI'] = $this->resourceValue('bibo:doi');
+        $csl['DOI'] = (string) $this->resourceValue('bibo:doi');
         $issn = $this->resourceValue('bibo:issn', ['all' => true]);
         if ($issn) {
-            $csl['ISSN'] = count($issn) > 1 ? $issn : reset($issn);
+            $csl['ISSN'] = count($issn) > 1 ? $this->stripTags($issn) : (string) reset($issn);
         }
-        $csl['EISSN'] = $this->resourceValue('bibo:eissn');
+        $csl['EISSN'] = (string) $this->resourceValue('bibo:eissn');
         $isbn = $this->resourceValue('bibo:isbn13', ['all' => true, 'default' => []]);
         $isbn = array_merge($isbn, $this->resourceValue('bibo:isbn10', ['all' => true, 'default' => []]));
         $isbn = array_merge($this->resourceValue('bibo:isbn', ['all' => true, 'default' => []]));
         if ($isbn) {
-            $csl['ISBN'] = count($isbn) > 1 ? $isbn : reset($isbn);
+            $csl['ISBN'] = count($isbn) > 1 ? $this->stripTags($isbn) : (string) reset($isbn);
         }
-        $csl['URL'] = $this->resourceValue('bibo:uri') ?: (empty($csl['DOI']) ? null : 'https://dx.doi.org/' . urlencode($csl['DOI']));
-        $csl['volume'] = $this->resourceValue('bibo:volume');
-        $csl['number-of-volumes'] = $this->resourceValue('bibo:numVolumes');
-        $csl['issue'] = $this->resourceValue('bibo:issue');
+        $csl['URL'] = (string) $this->resourceValue('bibo:uri') ?: (empty($csl['DOI']) ? null : 'https://dx.doi.org/' . urlencode($csl['DOI']));
+        $csl['volume'] = (string) $this->resourceValue('bibo:volume');
+        $csl['number-of-volumes'] = (string) $this->resourceValue('bibo:numVolumes');
+        $csl['issue'] = (string) $this->resourceValue('bibo:issue');
 
-        $pages = $this->resourceValue('bibo:pages');
-        $pageStart = $this->resourceValue('bibo:pageStart');
-        $pageEnd = $this->resourceValue('bibo:pageEnd');
+        $pages = (string) $this->resourceValue('bibo:pages');
+        $pageStart = (string) $this->resourceValue('bibo:pageStart');
+        $pageEnd = (string) $this->resourceValue('bibo:pageEnd');
         if ($pages) {
             $csl['page'] = $pages;
         } else {
@@ -98,17 +98,17 @@ class RdfToCsl extends AbstractHelper
         if (mb_strlen($pageEnd)) {
             $csl['page-last'] = $pageEnd;
         }
-        $csl['number-of-pages'] = $this->resourceValue('bibo:numPages');
+        $csl['number-of-pages'] = (string) $this->resourceValue('bibo:numPages');
 
-        $csl['abstract'] = $this->resourceValue('bibo:shortDescription')
-            ?: ($this->resourceValue('bibo:abstract')
-                ?: ($this->resourceValue('dcterms:abstract') ?: $this->resourceValue('dcterms:description')));
+        $csl['abstract'] = (string) $this->resourceValue('bibo:shortDescription')
+            ?: ((string) $this->resourceValue('bibo:abstract')
+                ?: ((string) $this->resourceValue('dcterms:abstract') ?: (string) $this->resourceValue('dcterms:description')));
 
         $subjects = $this->resourceValue('dcterms:subject', ['all' => true]) ?: [];
         $subjects = $this->stripTags($subjects);
         $csl['subject'] = $subjects;
 
-        $csl['medium'] = $this->resourceValue('dcterms:medium');
+        $csl['medium'] = (string) $this->resourceValue('dcterms:medium');
 
         // TODO Check related items for the journal or conference (upper item).
         // The journal (for an article) or the book (for a part) is not directly
@@ -120,10 +120,10 @@ class RdfToCsl extends AbstractHelper
                 $containerResource = $container->valueResource();
                 // $csl['collection-title'] = $this->resourceValue('');
                 // $csl['collection-title-short'] = $this->resourceValue('');
-                $csl['container-title'] = $containerResource->value('dcterms:title') ?: $containerResource->value('bibo:shortTitle');
+                $csl['container-title'] = (string) $containerResource->value('dcterms:title') ?: (string) $containerResource->value('bibo:shortTitle');
                 $csl['container-author'] = $this->cslAuthorsResource($containerResource);
             } else {
-                $csl['container-title'] = $container;
+                $csl['container-title'] = (string) $container;
             }
             // $csl['event-place'] = $this->resourceValue('');
         }
@@ -176,7 +176,7 @@ class RdfToCsl extends AbstractHelper
         if ($creators) {
             foreach ($creators as $creator) {
                 $authors[] = (object) [
-                    'family' => $creator,
+                    'family' => (string) $creator,
                     'given' => '',
                 ];
             }
@@ -225,6 +225,13 @@ class RdfToCsl extends AbstractHelper
         return (object) ['date-parts' => [[(string) $date]]];
     }
 
+    /**
+     * Helper to get a resource value, managing a default value.
+     *
+     * @param string $term
+     * @param array $options
+     * @return \Omeka\Api\Representation\ValueRepresentation[]|\Omeka\Api\Representation\ValueRepresentation
+     */
     protected function resourceValue($term, array $options = [])
     {
         if (empty($this->defaults[$term][0])) {
@@ -246,7 +253,7 @@ class RdfToCsl extends AbstractHelper
     }
 
     /**
-     * Strip formatting and remove empty creator elements.
+     * Strip formatting and remove empty elements.
      *
      * @param array $values
      * @return array
