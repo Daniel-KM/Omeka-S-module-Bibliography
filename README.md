@@ -13,6 +13,9 @@ collected records from doi, isbn and other identifiers.
 - Full bibliographic citation can be added through the module [Collecting], and
   even the full record.
 
+The module adds basic output for some bibliographic formats for the module [Bulk Export]
+too.
+
 The doi and the issn are retrieved from the open service of [crossref] (a free
 registration allows to get a better performance for service). The isbn, the
 oclc, the lccn, and the olid are retrieved through the [OpenLibrary] api from
@@ -27,7 +30,8 @@ This optional  module [Generic] may be installed first.
 To use suggesters, it is required to use this [version of Value Suggest], that
 contains all patchs, not yet integrated upstream. For the same reason, it is
 required to use this [version of Collecting] to create a collecting form with
-suggesters.
+suggesters. To output resources in admin or public side, the module [Bulk Export]
+should be installed.
 
 The module uses external libraries, so use the release zip to install it, or use
 and init the source.
@@ -136,6 +140,7 @@ The result can be customized via the template `common/citation` in `view/`.
 TODO
 ----
 
+* Replace the library used to convert formats.
 * Improve conversion from dcterms and bibo into csl, or find a library for it. See https://docs.citationstyles.org/en/1.0.1/index.html.
 * Use the dcterms:type if resource class is not present.
 * Add a bulk replacement from bibo to fabio.
@@ -194,6 +199,7 @@ of [Sorbonne Université].
 [citation style]: https://citationstyles.org
 [Value Suggest]: https://github.com/omeka-s-modules/ValueSuggest
 [Collecting]: https://github.com/omeka-s-modules/Collecting
+[Bulk Export]: https://github.com/omeka-s-modules/BulkExport
 [DOI]: https://doi.org
 [ISBN]: https://www.isbn-international.org
 [ISSN]: http://www.issn.org
