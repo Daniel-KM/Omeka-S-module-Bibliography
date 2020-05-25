@@ -67,11 +67,10 @@ class Citation extends AbstractHelper
         static $site;
 
         if (is_null($site)) {
-            $site = $this->getView()
-                ->getHelperPluginManager()
-                ->get('Zend\View\Helper\ViewModel')
-                ->getRoot()
-                ->getVariable('site');
+            $view = $this->getView();
+            $site = isset($view->site)
+                ? $view->site
+                : $view->getHelperPluginManager()->get('Zend\View\Helper\ViewModel')->getRoot()->getVariable('site');
         }
 
         return $site;

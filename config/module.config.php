@@ -72,7 +72,7 @@ return [
             'ViewJsonStrategy',
         ],
         'template_map' => [
-            'bibliography/bibliography/output' => dirname(__DIR__) .'/view/common/no-view.phtml',
+            'bibliography/bibliography/output' => dirname(__DIR__) . '/view/common/no-view.phtml',
         ],
     ],
     'view_helpers' => [

@@ -49,7 +49,7 @@ trait TraitCslData
         */
         $iterator = new \DirectoryIterator($dirpath);
         foreach ($iterator as $file) {
-          if ($file->isFile() && !$file->isDot() && $file->isReadable() && $file->getExtension() === 'csl') {
+            if ($file->isFile() && !$file->isDot() && $file->isReadable() && $file->getExtension() === 'csl') {
                 $name = pathinfo($file->getFilename(), PATHINFO_FILENAME);
                 $this->citationStyles[$name] = $name;
             }
