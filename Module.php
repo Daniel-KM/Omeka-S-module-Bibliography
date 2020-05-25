@@ -207,16 +207,18 @@ class Module extends AbstractModule
             return;
         }
 
+        $userId = $services->get('Omeka\AuthenticationService')->getIdentity()->getId();
+
         $sql = <<<SQL
 INSERT INTO `vocabulary` (`owner_id`, `namespace_uri`, `prefix`, `label`, `comment`) VALUES
-(1, "{$vocabulary['o:namespace_uri']}", "{$vocabulary['o:prefix']}", "{$vocabulary['o:label']}", "{$vocabulary['o:comment']}");
+($userId, "{$vocabulary['o:namespace_uri']}", "{$vocabulary['o:prefix']}", "{$vocabulary['o:label']}", "{$vocabulary['o:comment']}");
 SQL;
         $connection->exec($sql);
 
         $vocabularyId = $api->searchOne('vocabularies', ['namespace_uri' => $vocabulary['o:namespace_uri']])->getContent()->id();
 
         $sql = file_get_contents($file);
-        $sql = str_replace('__VOCABULARY_ID__', $vocabularyId, $sql);
+        $sql = str_replace('(1, __VOCABULARY_ID__,', "($userId, $vocabularyId,", $sql);
         $connection->exec($sql);
     }
 }
