@@ -85,6 +85,10 @@ class Module extends AbstractModule
         $event->getParam('inputFilter')
             ->get('bibliography')
             ->add([
+                'name' => 'bibliography_crossref_email',
+                'required' => false,
+            ])
+            ->add([
                 'name' => 'bibliography_csl_style',
                 'required' => false,
             ])
