@@ -36,7 +36,7 @@ trait TraitCslData
         }
 
         $this->citationStyles = [];
-        $dirpath = dirname(dirname(__DIR__)). '/vendor/citation-style-language/styles-distribution';
+        $dirpath = dirname(dirname(__DIR__)) . '/vendor/citation-style-language/styles-distribution';
         /* // TODO Create an autocomplete, the sub-dir is too big.
         $directory = new \RecursiveDirectoryIterator($dirpath, \RecursiveDirectoryIterator::SKIP_DOTS);
         $iterator = new \RecursiveIteratorIterator($directory);
@@ -79,7 +79,7 @@ trait TraitCslData
         }
 
         $this->citationLocales = [];
-        $dirpath = dirname(dirname(__DIR__)). '/vendor/citation-style-language/locales';
+        $dirpath = dirname(dirname(__DIR__)) . '/vendor/citation-style-language/locales';
         $directory = new \RecursiveDirectoryIterator($dirpath, \RecursiveDirectoryIterator::SKIP_DOTS);
         $iterator = new \RecursiveIteratorIterator($directory);
         foreach ($iterator as $filepath => $file) {
