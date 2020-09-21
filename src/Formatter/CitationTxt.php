@@ -4,9 +4,9 @@ namespace Bibliography\Formatter;
 
 use BulkExport\Formatter\AbstractViewFormatter;
 
-class Citation extends AbstractViewFormatter
+class CitationTxt extends AbstractViewFormatter
 {
-    protected $label = 'citation';
+    protected $label = 'citation (txt)';
     protected $extension = 'bib.txt';
     protected $responseHeaders = [
         'Content-type' => 'text/plain',

@@ -175,13 +175,15 @@ return [
     'formatters' => [
         'factories' => [
             Formatter\Bibtex::class => \BulkExport\Service\Formatter\FormatterFactory::class,
-            Formatter\Citation::class => \BulkExport\Service\Formatter\FormatterFactory::class,
+            Formatter\CitationOdt::class => \BulkExport\Service\Formatter\FormatterFactory::class,
+            Formatter\CitationTxt::class => \BulkExport\Service\Formatter\FormatterFactory::class,
             Formatter\Csl::class => \BulkExport\Service\Formatter\FormatterFactory::class,
             Formatter\Ris::class => \BulkExport\Service\Formatter\FormatterFactory::class,
         ],
         'aliases' => [
             'bibtex' => Formatter\Bibtex::class,
-            'bib.txt' => Formatter\Citation::class,
+            'bib.odt' => Formatter\CitationOdt::class,
+            'bib.txt' => Formatter\CitationTxt::class,
             'csl' => Formatter\Csl::class,
             'ris' => Formatter\Ris::class,
         ],
