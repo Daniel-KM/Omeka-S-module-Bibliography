@@ -18,4 +18,14 @@ class Citation extends AbstractViewFormatter
         $options['template'] = $this->template;
         return parent::format($resources, $output, $options);
     }
+
+    protected function initializeOutput()
+    {
+        parent::initializeOutput();
+        // Prepend the utf-8 bom.
+        if (!$this->hasError) {
+            fwrite($this->handle, chr(0xEF) . chr(0xBB) . chr(0xBF));
+        }
+        return $this;
+    }
 }
