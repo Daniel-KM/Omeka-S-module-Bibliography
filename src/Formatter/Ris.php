@@ -1,40 +1,22 @@
 <?php
+
 namespace Bibliography\Formatter;
 
-use BulkExport\Formatter\AbstractFormatter;
+use BulkExport\Formatter\AbstractViewFormatter;
+use Omeka\Api\Representation\AbstractResourceEntityRepresentation;
 
-class Ris extends AbstractFormatter
+class Ris extends AbstractViewFormatter
 {
     protected $label = 'ris';
     protected $extension = 'ris';
     protected $responseHeaders = [
         'Content-type' => 'application/x-research-info-systems',
     ];
+    protected $converterName = 'rdfToRis';
 
-    protected function process()
+    protected function writeResource(AbstractResourceEntityRepresentation $resource, $index)
     {
-        $this->initializeOutput();
-        if ($this->hasError) {
-            return;
-        }
-
-        $converter = $this->services->get('ViewHelperManager')->get('rdfToRis');
-
-        if ($this->isId) {
-            foreach ($this->resourceIds as $resourceId) {
-                try {
-                    $resource = $this->api->read($this->resourceType, ['id' => $resourceId])->getContent();
-                } catch (\Omeka\Api\Exception\NotFoundException $e) {
-                    continue;
-                }
-                fwrite($this->handle, $converter($resource) . "\n\n\n");
-            }
-        } else {
-            foreach ($this->resources as $resource) {
-                fwrite($this->handle, $converter($resource) . "\n\n\n");
-            }
-        }
-
-        $this->finalizeOutput();
+        $conv = $this->converter;
+        fwrite($this->handle, $conv($resource) . "\n\n\n");
     }
 }

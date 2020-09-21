@@ -4,6 +4,9 @@ namespace Bibliography\View\Helper;
 use Omeka\Api\Representation\AbstractResourceEntityRepresentation;
 use Zend\View\Helper\AbstractHelper;
 
+/**
+ * @deprecated Use BulkExport instead.
+ */
 class RdfToCsv extends AbstractHelper
 {
     /**

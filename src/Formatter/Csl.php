@@ -1,42 +1,22 @@
 <?php
+
 namespace Bibliography\Formatter;
 
-use BulkExport\Formatter\AbstractFormatter;
+use BulkExport\Formatter\AbstractViewFormatter;
+use Omeka\Api\Representation\AbstractResourceEntityRepresentation;
 
-class Csl extends AbstractFormatter
+class Csl extends AbstractViewFormatter
 {
     protected $label = 'csl';
     protected $extension = 'csl';
     protected $responseHeaders = [
         'Content-type' => 'text/plain',
     ];
+    protected $converterName = 'rdfToCsl';
 
-    protected function process()
+    protected function writeResource(AbstractResourceEntityRepresentation $resource, $index)
     {
-        $this->initializeOutput();
-        if ($this->hasError) {
-            return;
-        }
-
-        $converter = $this->services->get('ViewHelperManager')->get('rdfToCsl');
-
-        if ($this->isId) {
-            foreach ($this->resourceIds as $resourceId) {
-                try {
-                    $resource = $this->api->read($this->resourceType, ['id' => $resourceId])->getContent();
-                } catch (\Omeka\Api\Exception\NotFoundException $e) {
-                    continue;
-                }
-                $csl = json_encode($converter($resource));
-                fwrite($this->handle, $csl . "\n\n\n");
-            }
-        } else {
-            foreach ($this->resources as $resource) {
-                $csl = json_encode($converter($resource));
-                fwrite($this->handle, $csl . "\n\n\n");
-            }
-        }
-
-        $this->finalizeOutput();
+        $citation = $this->services->get('ViewHelperManager')->get('citation');
+        fwrite($this->handle, $citation($resource, ['style' => 'csl']) . "\n\n\n");
     }
 }

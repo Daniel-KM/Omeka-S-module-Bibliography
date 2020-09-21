@@ -96,7 +96,7 @@ if ($append_site || $append_date):
 
     if ($append_date):
         $accessed = $escape($this->i18n()->dateFormat(new \DateTime(), \Omeka\View\Helper\I18n::DATE_FORMAT_LONG));
-        $url = '<span class="citation-url">' . $escape($resource->siteUrl(null, true)) . '</span>';
+        $url = '<span class="citation-url">' . $escape($resource->url(null, true)) . '</span>';
         // Chicago-style item citation: access date and URL.
         $citation .= ', ' . sprintf($translate('accessed %1$s, %2$s'), $accessed, $url);
     endif;

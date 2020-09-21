@@ -21,7 +21,7 @@ class RdfToRis extends AbstractHelper
     protected $defaults;
 
     /**
-     * Convert a resource into the format bibtex.
+     * Convert a resource into the format ris.
      *
      * Currently, the process uses the csl converter.
      * @uses \Bibliography\View\Helper\RdfToCsl
@@ -36,7 +36,6 @@ class RdfToRis extends AbstractHelper
         $this->resource = $resource;
         $this->defaults = $defaults;
 
-        // Currently, the process
         $view = $this->getView();
 
         // Convert to array to manage the library geissler/converter.

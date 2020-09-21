@@ -36,7 +36,6 @@ class RdfToBibtex extends AbstractHelper
         $this->resource = $resource;
         $this->defaults = $defaults;
 
-        // Currently, the process
         $view = $this->getView();
 
         // Convert to array to manage the library geissler/converter.
