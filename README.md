@@ -1,6 +1,9 @@
 Bibliography (module for Omeka S)
 =============================
 
+> __New versions of this module and support for Omeka S version 3.0 and above
+> are available on [GitLab], which seems to respect users and privacy better.__
+
 [Bibliography] is a module for [Omeka S] that adds features to manage a
 bibliography with standard citations, reference lists, suggested values, and
 collected records from doi, isbn and other identifiers.
@@ -225,4 +228,5 @@ of [Sorbonne Université].
 [OSI]: http://opensource.org
 [Collegium Musicæ]: http://www.collegium.musicae.sorbonne-universite.fr
 [Sorbonne Université]: https://www.sorbonne-universite.fr
+[GitLab]: https://gitlab.com/Daniel-KM
 [Daniel-KM]: https://github.com/Daniel-KM "Daniel Berthereau"
