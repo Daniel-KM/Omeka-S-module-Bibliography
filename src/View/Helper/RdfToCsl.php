@@ -73,9 +73,9 @@ class RdfToCsl extends AbstractHelper
             $csl['ISSN'] = count($issn) > 1 ? $this->stripTags($issn) : (string) reset($issn);
         }
         $csl['EISSN'] = (string) $this->resourceValue('bibo:eissn');
-        $isbn = $this->resourceValue('bibo:isbn13', ['all' => true, 'default' => []]);
-        $isbn = array_merge($isbn, $this->resourceValue('bibo:isbn10', ['all' => true, 'default' => []]));
-        $isbn = array_merge($this->resourceValue('bibo:isbn', ['all' => true, 'default' => []]));
+        $isbn = $this->resourceValue('bibo:isbn13', ['all' => true]);
+        $isbn = array_merge($isbn, $this->resourceValue('bibo:isbn10', ['all' => true]));
+        $isbn = array_merge($this->resourceValue('bibo:isbn', ['all' => true]));
         if ($isbn) {
             $csl['ISBN'] = count($isbn) > 1 ? $this->stripTags($isbn) : (string) reset($isbn);
         }
