@@ -1,11 +1,11 @@
 <?php
 namespace ValueSuggest\DataType;
 
+use Laminas\View\Renderer\PhpRenderer;
 use Omeka\Api\Adapter\AbstractEntityAdapter;
 use Omeka\Api\Representation\ValueRepresentation;
 use Omeka\DataType\AbstractDataType as BaseAbstractDataType;
 use Omeka\Entity\Value;
-use Zend\View\Renderer\PhpRenderer;
 
 abstract class AbstractDataType extends BaseAbstractDataType
 {

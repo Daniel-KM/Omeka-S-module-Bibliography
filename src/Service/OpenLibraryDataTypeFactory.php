@@ -3,7 +3,7 @@ namespace Bibliography\Service;
 
 use Bibliography\DataType\OpenLibrary\OpenLibrary;
 use Interop\Container\ContainerInterface;
-use Zend\ServiceManager\Factory\FactoryInterface;
+use Laminas\ServiceManager\Factory\FactoryInterface;
 
 class OpenLibraryDataTypeFactory implements FactoryInterface
 {

@@ -3,7 +3,7 @@ namespace Bibliography\Service;
 
 use Bibliography\DataType\Doi\Doi;
 use Interop\Container\ContainerInterface;
-use Zend\ServiceManager\Factory\FactoryInterface;
+use Laminas\ServiceManager\Factory\FactoryInterface;
 
 class DoiDataTypeFactory implements FactoryInterface
 {

@@ -26,7 +26,7 @@
             "type": "package",
             "package": {
                 "name": "citation-style-language/locales",
-                "version":"1.0.0",
+                "version": "1.0.0",
                 "source": {
                     "type": "git",
                     "url": "https://github.com/citation-style-language/locales.git",
@@ -38,7 +38,7 @@
             "type": "package",
             "package": {
                 "name": "citation-style-language/styles-distribution",
-                "version":"1.0.0",
+                "version": "1.0.0",
                 "source": {
                     "type": "git",
                     "url": "https://github.com/citation-style-language/styles-distribution.git",
@@ -50,9 +50,12 @@
     "minimum-stability": "dev",
     "prefer-stable": true,
     "require": {
-        "citation-style-language/locales":"@dev",
-        "citation-style-language/styles-distribution":"@dev",
+        "citation-style-language/locales": "@dev",
+        "citation-style-language/styles-distribution": "@dev",
         "geissler/converter": "dev-master",
         "seboettg/citeproc-php": "^2"
+    },
+    "replace": {
+        "symfony/polyfill-mbstring": "*"
     }
 }

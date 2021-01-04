@@ -1,8 +1,8 @@
 <?php
 namespace Bibliography\View\Helper;
 
+use Laminas\View\Helper\AbstractHelper;
 use Omeka\Api\Representation\AbstractResourceEntityRepresentation;
-use Zend\View\Helper\AbstractHelper;
 
 /**
  * @deprecated Use BulkExport instead.
@@ -76,12 +76,12 @@ class RdfToCsv extends AbstractHelper
                 break;
 
             case 'item_sets':
-                /** @var \Omeka\Api\Representation\ItemSetRepresentation @resource */
+                /* @var \Omeka\Api\Representation\ItemSetRepresentation @resource */
                 // Nothing to do.
                 break;
 
             case 'media':
-                /** @var \Omeka\Api\Representation\MediaRepresentation @resource */
+                /* @var \Omeka\Api\Representation\MediaRepresentation @resource */
                 $headers[] = 'Item';
                 $headers[] = 'Media type';
                 $headers[] = 'Size';

@@ -1,8 +1,8 @@
 <?php
 namespace Bibliography\View\Helper;
 
+use Laminas\View\Helper\AbstractHelper;
 use Omeka\Api\Representation\AbstractResourceEntityRepresentation;
-use Zend\View\Helper\AbstractHelper;
 
 class RdfToCsl extends AbstractHelper
 {

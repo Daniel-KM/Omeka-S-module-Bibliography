@@ -3,7 +3,7 @@ namespace Bibliography\Service\ViewHelper;
 
 use Bibliography\View\Helper\CslToRdf;
 use Interop\Container\ContainerInterface;
-use Zend\ServiceManager\Factory\FactoryInterface;
+use Laminas\ServiceManager\Factory\FactoryInterface;
 
 class CslToRdfFactory implements FactoryInterface
 {

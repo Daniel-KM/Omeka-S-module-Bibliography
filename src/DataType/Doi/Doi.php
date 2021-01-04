@@ -17,7 +17,7 @@ class Doi extends AbstractBibliographyDataType
         $module = $this->services->get('Omeka\ModuleManager')->getModule('Bibliography');
         $email = $setting('bibliography_crossref_email');
 
-        /** @var \Zend\Http\Client $client */
+        /** @var \Laminas\Http\Client $client */
         $client = $this->services->get('Omeka\HttpClient');
         $client->setUri(self::API . '/' . $this->options['resource']);
         $client->getRequest()->getHeaders()

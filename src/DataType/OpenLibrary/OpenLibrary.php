@@ -13,7 +13,7 @@ class OpenLibrary extends AbstractBibliographyDataType
         /** @var \Omeka\Entity\Module $module */
         $module = $this->services->get('Omeka\ModuleManager')->getModule('Bibliography');
 
-        /** @var \Zend\Http\Client $client */
+        /** @var \Laminas\Http\Client $client */
         $client = $this->services->get('Omeka\HttpClient');
         $client->setUri(self::API);
         $client->getRequest()->getHeaders()

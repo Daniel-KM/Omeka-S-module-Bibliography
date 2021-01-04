@@ -1,10 +1,10 @@
 <?php
 namespace Bibliography\Controller;
 
+use Laminas\Mvc\Controller\AbstractActionController;
+use Laminas\View\Model\JsonModel;
 use Omeka\Api\Exception\NotFoundException;
 use Omeka\Api\Representation\AbstractResourceEntityRepresentation;
-use Zend\Mvc\Controller\AbstractActionController;
-use Zend\View\Model\JsonModel;
 
 class BibliographyController extends AbstractActionController
 {
@@ -60,7 +60,7 @@ class BibliographyController extends AbstractActionController
     {
         $response = $this->getResponse();
         $response->setContent($content);
-        /** @var \Zend\Http\Headers $headers */
+        /* @var \Laminas\Http\Headers $headers */
         $response->getHeaders()
             ->addHeaderLine('Content-Disposition: attachment; filename=' . $filename)
             ->addHeaderLine('Content-type: ' . 'text/plain')
@@ -100,7 +100,7 @@ class BibliographyController extends AbstractActionController
     {
         $response = $this->getResponse();
         $response->setContent($content);
-        /** @var \Zend\Http\Headers $headers */
+        /* @var \Laminas\Http\Headers $headers */
         $response->getHeaders()
             ->addHeaderLine('Content-Disposition: attachment; filename=' . $filename)
             ->addHeaderLine('Content-type: ' . $mediaType)
@@ -120,7 +120,7 @@ class BibliographyController extends AbstractActionController
     {
         $response = $this->getResponse();
         $response->setContent($content);
-        /** @var \Zend\Http\Headers $headers */
+        /* @var \Laminas\Http\Headers $headers */
         $response->getHeaders()
             ->addHeaderLine('Content-Disposition: attachment; filename=' . $filename)
             ->addHeaderLine('Content-type: ' . 'application/x-research-info-systems')

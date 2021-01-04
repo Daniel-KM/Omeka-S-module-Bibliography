@@ -1,8 +1,8 @@
 <?php
 namespace Bibliography\View\Helper;
 
+use Laminas\View\Helper\AbstractHelper;
 use Omeka\Api\Representation\AbstractResourceEntityRepresentation;
-use Zend\View\Helper\AbstractHelper;
 
 class Citation extends AbstractHelper
 {
@@ -70,7 +70,7 @@ class Citation extends AbstractHelper
             $view = $this->getView();
             $site = isset($view->site)
                 ? $view->site
-                : $view->getHelperPluginManager()->get('Zend\View\Helper\ViewModel')->getRoot()->getVariable('site');
+                : $view->getHelperPluginManager()->get('Laminas\View\Helper\ViewModel')->getRoot()->getVariable('site');
         }
 
         return $site;

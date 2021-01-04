@@ -1,9 +1,9 @@
 <?php
 namespace Bibliography\Suggester;
 
+use Laminas\Http\Client;
 use Seboettg\CiteProc\CiteProc;
 use ValueSuggest\Suggester\SuggesterInterface;
-use Zend\Http\Client;
 
 abstract class AbstractBibliographySuggest implements SuggesterInterface
 {

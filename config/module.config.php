@@ -112,7 +112,7 @@ return [
                         'may_terminate' => true,
                         'child_routes' => [
                             'output' => [
-                                'type' => \Zend\Router\Http\Segment::class,
+                                'type' => \Laminas\Router\Http\Segment::class,
                                 'options' => [
                                     'route' => '.:output',
                                     'constraints' => [

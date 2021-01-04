@@ -5,8 +5,8 @@ use Geissler\Converter\Converter;
 use Geissler\Converter\Standard\BibTeX\BibTeX;
 use Geissler\Converter\Standard\CSL\CSL;
 
+use Laminas\View\Helper\AbstractHelper;
 use Omeka\Api\Representation\AbstractResourceEntityRepresentation;
-use Zend\View\Helper\AbstractHelper;
 
 class RdfToBibtex extends AbstractHelper
 {
