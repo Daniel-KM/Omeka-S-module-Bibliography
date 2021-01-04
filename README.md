@@ -52,8 +52,8 @@ directory.
 If the module was installed from the source, rename the name of the folder of
 the module to `Bibliography`, go to the root of the module, and run:
 
-```
-composer install
+```sh
+composer install --no-dev
 ```
 
 If you used the module [Citation], it is automatically uninstalled: its features
@@ -161,7 +161,7 @@ your archives regularly so you can roll back if needed.
 Troubleshooting
 ---------------
 
-See online issues on the [module issues] page on GitHub.
+See online issues on the [module issues] page on GitLab.
 
 
 License
@@ -190,7 +190,7 @@ altered, and that no provisions are either added or removed herefrom.
 Copyright
 ---------
 
-* Copyright Daniel Berthereau, 2018-2019 (see [Daniel-KM] on GitHub)
+* Copyright Daniel Berthereau, 2018-2019 (see [Daniel-KM] on GitLab)
 * See third parties copyright for dependencies.
 
 First version of this module was built for Daniel Berthereau for [Collegium Musicæ],
@@ -198,7 +198,7 @@ of [Sorbonne Université].
 
 
 [Omeka S]: https://omeka.org/s
-[Bibliography]: https://github.com/Daniel-KM/Omeka-S-module-Bibliography
+[Bibliography]: https://gitlab.com/Daniel-KM/Omeka-S-module-Bibliography
 [citation style]: https://citationstyles.org
 [Value Suggest]: https://github.com/omeka-s-modules/ValueSuggest
 [Collecting]: https://github.com/omeka-s-modules/Collecting
@@ -211,17 +211,17 @@ of [Sorbonne Université].
 [OLID]: https://openlibrary.org
 [crossref]: https://www.crossref.org
 [OpenLibrary]: https://openlibrary.org
-[Generic]: https://github.com/Daniel-KM/Omeka-S-module-Generic
-[Bibliography.zip]: https://github.com/Daniel-KM/Omeka-S-module-Bibliography/releases
+[Generic]: https://gitlab.com/Daniel-KM/Omeka-S-module-Generic
+[Bibliography.zip]: https://gitlab.com/Daniel-KM/Omeka-S-module-Bibliography/-/releases
 [Installing a module]: http://dev.omeka.org/docs/s/user-manual/modules/#installing-modules
-[Blocks Disposition]: https://github.com/Daniel-KM/Omeka-S-module-BlocksDisposition
-[Citation]: https://github.com/Daniel-KM/Omeka-S-module-Citation
-[version of Value Suggest]: https://github.com/Daniel-KM/Omeka-S-module-ValueSuggest
-[version of Collecting]: https://github.com/Daniel-KM/Omeka-S-module-Collecting
+[Blocks Disposition]: https://gitlab.com/Daniel-KM/Omeka-S-module-BlocksDisposition
+[Citation]: https://gitlab.com/Daniel-KM/Omeka-S-module-Citation
+[version of Value Suggest]: https://gitlab.com/Daniel-KM/Omeka-S-module-ValueSuggest
+[version of Collecting]: https://gitlab.com/Daniel-KM/Omeka-S-module-Collecting
 [Prism]: http://prismstandard.org
 [FRBR]: http://vocab.org/frbr/core.html
-[not managed]: https://github.com/Daniel-KM/Omeka-S-module-Bibliography/tree/master/data/mapping/csl_resource_class_map.php
-[module issues]: https://github.com/Daniel-KM/Omeka-S-module-Bibliography/issues
+[not managed]: https://gitlab.com/Daniel-KM/Omeka-S-module-Bibliography/-/tree/master/data/mapping/csl_resource_class_map.php
+[module issues]: https://gitlab.com/Daniel-KM/Omeka-S-module-Bibliography/-/issues
 [CeCILL v2.1]: https://www.cecill.info/licences/Licence_CeCILL_V2.1-en.html
 [GNU/GPL]: https://www.gnu.org/licenses/gpl-3.0.html
 [FSF]: https://www.fsf.org
@@ -229,4 +229,4 @@ of [Sorbonne Université].
 [Collegium Musicæ]: http://www.collegium.musicae.sorbonne-universite.fr
 [Sorbonne Université]: https://www.sorbonne-universite.fr
 [GitLab]: https://gitlab.com/Daniel-KM
-[Daniel-KM]: https://github.com/Daniel-KM "Daniel Berthereau"
+[Daniel-KM]: https://gitlab.com/Daniel-KM "Daniel Berthereau"

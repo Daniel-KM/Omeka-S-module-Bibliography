@@ -9,9 +9,9 @@
             "email": "Daniel.packagist@Berthereau.net"
         }
     ],
-    "homepage": "https://github.com/Daniel-KM/Omeka-S-module-Bibliography",
+    "homepage": "https://gitlab.com/Daniel-KM/Omeka-S-module-Bibliography",
     "support": {
-        "issues": "https://github.com/Daniel-KM/Omeka-S-module-Bibliography/issues",
+        "issues": "https://gitlab.com/Daniel-KM/Omeka-S-module-Bibliography/-/issues",
         "forum": "https://forum.omeka.org/"
     },
     "keywords": [
