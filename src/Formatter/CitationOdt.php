@@ -41,6 +41,7 @@ class CitationOdt extends AbstractViewFormatter
             ? $this->output
             // TODO Use Omeka factory for temp files.
             // TODO Use the method openToBrowser() too.
+            // TODO Try php://output.
             // "php://temp" doesn't seem to work.
             : tempnam($tempDir, 'omk_export_');
         $this->initializeOpenDocumentText();

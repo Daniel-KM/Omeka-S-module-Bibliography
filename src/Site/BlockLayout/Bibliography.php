@@ -59,7 +59,7 @@ class Bibliography extends AbstractBlockLayout
     public function render(PhpRenderer $view, SitePageBlockRepresentation $block)
     {
         $query = [];
-        parse_str($block->dataValue('query'), $query);
+        parse_str((string) $block->dataValue('query'), $query);
         $originalQuery = $query;
 
         $site = $block->page()->site();
