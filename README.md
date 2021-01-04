@@ -2,7 +2,8 @@ Bibliography (module for Omeka S)
 =============================
 
 > __New versions of this module and support for Omeka S version 3.0 and above
-> are available on [GitLab], which seems to respect users and privacy better.__
+> are available on [GitLab], which seems to respect users and privacy better
+> than the previous repository.__
 
 [Bibliography] is a module for [Omeka S] that adds features to manage a
 bibliography with standard citations, reference lists, suggested values, and
@@ -167,7 +168,7 @@ See online issues on the [module issues] page on GitLab.
 License
 -------
 
-This module is published under the [CeCILL v2.1] licence, compatible with
+This module is published under the [CeCILL v2.1] license, compatible with
 [GNU/GPL] and approved by [FSF] and [OSI].
 
 In consideration of access to the source code and the rights to copy, modify and
@@ -190,7 +191,7 @@ altered, and that no provisions are either added or removed herefrom.
 Copyright
 ---------
 
-* Copyright Daniel Berthereau, 2018-2019 (see [Daniel-KM] on GitLab)
+* Copyright Daniel Berthereau, 2018-2021 (see [Daniel-KM] on GitLab)
 * See third parties copyright for dependencies.
 
 First version of this module was built for Daniel Berthereau for [Collegium Musicæ],
