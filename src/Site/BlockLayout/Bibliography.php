@@ -24,7 +24,10 @@ class Bibliography extends AbstractBlockLayout
     public function onHydrate(SitePageBlock $block, ErrorStore $errorStore): void
     {
         $data = $block->getData();
-        $data['query'] = ltrim($data['query'], "? \t\n\r\0\x0B");
+        $query = $data['query'] ?? [];
+        $data['query'] = is_array($query)
+            ? http_build_query($query, "\n", '&', PHP_QUERY_RFC3986)
+            : ltrim($query, "? \t\n\r\0\x0B");
         $block->setData($data);
     }
 

@@ -19,7 +19,7 @@ class CitationOdt extends AbstractViewFormatter
     ];
     protected $template = 'common/bulk-export-citation';
 
-    public function format($resources, $output = null, array $options = [])
+    public function format($resources, $output = null, array $options = []): \BulkExport\Formatter\FormatterInterface
     {
         if (!extension_loaded('zip') || !extension_loaded('xml')) {
             $this->services->get('Omeka\Logger')->err(new PsrMessage(
@@ -34,7 +34,7 @@ class CitationOdt extends AbstractViewFormatter
         return parent::format($resources, $output, $options);
     }
 
-    protected function initializeOutput()
+    protected function initializeOutput(): \BulkExport\Formatter\FormatterInterface
     {
         $tempDir = $this->services->get('Config')['temp_dir'] ?: sys_get_temp_dir();
         $this->filepath = $this->isOutput
@@ -65,7 +65,7 @@ class CitationOdt extends AbstractViewFormatter
         $section->addTextBreak();
     }
 
-    protected function finalizeOutput()
+    protected function finalizeOutput(): \BulkExport\Formatter\FormatterInterface
     {
         $objWriter = PhpWord\IOFactory::createWriter($this->openDocument, 'ODText');
         $objWriter->save($this->filepath);

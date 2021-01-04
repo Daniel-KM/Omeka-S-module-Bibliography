@@ -13,13 +13,13 @@ class CitationTxt extends AbstractViewFormatter
     ];
     protected $template = 'common/bulk-export-citation';
 
-    public function format($resources, $output = null, array $options = [])
+    public function format($resources, $output = null, array $options = []): \BulkExport\Formatter\FormatterInterface
     {
         $options['template'] = $this->template;
         return parent::format($resources, $output, $options);
     }
 
-    protected function initializeOutput()
+    protected function initializeOutput(): \BulkExport\Formatter\FormatterInterface
     {
         parent::initializeOutput();
         // Prepend the utf-8 bom.
