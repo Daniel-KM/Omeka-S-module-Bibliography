@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Bibliography\Formatter;
 
@@ -47,7 +47,7 @@ class CitationOdt extends AbstractViewFormatter
         return $this;
     }
 
-    protected function writeResource(AbstractResourceEntityRepresentation $resource, $index)
+    protected function writeResource(AbstractResourceEntityRepresentation $resource, $index): void
     {
         $conv = $this->converter;
         $value = $conv($resource, $index);
@@ -62,7 +62,6 @@ class CitationOdt extends AbstractViewFormatter
             );
         }
         $section->addTextBreak();
-        return $this;
     }
 
     protected function finalizeOutput()

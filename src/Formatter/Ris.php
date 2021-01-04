@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Bibliography\Formatter;
 
@@ -14,7 +14,7 @@ class Ris extends AbstractViewFormatter
     ];
     protected $converterName = 'rdfToRis';
 
-    protected function writeResource(AbstractResourceEntityRepresentation $resource, $index)
+    protected function writeResource(AbstractResourceEntityRepresentation $resource, $index): void
     {
         $conv = $this->converter;
         fwrite($this->handle, $conv($resource) . "\n\n\n");

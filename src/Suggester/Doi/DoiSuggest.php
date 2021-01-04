@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 namespace Bibliography\Suggester\Doi;
 
 use Bibliography\Suggester\AbstractBibliographySuggest;
@@ -365,7 +365,7 @@ class DoiSuggest extends AbstractBibliographySuggest
         ];
         $data += $defaults;
 
-        $mappingTypes = require dirname(dirname(dirname(__DIR__))) . '/data/mapping/crossref_types_map.php';
+        $mappingTypes = require dirname(__DIR__, 3) . '/data/mapping/crossref_types_map.php';
         $noRdfType = empty($mappingTypes[$data['type']]);
         $resourceClass = $noRdfType ? 'dcterms:BibliographicResource' : $mappingTypes[$data['type']];
         $item['o:resource_class'] = ['o:id' => $this->resourceClassIds[$resourceClass]];
@@ -542,7 +542,7 @@ class DoiSuggest extends AbstractBibliographySuggest
             $item['dcterms:type'][] = [
                 'type' => 'literal',
                 'property_id' => $this->propertyIds['dcterms:type'],
-                '@value' => isset($mappingTypeLabels[$data['type']]) ? $mappingTypeLabels[$data['type']] : $data['type'],
+                '@value' => $mappingTypeLabels[$data['type']] ?? $data['type'],
             ];
         }
 

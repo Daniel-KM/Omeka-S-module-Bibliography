@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 namespace Bibliography;
 
 if (!class_exists(\Generic\AbstractModule::class)) {
@@ -25,18 +25,18 @@ class Module extends AbstractModule
 {
     const NAMESPACE = __NAMESPACE__;
 
-    public function init(ModuleManager $moduleManager)
+    public function init(ModuleManager $moduleManager): void
     {
         require_once __DIR__ . '/vendor/autoload.php';
     }
 
-    protected function postInstall()
+    protected function postInstall(): void
     {
         $this->uninstallModuleCitation();
         $this->installResources();
     }
 
-    public function onBootstrap(MvcEvent $event)
+    public function onBootstrap(MvcEvent $event): void
     {
         parent::onBootstrap($event);
 
@@ -49,7 +49,7 @@ class Module extends AbstractModule
         ;
     }
 
-    public function attachListeners(SharedEventManagerInterface $sharedEventManager)
+    public function attachListeners(SharedEventManagerInterface $sharedEventManager): void
     {
         $sharedEventManager->attach(
             'Omeka\Controller\Site\Item',
@@ -80,7 +80,7 @@ class Module extends AbstractModule
         );
     }
 
-    public function handleMainSettingsFilters(Event $event)
+    public function handleMainSettingsFilters(Event $event): void
     {
         $event->getParam('inputFilter')
             ->get('bibliography')
@@ -98,7 +98,7 @@ class Module extends AbstractModule
             ]);
     }
 
-    public function handleSiteSettingsFilters(Event $event)
+    public function handleSiteSettingsFilters(Event $event): void
     {
         $inputFilter = $event->getParam('inputFilter');
         $inputFilter->get('bibliography')
@@ -112,13 +112,13 @@ class Module extends AbstractModule
             ]);
     }
 
-    public function handleViewShowAfter(Event $event)
+    public function handleViewShowAfter(Event $event): void
     {
         $view = $event->getTarget();
         echo $view->citation($view->resource, ['tag' => 'p']);
     }
 
-    protected function uninstallModuleCitation()
+    protected function uninstallModuleCitation(): void
     {
         $services = $this->getServiceLocator();
         /** @var \Omeka\Module\Manager $moduleManager */
@@ -166,7 +166,7 @@ class Module extends AbstractModule
         $module->setState(\Omeka\Module\Manager::STATE_NOT_INSTALLED);
     }
 
-    protected function installResources()
+    protected function installResources(): void
     {
         if (!class_exists(\Generic\InstallResources::class)) {
             require_once file_exists(dirname(__DIR__) . '/Generic/InstallResources.php')
@@ -198,7 +198,7 @@ class Module extends AbstractModule
         $this->createVocabularyViaSql($vocabulary, __DIR__ . '/data/install/fabio.sql');
     }
 
-    protected function createVocabularyViaSql(array $vocabulary, $file)
+    protected function createVocabularyViaSql(array $vocabulary, $file): void
     {
         $vocabulary = $vocabulary['vocabulary'];
 

@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 namespace Bibliography\View\Helper;
 
 use ArrayObject;
@@ -67,7 +67,7 @@ class CslToRdf extends AbstractHelper
         $data['o:resource_class'] = $this->cslToResourceClass();
         $data['o:resource_template'] = null;
 
-        $mapping = require dirname(dirname(dirname(__DIR__))) . '/data/mapping/csl_variables_map.php';
+        $mapping = require dirname(__DIR__, 3) . '/data/mapping/csl_variables_map.php';
         $mapping = array_filter(array_map(function ($v) {
             return empty($this->propertyIds[$v['property']]) ? null : $v + ['prepend' => '', 'append' => ''];
         }, array_filter($mapping)));
@@ -77,7 +77,7 @@ class CslToRdf extends AbstractHelper
 
         foreach ($csl as $key => $data) {
             $property = $mapping[$key]['property'];
-            $type = isset($mapping[$key]['type']) ? $mapping[$key]['type'] : 'standard';
+            $type = $mapping[$key]['type'] ?? 'standard';
             switch ($type) {
                 case 'date':
                     // TODO Use datatype NumericDataType if available.

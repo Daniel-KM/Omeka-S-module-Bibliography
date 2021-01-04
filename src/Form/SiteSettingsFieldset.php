@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 namespace Bibliography\Form;
 
 use Bibliography\Service\TraitCslData;
@@ -14,7 +14,7 @@ class SiteSettingsFieldset extends Fieldset
      */
     protected $label = 'Bibliography'; // @translate
 
-    public function init()
+    public function init(): void
     {
         $this
             ->add([

@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Bibliography\Formatter;
 
@@ -14,7 +14,7 @@ class Csl extends AbstractViewFormatter
     ];
     protected $converterName = 'rdfToCsl';
 
-    protected function writeResource(AbstractResourceEntityRepresentation $resource, $index)
+    protected function writeResource(AbstractResourceEntityRepresentation $resource, $index): void
     {
         $citation = $this->services->get('ViewHelperManager')->get('citation');
         fwrite($this->handle, $citation($resource, ['style' => 'csl']) . "\n\n\n");

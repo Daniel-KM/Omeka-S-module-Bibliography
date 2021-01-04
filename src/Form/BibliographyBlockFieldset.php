@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 namespace Bibliography\Form;
 
 use Bibliography\Service\TraitCslData;
@@ -9,7 +9,7 @@ class BibliographyBlockFieldset extends Fieldset
 {
     use TraitCslData;
 
-    public function init()
+    public function init(): void
     {
         $this
             ->add([

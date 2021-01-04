@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 /**
  * Mapping from citation style variables to common properties.
  *

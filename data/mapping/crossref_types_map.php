@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 /**
  * One to one mapping from Crossref types to rdf types.
  *

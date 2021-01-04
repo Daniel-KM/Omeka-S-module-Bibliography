@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 /**
  * Mapping from common resource classes to citation style types.
  *

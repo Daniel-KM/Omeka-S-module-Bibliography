@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 namespace Bibliography\Site\BlockLayout;
 
 use Laminas\View\Renderer\PhpRenderer;
@@ -21,7 +21,7 @@ class Bibliography extends AbstractBlockLayout
         return 'Bibliography'; // @translate
     }
 
-    public function onHydrate(SitePageBlock $block, ErrorStore $errorStore)
+    public function onHydrate(SitePageBlock $block, ErrorStore $errorStore): void
     {
         $data = $block->getData();
         $data['query'] = ltrim($data['query'], "? \t\n\r\0\x0B");

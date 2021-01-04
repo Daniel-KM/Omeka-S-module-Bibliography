@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 namespace Bibliography\View\Helper;
 
 use Laminas\View\Helper\AbstractHelper;
@@ -145,7 +145,7 @@ class RdfToCsl extends AbstractHelper
             return '';
         }
         $class = $class->term();
-        $map = require dirname(dirname(dirname(__DIR__))) . '/data/mapping/csl_resource_class_map.php';
+        $map = require dirname(__DIR__, 3) . '/data/mapping/csl_resource_class_map.php';
         return empty($map[$class]) ? '' : $map[$class];
     }
 

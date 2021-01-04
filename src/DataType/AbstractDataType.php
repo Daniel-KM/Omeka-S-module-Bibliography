@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 namespace ValueSuggest\DataType;
 
 use Laminas\View\Renderer\PhpRenderer;
@@ -24,7 +24,7 @@ abstract class AbstractDataType extends BaseAbstractDataType
         return false;
     }
 
-    public function hydrate(array $valueObject, Value $value, AbstractEntityAdapter $adapter)
+    public function hydrate(array $valueObject, Value $value, AbstractEntityAdapter $adapter): void
     {
     }
 
