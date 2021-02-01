@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-05-25 00:00+0000\n"
-"PO-Revision-Date: 2020-05-25 00:00+0000\n"
+"POT-Creation-Date: 2021-02-01 00:00+0000\n"
+"PO-Revision-Date: 2021-02-01 00:00+0000\n"
 "Last-Translator: Daniel Berthereau <Daniel.fr@Berthereau.net>\n"
 "Language-Team: French <kde-i18n-doc@kde.org>\n"
 "Language: fr\n"
@@ -15,9 +15,9 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Poedit 2.3.1\n"
+"X-Generator: Poedit 2.4.2\n"
 
-#: Module.php:148
+#: Module.php:152
 msgid ""
 "The module Bibliography replaces the module Citation, that cannot be "
 "automatically uninstalled."
@@ -25,7 +25,7 @@ msgstr ""
 "Le module Bibliography remplace le module Citation, qui ne peut pas être "
 "supprimé automatiquement."
 
-#: Module.php:158
+#: Module.php:162
 msgid ""
 "The module Bibliography replaces the module Citation, that was automatically "
 "uninstalled."
@@ -38,23 +38,27 @@ msgstr ""
 msgid "Unsupported format: %s"
 msgstr "Format non géré : %s"
 
-#: src/Generic/AbstractModule.php:598
+#: src/Generic/AbstractModule.php:66
 #, php-format
 msgid "This module requires the module \"%s\"."
 msgstr "Ce module requiert le module \"%s\"."
 
-#: src/Generic/AbstractModule.php:618
+#: src/Generic/AbstractModule.php:73
 #, php-format
 msgid "This module requires modules \"%s\"."
 msgstr "Ce module requiert les modules \"%s\"."
 
-#: src/Generic/AbstractModule.php:686
+#: src/Generic/AbstractModule.php:80
+msgid "This module has resources that connot be installed."
+msgstr "Ce module a des ressources qui ne peuvent pas être installées."
+
+#: src/Generic/AbstractModule.php:707
 #, php-format
 msgid ""
 "The module \"%s\" was automatically deactivated because the dependencies are "
 "unavailable."
 msgstr ""
-"Le module %s\" a été automatiquement désactivé car ses dépendances ne sont "
+"Le module \"%s\" a été automatiquement désactivé car ses dépendances ne sont "
 "plus disponibles."
 
 #: view/common/citation.phtml:59
@@ -89,11 +93,11 @@ msgstr "Supprimer la langue"
 msgid "Remove URI"
 msgstr "Supprimer l’URI"
 
-#: Module.php:181
+#: Module.php:185
 msgid "FaBiO"
 msgstr "FaBiO"
 
-#: Module.php:182
+#: Module.php:186
 msgid "FaBiO, the FRBR-aligned Bibliographic Ontology"
 msgstr "FaBiO, l’ontologie bibliographique alignée sur le FRBR"
 
@@ -164,8 +168,19 @@ msgstr ""
 "Les gabarits sont dans le dossier \"common/block-layout\" du thème et "
 "doivent commencer avec \"bibliography\"."
 
+#: src/Formatter/CitationOdt.php:26
+msgid ""
+"To process export to \"{format}\", the php extensions \"zip\" and \"xml\" "
+"are required."
+msgstr ""
+"Pour réaliser un export dans le format \"{format}\", les extensions php \"zip"
+"\" et xml\" sont nécessaires."
+
+#: src/Formatter/CitationOdt.php:61
+msgid "Skipped resource {resource_id}: it contains more than 1000 characters."
+msgstr "Ressource {resource_id} ignorée : il contient plus de 1000 caractères."
+
 #: src/DataType/AbstractDataType.php:14
-#, fuzzy
 msgid "Value Suggest"
 msgstr "Valeurs suggérées"
 
@@ -325,14 +340,23 @@ msgstr ""
 msgid "OLID: Open library id from Internet Archive (collected record)"
 msgstr ""
 
-#: src/Generic/InstallResources.php:163
+#: src/Generic/InstallResources.php:108
 #, php-format
-msgid "The file \"%s\" cannot be read. Check your file system."
+msgid ""
+"A resource template named exists for %s: rename it or remove it before "
+"installing this module."
+msgstr ""
+"Un modèle de ressource existe pour %s : renommez-le ou supprimez-le avant "
+"d’installer ce module."
+
+#: src/Generic/InstallResources.php:173
+#, php-format
+msgid "The file \"%s\" cannot be read. Check your file system or the url."
 msgstr ""
 "Le fichier \"%s\" ne peut pas être lu. Merci de vérifier le système de "
-"fichiers."
+"fichiers ou l’url."
 
-#: src/Generic/InstallResources.php:189
+#: src/Generic/InstallResources.php:198
 #, php-format
 msgid ""
 "An error occured when adding the prefix \"%s\": another vocabulary exists. "
@@ -341,20 +365,11 @@ msgstr ""
 "Une erreur est survenue en ajoutant le préfixe \"%s\" : un autre vocabulaire "
 "existe. Merci de résoudre le conflit avant d’installer ce module."
 
-#: src/Generic/InstallResources.php:219
-#, php-format
-msgid ""
-"A resource template named \"%s\" exists: rename it or remove it before "
-"installing this module."
-msgstr ""
-"Un modèle de ressource nommé \"%s\" existe : merci de le renommer ou de le "
-"supprimer avant d’installer ce module."
-
-#: src/Generic/InstallResources.php:247
+#: src/Generic/InstallResources.php:280
 msgid "The current version of this module requires the module Custom Vocab."
 msgstr "Cette version du module requiert le module Custom Vocab."
 
-#: src/Generic/InstallResources.php:254
+#: src/Generic/InstallResources.php:287
 #, php-format
 msgid ""
 "A custom vocab named \"%s\" exists and has not the needed language (\"%s\"): "
@@ -364,12 +379,12 @@ msgstr ""
 "langue (\"%s\") : merci de vérifier ou de le supprimer avant d’installer ce "
 "module."
 
-#: src/Generic/InstallResources.php:303
+#: src/Generic/InstallResources.php:332
 #, php-format
 msgid "The vocabulary \"%s\" was already installed and was kept."
 msgstr "Le vocabulaire \"%s\" a déjà été installé et a été conservé."
 
-#: src/Generic/InstallResources.php:313
+#: src/Generic/InstallResources.php:342
 #, php-format
 msgid ""
 "An error occured when adding the prefix \"%s\": another vocabulary exists "
@@ -379,7 +394,7 @@ msgstr ""
 "vocabulaire existe avec le même préfixe. Merci de résoudre le conflit avant "
 "d’installer ce module."
 
-#: src/Generic/InstallResources.php:333
+#: src/Generic/InstallResources.php:362
 #, php-format
 msgid ""
 "An error occured when adding the prefix \"%s\" and the associated "
@@ -388,13 +403,13 @@ msgstr ""
 "Une erreur est survenue en ajoutant le préfixe \"%s\" et les propriétés "
 "associées : %s"
 
-#: src/Generic/InstallResources.php:363
+#: src/Generic/InstallResources.php:390
 #, php-format
 msgid "The resource template named \"%s\" is already available and is skipped."
 msgstr ""
 "Le modèle de ressource nommé \"%s\" est déjà disponible et a été conservé."
 
-#: src/Generic/InstallResources.php:388 src/Generic/InstallResources.php:549
+#: src/Generic/InstallResources.php:652
 #, php-format
 msgid "The custom vocab named \"%s\" is not available."
 msgstr "Le vocabulaire personnalisé nommé \"%s\" n’est pas disponible."

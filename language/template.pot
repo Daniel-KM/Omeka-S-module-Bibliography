@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-05-25 00:00+0000\n"
+"POT-Creation-Date: 2021-02-01 00:00+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,13 +17,13 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: Module.php:148
+#: Module.php:152
 msgid ""
 "The module Bibliography replaces the module Citation, that cannot be "
 "automatically uninstalled."
 msgstr ""
 
-#: Module.php:158
+#: Module.php:162
 msgid ""
 "The module Bibliography replaces the module Citation, that was automatically "
 "uninstalled."
@@ -34,17 +34,21 @@ msgstr ""
 msgid "Unsupported format: %s"
 msgstr ""
 
-#: src/Generic/AbstractModule.php:598
+#: src/Generic/AbstractModule.php:66
 #, php-format
 msgid "This module requires the module \"%s\"."
 msgstr ""
 
-#: src/Generic/AbstractModule.php:618
+#: src/Generic/AbstractModule.php:73
 #, php-format
 msgid "This module requires modules \"%s\"."
 msgstr ""
 
-#: src/Generic/AbstractModule.php:686
+#: src/Generic/AbstractModule.php:80
+msgid "This module has resources that connot be installed."
+msgstr ""
+
+#: src/Generic/AbstractModule.php:707
 #, php-format
 msgid ""
 "The module \"%s\" was automatically deactivated because the dependencies are "
@@ -83,11 +87,11 @@ msgstr ""
 msgid "Remove URI"
 msgstr ""
 
-#: Module.php:181
+#: Module.php:185
 msgid "FaBiO"
 msgstr ""
 
-#: Module.php:182
+#: Module.php:186
 msgid "FaBiO, the FRBR-aligned Bibliographic Ontology"
 msgstr ""
 
@@ -152,6 +156,16 @@ msgstr ""
 msgid ""
 "Templates are in folder \"common/block-layout\" of the theme and should "
 "start with \"bibliography\"."
+msgstr ""
+
+#: src/Formatter/CitationOdt.php:26
+msgid ""
+"To process export to \"{format}\", the php extensions \"zip\" and \"xml\" "
+"are required."
+msgstr ""
+
+#: src/Formatter/CitationOdt.php:61
+msgid "Skipped resource {resource_id}: it contains more than 1000 characters."
 msgstr ""
 
 #: src/DataType/AbstractDataType.php:14
@@ -314,61 +328,61 @@ msgstr ""
 msgid "OLID: Open library id from Internet Archive (collected record)"
 msgstr ""
 
-#: src/Generic/InstallResources.php:163
+#: src/Generic/InstallResources.php:108
 #, php-format
-msgid "The file \"%s\" cannot be read. Check your file system."
+msgid ""
+"A resource template named exists for %s: rename it or remove it before "
+"installing this module."
 msgstr ""
 
-#: src/Generic/InstallResources.php:189
+#: src/Generic/InstallResources.php:173
+#, php-format
+msgid "The file \"%s\" cannot be read. Check your file system or the url."
+msgstr ""
+
+#: src/Generic/InstallResources.php:198
 #, php-format
 msgid ""
 "An error occured when adding the prefix \"%s\": another vocabulary exists. "
 "Resolve the conflict before installing this module."
 msgstr ""
 
-#: src/Generic/InstallResources.php:219
-#, php-format
-msgid ""
-"A resource template named \"%s\" exists: rename it or remove it before "
-"installing this module."
-msgstr ""
-
-#: src/Generic/InstallResources.php:247
+#: src/Generic/InstallResources.php:280
 msgid "The current version of this module requires the module Custom Vocab."
 msgstr ""
 
-#: src/Generic/InstallResources.php:254
+#: src/Generic/InstallResources.php:287
 #, php-format
 msgid ""
 "A custom vocab named \"%s\" exists and has not the needed language (\"%s\"): "
 "check it or remove it before installing this module."
 msgstr ""
 
-#: src/Generic/InstallResources.php:303
+#: src/Generic/InstallResources.php:332
 #, php-format
 msgid "The vocabulary \"%s\" was already installed and was kept."
 msgstr ""
 
-#: src/Generic/InstallResources.php:313
+#: src/Generic/InstallResources.php:342
 #, php-format
 msgid ""
 "An error occured when adding the prefix \"%s\": another vocabulary exists "
 "with the same prefix. Resolve the conflict before installing this module."
 msgstr ""
 
-#: src/Generic/InstallResources.php:333
+#: src/Generic/InstallResources.php:362
 #, php-format
 msgid ""
 "An error occured when adding the prefix \"%s\" and the associated "
 "properties: %s"
 msgstr ""
 
-#: src/Generic/InstallResources.php:363
+#: src/Generic/InstallResources.php:390
 #, php-format
 msgid "The resource template named \"%s\" is already available and is skipped."
 msgstr ""
 
-#: src/Generic/InstallResources.php:388 src/Generic/InstallResources.php:549
+#: src/Generic/InstallResources.php:652
 #, php-format
 msgid "The custom vocab named \"%s\" is not available."
 msgstr ""
