@@ -54,6 +54,8 @@ class Bibliography extends AbstractBlockLayout
         }
 
         $fieldset = $formElementManager->get($blockFieldset);
+        $fieldset->get('o:block[__blockIndex__][o:data][query]')
+            ->setOption('query_resource_type', $data['resource_type'] ?? 'items');
         $fieldset->populateValues($dataForm);
 
         return $view->formCollection($fieldset);
@@ -95,7 +97,7 @@ class Bibliography extends AbstractBlockLayout
             ],
         ];
         $template = $block->dataValue('template', self::PARTIAL_NAME);
-        return $view->resolver($template)
+        return $template !== self::PARTIAL_NAME && $view->resolver($template)
             ? $view->partial($template, $vars)
             : $view->partial(self::PARTIAL_NAME, $vars);
     }

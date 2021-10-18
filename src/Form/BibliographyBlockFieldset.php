@@ -1,9 +1,11 @@
 <?php declare(strict_types=1);
+
 namespace Bibliography\Form;
 
 use Bibliography\Service\TraitCslData;
 use Laminas\Form\Element;
 use Laminas\Form\Fieldset;
+use Omeka\Form\Element as OmekaElement;
 
 class BibliographyBlockFieldset extends Fieldset
 {
@@ -19,6 +21,9 @@ class BibliographyBlockFieldset extends Fieldset
                     'label' => 'Block title', // @translate
                     'info' => 'Heading for the block, if any.', // @translate
                 ],
+                'attributes' => [
+                    'id' => 'bibliography-heading',
+                ],
             ])
             ->add([
                 'name' => 'o:block[__blockIndex__][o:data][style]',
@@ -28,6 +33,7 @@ class BibliographyBlockFieldset extends Fieldset
                     'value_options' => $this->getCitationStyles(),
                 ],
                 'attributes' => [
+                    'id' => 'bibliography-style',
                     'class' => 'chosen-select',
                     'data-placeholder' => 'Select your citation style…', // @translate
                 ],
@@ -40,17 +46,22 @@ class BibliographyBlockFieldset extends Fieldset
                     'value_options' => $this->getCitationLocales(),
                 ],
                 'attributes' => [
+                    'id' => 'bibliography-locale',
                     'class' => 'chosen-select',
                     'data-placeholder' => 'Select your locale for citation…', // @translate
                 ],
             ])
             ->add([
                 'name' => 'o:block[__blockIndex__][o:data][query]',
-                'type' => Element\Text::class,
+                'type' => OmekaElement\Query::class,
                 'options' => [
                     'label' => 'Query', // @translate
-                    'info' => 'Display items using this search query', // @translate
-                    'documentation' => 'https://omeka.org/s/docs/user-manual/sites/site_pages/#browse-preview',
+                    'info' => 'Display resources using this search query', // @translate
+                    'query_resource_type' => null,
+                    'query_partial_excludelist' => ['common/advanced-search/site'],
+                ],
+                'attributes' => [
+                    'id' => 'bibliography-query',
                 ],
             ])
             ->add([
@@ -66,6 +77,9 @@ class BibliographyBlockFieldset extends Fieldset
                 'options' => [
                     'label' => 'Append access date', // @translate
                 ],
+                'attributes' => [
+                    'id' => 'bibliography-append-date',
+                ],
             ])
         ;
 
@@ -80,6 +94,7 @@ class BibliographyBlockFieldset extends Fieldset
                         'template' => 'common/block-layout/bibliography',
                     ],
                     'attributes' => [
+                        'id' => 'bibliography-template',
                         'class' => 'chosen-select',
                     ],
                 ]);
