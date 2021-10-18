@@ -34,5 +34,5 @@ if (version_compare($oldVersion, '3.0.6', '<')) {
 }
 
 if (version_compare($oldVersion, '3.1.1', '<')) {
-    $this->installResources();
+    $this->installAllResources();
 }
