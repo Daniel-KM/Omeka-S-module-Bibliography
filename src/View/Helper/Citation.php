@@ -59,20 +59,13 @@ class Citation extends AbstractHelper
 
     /**
      * Get the current site from the view.
-     *
-     * @return \Omeka\Api\Representation\SiteRepresentation|null
      */
-    protected function currentSite()
+    protected function currentSite(): ?\Omeka\Api\Representation\SiteRepresentation
     {
-        static $site;
-
-        if (is_null($site)) {
-            $view = $this->getView();
-            $site = isset($view->site)
-                ? $view->site
-                : $view->getHelperPluginManager()->get('Laminas\View\Helper\ViewModel')->getRoot()->getVariable('site');
-        }
-
-        return $site;
+        return $this->view->site ?? $this->view->site = $this->view
+            ->getHelperPluginManager()
+            ->get('Laminas\View\Helper\ViewModel')
+            ->getRoot()
+            ->getVariable('site');
     }
 }
