@@ -26,7 +26,7 @@ class Bibliography extends AbstractBlockLayout
         $data = $block->getData();
         $query = $data['query'] ?? [];
         $data['query'] = is_array($query)
-            ? http_build_query($query, "\n", '&', PHP_QUERY_RFC3986)
+            ? http_build_query($query, '', '&', PHP_QUERY_RFC3986)
             : ltrim($query, "? \t\n\r\0\x0B");
         $block->setData($data);
     }
