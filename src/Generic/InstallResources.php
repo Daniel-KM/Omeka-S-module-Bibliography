@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 /*
- * Copyright Daniel Berthereau, 2018-2021
+ * Copyright Daniel Berthereau, 2018-2023
  *
  * This software is governed by the CeCILL license under French law and abiding
  * by the rules of distribution of free software.  You can use, modify and/ or
@@ -34,7 +34,6 @@ use Omeka\Api\Exception\RuntimeException;
 use Omeka\Api\Representation\ResourceTemplateRepresentation;
 use Omeka\Entity\Vocabulary;
 use Omeka\Module\Exception\ModuleCannotInstallException;
-use Omeka\Mvc\Controller\Plugin\Messenger;
 use Omeka\Stdlib\Message;
 
 class InstallResources
@@ -238,6 +237,7 @@ class InstallResources
         $label = $data['o:label'];
         try {
             // Custom vocab cannot be searched.
+            /** @var \CustomVocab\Api\Representation\CustomVocabRepresentation $customVocab */
             $customVocab = $this->api->read('custom_vocabs', ['label' => $label])->getContent();
         } catch (NotFoundException $e) {
             return false;
@@ -249,15 +249,29 @@ class InstallResources
             return null;
         }
 
-        $newTerms = $data['o:terms'] ?? [];
-        $existingTerms = explode("\n", $customVocab->terms());
-        sort($newTerms);
-        sort($existingTerms);
-        if ($newTerms !== $existingTerms) {
-            return null;
+        $newItemSet = empty($data['o:item_set']) ? 0 : (int) $data['o:item_set'];
+        if ($newItemSet) {
+            $existingItemSet = $customVocab->itemSet();
+            return $existingItemSet && $newItemSet === $existingItemSet->id() ? true : null;
         }
 
-        return true;
+        $newUris = $data['o:uris'] ?? [];
+        if ($newUris) {
+            $existingUris = $customVocab->uris();
+            asort($newUris);
+            asort($existingUris);
+            return $newUris === $existingUris ? true : null;
+        }
+
+        $newTerms = $data['o:terms'] ?? [];
+        $existingTerms = $customVocab->terms();
+        // Compatibility with Omeka S v3.
+        if (!is_array($existingTerms)) {
+            $existingTerms = explode("\n", $existingTerms);
+        }
+        sort($newTerms);
+        sort($existingTerms);
+        return $newTerms === $existingTerms ? true : null;
     }
 
     /**
@@ -303,7 +317,7 @@ class InstallResources
             if (rtrim($vocabularyRepresentation->namespaceUri(), '#/') === rtrim($vocabularyData['vocabulary']['o:namespace_uri'], '#/')) {
                 $message = new Message('The vocabulary "%s" was already installed and was kept.', // @translate
                     $vocabularyData['vocabulary']['o:label']);
-                $messenger = new Messenger();
+                $messenger = $this->services->get('ControllerPluginManager')->get('messenger');
                 $messenger->addWarning($message);
                 return false;
             }
@@ -341,8 +355,8 @@ class InstallResources
         $namespaceUri = $vocabularyData['vocabulary']['o:namespace_uri'];
         $oldNameSpaceUri = $vocabularyData['update']['namespace_uri'] ?? null;
 
-        /** @var \Omeka\Entity\Vocabulary $vocabulary */
         if ($oldNameSpaceUri) {
+            /** @var \Omeka\Entity\Vocabulary $vocabulary */
             $vocabulary = $this->api->searchOne('vocabularies', ['namespace_uri' => $oldNameSpaceUri], ['responseContent' => 'resource'])->getContent();
         }
         // The old vocabulary may have been already updated.
@@ -444,7 +458,7 @@ class InstallResources
 
         // Update names of classes and properties in the case where they where
         // not updated before diff.
-        $messenger = new Messenger();
+        $messenger = $this->services->get('ControllerPluginManager')->get('messenger');
         /** @var \Doctrine\DBAL\Connection $connection */
         $connection = $this->services->get('Omeka\Connection');
         $hasReplace = false;
@@ -501,7 +515,7 @@ WHERE `id` = $oldMemberId;
 SQL;
                 }
                 foreach (array_filter(explode(";\n", $sqls)) as $sql) {
-                    $connection->executeQuery($sql);
+                    $connection->executeStatement($sql);
                 }
             }
             $hasReplace = true;
@@ -525,7 +539,7 @@ SQL;
     /**
      * Create a resource template, with a check of its existence before.
      *
-     * @todo Some checks of the resource termplate controller are skipped currently.
+     * @todo Some checks of the resource template controller are skipped currently.
      *
      * @param string $filepath
      * @throws \Omeka\Api\Exception\RuntimeException
@@ -537,16 +551,16 @@ SQL;
 
         // Check if the resource template exists, so it is not replaced.
         $label = $data['o:label'] ?? '';
-        try {
-            $resourceTemplate = $this->api->searchOne('resource_templates', ['label' => $label])->getContent();
+
+        $resourceTemplate = $this->api->searchOne('resource_templates', ['label' => $label])->getContent();
+        if ($resourceTemplate) {
             $message = new Message(
                 'The resource template named "%s" is already available and is skipped.', // @translate
                 $label
             );
-            $messenger = new Messenger();
+            $messenger = $this->services->get('ControllerPluginManager')->get('messenger');
             $messenger->addWarning($message);
             return $resourceTemplate;
-        } catch (NotFoundException $e) {
         }
 
         // The check sets the internal ids of classes, properties and data types
@@ -582,7 +596,10 @@ SQL;
     public function createCustomVocab(string $filepath): ?\CustomVocab\Api\Representation\CustomVocabRepresentation
     {
         $data = json_decode(file_get_contents($filepath), true);
-        $data['o:terms'] = implode(PHP_EOL, $data['o:terms']);
+        if (!$data) {
+            return null;
+        }
+        $data['o:terms'] = implode(PHP_EOL, $data['o:terms'] ?? []);
         try {
             return $this->api->create('custom_vocabs', $data)->getContent();
         } catch (\Exception $e) {
@@ -653,8 +670,15 @@ SQL;
                 'resource:media',
                 'uri',
                 // DataTypeGeometry
-                'geometry:geography',
+                'geography',
+                'geography:coordinates',
+                'geometry',
+                'geometry:coordinates',
+                'geometry:position',
+                // TODO Deprecated for v4.
                 'geometry:geometry',
+                'geometry:geography',
+                'geometry:geography:coordinates',
                 // DataTypeRdf.
                 'boolean',
                 'html',
@@ -798,6 +822,7 @@ SQL;
 
         $label = $data['o:label'];
         try {
+            /** @var \CustomVocab\Api\Representation\CustomVocabRepresentation $customVocab */
             $customVocab = $this->api->read('custom_vocabs', ['label' => $label])->getContent();
         } catch (NotFoundException $e) {
             throw new RuntimeException(
@@ -808,12 +833,90 @@ SQL;
             );
         }
 
-        $terms = array_map('trim', explode(PHP_EOL, $customVocab->terms()));
-        $terms = array_merge($terms, $data['o:terms']);
-        $this->api->update('custom_vocabs', $customVocab->id(), [
-            'o:label' => $label,
-            'o:terms' => implode(PHP_EOL, $terms),
-        ], [], ['isPartial' => true]);
+        $newItemSet = empty($data['o:item_set']) ? 0 : (int) $data['o:item_set'];
+        $newUris = $data['o:uris'] ?? [];
+        $newTerms = $data['o:terms'] ?? [];
+
+        $isV4 = version_compare(\Omeka\Module::VERSION, '4', '>=');
+        if (!$isV4) {
+            if ($newItemSet) {
+                $this->api->update('custom_vocabs', $customVocab->id(), [
+                    'o:label' => $label,
+                    'o:item_set' => $newItemSet,
+                    'o:terms' => '',
+                    'o:uris' => '',
+                ], [], ['isPartial' => true]);
+            } elseif ($newUris) {
+                $existingUris = $customVocab->uris();
+                if (!is_array($existingUris)) {
+                    $nu = [];
+                    foreach (explode("\n", $existingUris) as $existingUri) {
+                        [$uri, $uriLabel] = array_map('trim', explode("=", $existingUri, 2));
+                        $nu[$uri] = $uriLabel ?: $uri;
+                    }
+                    $existingUris = $nu;
+                }
+                if (!is_array($newUris)) {
+                    $nu = [];
+                    foreach (array_filter(explode("\n", $newUris)) as $newUri) {
+                        [$uri, $uriLabel] = array_map('trim', explode("=", $newUri, 2));
+                        $nu[$uri] = $uriLabel ?: $uri;
+                    }
+                    $newUris = $nu;
+                }
+                $newUris = array_replace($newUris, $existingUris, $newUris);
+                $newUrisString = '';
+                foreach ($newUris as $uri => $uriLabel) {
+                    $newUrisString .= $uri . ' = ' . $uriLabel . "\n";
+                }
+                $newUrisString = trim($newUrisString);
+                $this->api->update('custom_vocabs', $customVocab->id(), [
+                    'o:label' => $label,
+                    'o:item_set' => null,
+                    'o:terms' => '',
+                    'o:uris' => $newUrisString,
+                ], [], ['isPartial' => true]);
+            } elseif ($newTerms) {
+                $existingTerms = $customVocab->terms();
+                if (!is_array($existingTerms)) {
+                    $existingTerms = explode("\n", $existingTerms);
+                }
+                if (!is_array($newTerms)) {
+                    $newTerms = explode("\n", $newTerms);
+                }
+                $termsToStore = array_values(array_merge($existingTerms, $newTerms));
+                $this->api->update('custom_vocabs', $customVocab->id(), [
+                    'o:label' => $label,
+                    'o:item_set' => null,
+                    'o:terms' => implode("\n", $termsToStore),
+                    'o:uris' => '',
+                ], [], ['isPartial' => true]);
+            }
+            return $customVocab;
+        }
+
+        if ($newItemSet) {
+            $this->api->update('custom_vocabs', $customVocab->id(), [
+                'o:label' => $label,
+                'o:item_set' => $newItemSet,
+                'o:terms' => [],
+                'o:uris' => [],
+            ], [], ['isPartial' => true]);
+        } elseif ($newUris) {
+            $this->api->update('custom_vocabs', $customVocab->id(), [
+                'o:label' => $label,
+                'o:item_set' => null,
+                'o:terms' => [],
+                'o:uris' => array_replace($newUris, $customVocab->uris(), $newUris),
+            ], [], ['isPartial' => true]);
+        } elseif ($newTerms) {
+            $this->api->update('custom_vocabs', $customVocab->id(), [
+                'o:label' => $label,
+                'o:item_set' => null,
+                'o:terms' => array_values(array_merge($customVocab->terms(), $newTerms)),
+                'o:uris' => [],
+            ], [], ['isPartial' => true]);
+        }
 
         return $customVocab;
     }
@@ -865,6 +968,27 @@ SQL;
         } catch (NotFoundException $e) {
         }
         return $this;
+    }
+
+    /**
+     * Check the version of a module.
+     *
+     * It is recommended to use checkModuleAvailability(), that manages the fact
+     * that the module may be required or not.
+     */
+    protected function isModuleVersionAtLeast(string $module, string $version): bool
+    {
+        /** @var \Omeka\Module\Manager $moduleManager */
+        $moduleManager = $this->services->get('Omeka\ModuleManager');
+        $module = $moduleManager->getModule($module);
+        if (!$module) {
+            return false;
+        }
+
+        $moduleVersion = $module->getIni('version');
+        return $moduleVersion
+            ? version_compare($moduleVersion, $version, '>=')
+            : false;
     }
 
     /**
