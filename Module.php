@@ -83,8 +83,10 @@ class Module extends AbstractModule
 
     public function handleMainSettingsFilters(Event $event): void
     {
-        $event->getParam('inputFilter')
-            ->get('bibliography')
+        $inputFilter = version_compare(\Omeka\Module::VERSION, '4', '<')
+            ? $event->getParam('inputFilter')->get('bibliography')
+            : $event->getParam('inputFilter');
+        $inputFilter
             ->add([
                 'name' => 'bibliography_crossref_email',
                 'required' => false,
@@ -101,8 +103,10 @@ class Module extends AbstractModule
 
     public function handleSiteSettingsFilters(Event $event): void
     {
-        $inputFilter = $event->getParam('inputFilter');
-        $inputFilter->get('bibliography')
+        $inputFilter = version_compare(\Omeka\Module::VERSION, '4', '<')
+            ? $event->getParam('inputFilter')->get('bibliography')
+            : $event->getParam('inputFilter');
+        $inputFilter
             ->add([
                 'name' => 'bibliography_csl_style',
                 'required' => false,

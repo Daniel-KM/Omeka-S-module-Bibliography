@@ -1,4 +1,5 @@
 <?php declare(strict_types=1);
+
 namespace Bibliography\Form;
 
 use Bibliography\Service\TraitCslData;
@@ -14,14 +15,20 @@ class SettingsFieldset extends Fieldset
      */
     protected $label = 'Bibliography'; // @translate
 
+    protected $elementGroups = [
+        'export' => 'Export', // @translate
+    ];
+
     public function init(): void
     {
         $this
             ->setAttribute('id', 'bibliography')
+            ->setOption('element_groups', $this->elementGroups)
             ->add([
                 'name' => 'bibliography_crossref_email',
                 'type' => Element\Email::class,
                 'options' => [
+                    'element_group' => 'export',
                     'label' => 'Crossref account email', // @translate
                     'info' => 'This email allows to be connected to better servers of crossref.', // @translate
                     'documentation' => 'https://github.com/CrossRef/rest-api-doc#etiquette',
@@ -34,6 +41,7 @@ class SettingsFieldset extends Fieldset
                 'name' => 'bibliography_csl_style',
                 'type' => Element\Select::class,
                 'options' => [
+                    'element_group' => 'export',
                     'label' => 'Citation style', // @translate
                     'value_options' => $this->getCitationStyles(),
                     'empty_option' => '',
@@ -48,6 +56,7 @@ class SettingsFieldset extends Fieldset
                 'name' => 'bibliography_csl_locale',
                 'type' => Element\Select::class,
                 'options' => [
+                    'element_group' => 'export',
                     'label' => 'Citation locale', // @translate
                     'value_options' => $this->getCitationLocales(),
                     'empty_option' => '',
