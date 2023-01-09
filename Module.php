@@ -19,7 +19,7 @@ use Laminas\Mvc\MvcEvent;
  *
  * Tools to manage bibliographic items.
  *
- * @copyright Daniel Berthereau, 2018-2019
+ * @copyright Daniel Berthereau, 2018-2023
  * @license http://www.cecill.info/licences/Licence_CeCILL_V2.1-en.txt
  */
 class Module extends AbstractModule
