@@ -218,12 +218,12 @@ class Module extends AbstractModule
 INSERT INTO `vocabulary` (`owner_id`, `namespace_uri`, `prefix`, `label`, `comment`) VALUES
 ($userId, "{$vocabulary['o:namespace_uri']}", "{$vocabulary['o:prefix']}", "{$vocabulary['o:label']}", "{$vocabulary['o:comment']}");
 SQL;
-        $connection->exec($sql);
+        $connection->executeStatement($sql);
 
         $vocabularyId = $api->searchOne('vocabularies', ['namespace_uri' => $vocabulary['o:namespace_uri']])->getContent()->id();
 
         $sql = file_get_contents($file);
         $sql = str_replace('(1, __VOCABULARY_ID__,', "($userId, $vocabularyId,", $sql);
-        $connection->exec($sql);
+        $connection->executeStatement($sql);
     }
 }

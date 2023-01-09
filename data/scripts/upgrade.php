@@ -29,7 +29,7 @@ UPDATE site_page_block
 SET data = REPLACE(data, '"partial":"', '"template":"')
 WHERE layout = 'bibliography';
 SQL;
-    $connection->exec($sql);
+    $connection->executeStatement($sql);
 }
 
 if (version_compare($oldVersion, '3.0.6', '<')) {
