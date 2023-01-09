@@ -75,30 +75,34 @@
                 "csl",
                 "endnote"
             ],
+            "support": {
+                "issues": "https://github.com/geissler/converter/issues",
+                "source": "https://github.com/geissler/converter/tree/master"
+            },
             "time": "2017-08-20T16:41:52+00:00"
         },
         {
             "name": "myclabs/php-enum",
-            "version": "1.7.7",
+            "version": "1.8.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/myclabs/php-enum.git",
-                "reference": "d178027d1e679832db9f38248fcc7200647dc2b7"
+                "reference": "b942d263c641ddb5190929ff840c68f78713e937"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/myclabs/php-enum/zipball/d178027d1e679832db9f38248fcc7200647dc2b7",
-                "reference": "d178027d1e679832db9f38248fcc7200647dc2b7",
+                "url": "https://api.github.com/repos/myclabs/php-enum/zipball/b942d263c641ddb5190929ff840c68f78713e937",
+                "reference": "b942d263c641ddb5190929ff840c68f78713e937",
                 "shasum": ""
             },
             "require": {
                 "ext-json": "*",
-                "php": ">=7.1"
+                "php": "^7.3 || ^8.0"
             },
             "require-dev": {
-                "phpunit/phpunit": "^7",
+                "phpunit/phpunit": "^9.5",
                 "squizlabs/php_codesniffer": "1.*",
-                "vimeo/psalm": "^3.8"
+                "vimeo/psalm": "^4.6.2"
             },
             "type": "library",
             "autoload": {
@@ -121,6 +125,10 @@
             "keywords": [
                 "enum"
             ],
+            "support": {
+                "issues": "https://github.com/myclabs/php-enum/issues",
+                "source": "https://github.com/myclabs/php-enum/tree/1.8.3"
+            },
             "funding": [
                 {
                     "url": "https://github.com/mnapoli",
@@ -131,20 +139,20 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2020-11-14T18:14:52+00:00"
+            "time": "2021-07-05T08:18:36+00:00"
         },
         {
             "name": "seboettg/citeproc-php",
-            "version": "v2.2.4",
+            "version": "v2.2.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/seboettg/citeproc-php.git",
-                "reference": "22020a66444bc5230ecdd73276eb55ffff46b9f1"
+                "reference": "53e94194a8269adf87cbf95a2d47876baf91f5d8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/seboettg/citeproc-php/zipball/22020a66444bc5230ecdd73276eb55ffff46b9f1",
-                "reference": "22020a66444bc5230ecdd73276eb55ffff46b9f1",
+                "url": "https://api.github.com/repos/seboettg/citeproc-php/zipball/53e94194a8269adf87cbf95a2d47876baf91f5d8",
+                "reference": "53e94194a8269adf87cbf95a2d47876baf91f5d8",
                 "shasum": ""
             },
             "require": {
@@ -184,20 +192,24 @@
                 }
             ],
             "description": "Full-featured CSL processor (https://citationstyles.org)",
-            "time": "2020-11-22T10:27:07+00:00"
+            "support": {
+                "issues": "https://github.com/seboettg/citeproc-php/issues",
+                "source": "https://github.com/seboettg/citeproc-php/tree/v2.2.5"
+            },
+            "time": "2020-12-06T10:15:17+00:00"
         },
         {
             "name": "seboettg/collection",
-            "version": "v2.1.0",
+            "version": "v2.1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/seboettg/Collection.git",
-                "reference": "9c0cfb53068026b4d34515126cfddd1830ddb518"
+                "reference": "292a342c557e9c5b970a3736d3f6f987699a49de"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/seboettg/Collection/zipball/9c0cfb53068026b4d34515126cfddd1830ddb518",
-                "reference": "9c0cfb53068026b4d34515126cfddd1830ddb518",
+                "url": "https://api.github.com/repos/seboettg/Collection/zipball/292a342c557e9c5b970a3736d3f6f987699a49de",
+                "reference": "292a342c557e9c5b970a3736d3f6f987699a49de",
                 "shasum": ""
             },
             "require": {
@@ -240,7 +252,11 @@
                 "sort",
                 "stack"
             ],
-            "time": "2019-12-24T13:10:16+00:00"
+            "support": {
+                "issues": "https://github.com/seboettg/Collection/issues",
+                "source": "https://github.com/seboettg/Collection/tree/v2.1.1"
+            },
+            "time": "2021-05-10T23:27:19+00:00"
         },
         {
             "name": "technosophos/libris",
@@ -283,6 +299,10 @@
                 "RIS",
                 "Reference"
             ],
+            "support": {
+                "issues": "https://github.com/technosophos/LibRIS/issues",
+                "source": "https://github.com/technosophos/LibRIS/tree/2.0.2"
+            },
             "abandoned": true,
             "time": "2012-03-14T16:36:15+00:00"
         }
@@ -299,5 +319,5 @@
     "prefer-lowest": false,
     "platform": [],
     "platform-dev": [],
-    "plugin-api-version": "1.1.0"
+    "plugin-api-version": "2.1.0"
 }
