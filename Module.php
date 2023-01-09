@@ -1,4 +1,5 @@
 <?php declare(strict_types=1);
+
 namespace Bibliography;
 
 if (!class_exists(\Generic\AbstractModule::class)) {
@@ -140,7 +141,7 @@ class Module extends AbstractModule
         }
 
         $t = $services->get('MvcTranslator');
-        $messenger = new \Omeka\Mvc\Controller\Plugin\Messenger();
+        $messenger = $services->get('ControllerPluginManager')->get('messenger');
 
         // Process uninstallation directly: the module has nothing to uninstall.
         $entityManager = $services->get('Omeka\EntityManager');

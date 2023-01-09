@@ -214,7 +214,7 @@ of [Sorbonne Université].
 [OpenLibrary]: https://openlibrary.org
 [Generic]: https://gitlab.com/Daniel-KM/Omeka-S-module-Generic
 [Bibliography.zip]: https://gitlab.com/Daniel-KM/Omeka-S-module-Bibliography/-/releases
-[Installing a module]: http://dev.omeka.org/docs/s/user-manual/modules/#installing-modules
+[Installing a module]: https://omeka.org/s/docs/user-manual/modules/#installing-modules
 [Blocks Disposition]: https://gitlab.com/Daniel-KM/Omeka-S-module-BlocksDisposition
 [Citation]: https://gitlab.com/Daniel-KM/Omeka-S-module-Citation
 [version of Value Suggest]: https://gitlab.com/Daniel-KM/Omeka-S-module-ValueSuggest
