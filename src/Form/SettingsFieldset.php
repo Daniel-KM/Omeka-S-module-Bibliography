@@ -17,6 +17,7 @@ class SettingsFieldset extends Fieldset
     public function init(): void
     {
         $this
+            ->setAttribute('id', 'bibliography')
             ->add([
                 'name' => 'bibliography_crossref_email',
                 'type' => Element\Email::class,

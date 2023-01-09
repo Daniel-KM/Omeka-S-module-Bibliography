@@ -17,6 +17,7 @@ class SiteSettingsFieldset extends Fieldset
     public function init(): void
     {
         $this
+            ->setAttribute('id', 'bibliography')
             ->add([
                 'name' => 'bibliography_csl_style',
                 'type' => Element\Select::class,
