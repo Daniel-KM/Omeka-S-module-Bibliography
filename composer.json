@@ -57,5 +57,19 @@
     },
     "replace": {
         "symfony/polyfill-mbstring": "*"
+    },
+    "scripts": {
+        "post-install-cmd": "@build",
+        "post-update-cmd": "@build",
+        "build": [
+            "# Fix deprecation warning.",
+            "@php -r '$f = __DIR__ . \"/vendor/geissler/converter/library/bibtexParse/PARSEENTRIES.php\"; file_put_contents($f, str_replace(\"{0}\", \"[0]\", file_get_contents($f)));'"
+        ]
+    },
+    "config": {
+        "allow-plugins": {
+            "composer/installers": true,
+            "oomphinc/composer-installers-extender": true
+        }
     }
 }
