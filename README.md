@@ -191,7 +191,7 @@ altered, and that no provisions are either added or removed herefrom.
 Copyright
 ---------
 
-* Copyright Daniel Berthereau, 2018-2021 (see [Daniel-KM] on GitLab)
+* Copyright Daniel Berthereau, 2018-2023 (see [Daniel-KM] on GitLab)
 * See third parties copyright for dependencies.
 
 First version of this module was built for Daniel Berthereau for [Collegium Musicæ],
