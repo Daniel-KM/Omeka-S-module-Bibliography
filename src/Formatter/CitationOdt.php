@@ -18,6 +18,11 @@ class CitationOdt extends AbstractViewFormatter
 
     protected $template = 'common/bulk-export-citation';
 
+    /**
+     * @var string
+     */
+    protected $filepath;
+
     public function format($resources, $output = null, array $options = []): self
     {
         if (!extension_loaded('zip') || !extension_loaded('xml')) {
