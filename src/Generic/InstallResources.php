@@ -230,7 +230,7 @@ class InstallResources
     public function checkCustomVocab(string $filepath): ?bool
     {
         $data = json_decode(file_get_contents($filepath), true);
-        if (!$data || empty($data['label'])) {
+        if (!$data || empty($data['o:label'])) {
             return false;
         }
 
@@ -932,7 +932,10 @@ SQL;
         // The vocabulary may have been removed manually before.
         $resource = $this->api->searchOne('vocabularies', ['prefix' => $prefix])->getContent();
         if ($resource) {
-            $this->api->delete('vocabularies', $resource->id());
+            try {
+                $this->api->delete('vocabularies', $resource->id());
+            } catch (\Exception $e) {
+            }
         }
         return $this;
     }
@@ -946,9 +949,10 @@ SQL;
     public function removeResourceTemplate(string $label): self
     {
         // The resource template may be renamed or removed manually before.
-        $resource = $this->api->read('resource_templates', ['label' => $label])->getContent();
-        if ($resource) {
+        try {
+            $resource = $this->api->read('resource_templates', ['label' => $label])->getContent();
             $this->api->delete('resource_templates', $resource->id());
+        } catch (\Exception $e) {
         }
         return $this;
     }
