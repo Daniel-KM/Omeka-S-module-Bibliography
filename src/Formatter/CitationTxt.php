@@ -8,18 +8,17 @@ class CitationTxt extends AbstractViewFormatter
 {
     protected $label = 'citation (txt)';
     protected $extension = 'bib.txt';
-    protected $responseHeaders = [
-        'Content-type' => 'text/plain',
-    ];
+    protected $mediaType = 'text/plain';
+
     protected $template = 'common/bulk-export-citation';
 
-    public function format($resources, $output = null, array $options = []): \BulkExport\Formatter\FormatterInterface
+    public function format($resources, $output = null, array $options = []): self
     {
         $options['template'] = $this->template;
         return parent::format($resources, $output, $options);
     }
 
-    protected function initializeOutput(): \BulkExport\Formatter\FormatterInterface
+    protected function initializeOutput(): self
     {
         parent::initializeOutput();
         // Prepend the utf-8 bom.

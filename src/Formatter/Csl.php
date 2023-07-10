@@ -9,14 +9,14 @@ class Csl extends AbstractViewFormatter
 {
     protected $label = 'csl';
     protected $extension = 'csl';
-    protected $responseHeaders = [
-        'Content-type' => 'text/plain',
-    ];
+    protected $mediaType = 'text/plain';
+
     protected $converterName = 'rdfToCsl';
 
-    protected function writeResource(AbstractResourceEntityRepresentation $resource, $index): void
+    protected function writeResource(AbstractResourceEntityRepresentation $resource, $index): self
     {
         $citation = $this->services->get('ViewHelperManager')->get('citation');
         fwrite($this->handle, $citation($resource, ['style' => 'csl']) . "\n\n\n");
+        return $this;
     }
 }

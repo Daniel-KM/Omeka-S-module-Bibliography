@@ -14,12 +14,11 @@ class CitationOdt extends AbstractViewFormatter
 
     protected $label = 'citation (odt)';
     protected $extension = 'bib.odt';
-    protected $responseHeaders = [
-        'Content-type' => 'application/vnd.oasis.opendocument.text',
-    ];
+    protected $mediaType = 'application/vnd.oasis.opendocument.text';
+
     protected $template = 'common/bulk-export-citation';
 
-    public function format($resources, $output = null, array $options = []): \BulkExport\Formatter\FormatterInterface
+    public function format($resources, $output = null, array $options = []): self
     {
         if (!extension_loaded('zip') || !extension_loaded('xml')) {
             $this->services->get('Omeka\Logger')->err(new PsrMessage(
@@ -34,7 +33,7 @@ class CitationOdt extends AbstractViewFormatter
         return parent::format($resources, $output, $options);
     }
 
-    protected function initializeOutput(): \BulkExport\Formatter\FormatterInterface
+    protected function initializeOutput(): self
     {
         $tempDir = $this->services->get('Config')['temp_dir'] ?: sys_get_temp_dir();
         $this->filepath = $this->isOutput
@@ -48,7 +47,7 @@ class CitationOdt extends AbstractViewFormatter
         return $this;
     }
 
-    protected function writeResource(AbstractResourceEntityRepresentation $resource, $index): void
+    protected function writeResource(AbstractResourceEntityRepresentation $resource, $index): self
     {
         $conv = $this->converter;
         $value = $conv($resource, $index);
@@ -63,9 +62,10 @@ class CitationOdt extends AbstractViewFormatter
             );
         }
         $section->addTextBreak();
+        return $this;
     }
 
-    protected function finalizeOutput(): \BulkExport\Formatter\FormatterInterface
+    protected function finalizeOutput(): self
     {
         $objWriter = PhpWord\IOFactory::createWriter($this->openDocument, 'ODText');
         $objWriter->save($this->filepath);

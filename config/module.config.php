@@ -174,11 +174,11 @@ return [
     ],
     'formatters' => [
         'factories' => [
-            Formatter\Bibtex::class => \BulkExport\Service\Formatter\FormatterFactory::class,
-            Formatter\CitationOdt::class => \BulkExport\Service\Formatter\FormatterFactory::class,
-            Formatter\CitationTxt::class => \BulkExport\Service\Formatter\FormatterFactory::class,
-            Formatter\Csl::class => \BulkExport\Service\Formatter\FormatterFactory::class,
-            Formatter\Ris::class => \BulkExport\Service\Formatter\FormatterFactory::class,
+            Formatter\Bibtex::class => \BulkExport\Service\PluginManagerFactory::class,
+            Formatter\CitationOdt::class => \BulkExport\Service\PluginManagerFactory::class,
+            Formatter\CitationTxt::class => \BulkExport\Service\PluginManagerFactory::class,
+            Formatter\Csl::class => \BulkExport\Service\PluginManagerFactory::class,
+            Formatter\Ris::class => \BulkExport\Service\PluginManagerFactory::class,
         ],
         'aliases' => [
             'bibtex' => Formatter\Bibtex::class,
