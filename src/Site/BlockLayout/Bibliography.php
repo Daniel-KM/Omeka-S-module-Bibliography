@@ -46,7 +46,7 @@ class Bibliography extends AbstractBlockLayout
         $defaultSettings['style'] = $view->siteSetting('bibliography_csl_style') ?: 'chicago-fullnote-bibliography';
         $defaultSettings['locale'] = $view->siteSetting('bibliography_csl_locale') ?: str_replace('_', '-', $view->siteSetting('locale'));
 
-        $data = $block ? $block->data() + $defaultSettings : $defaultSettings;
+        $data = $block ? ($block->data() ?? []) + $defaultSettings : $defaultSettings;
 
         $dataForm = [];
         foreach ($data as $key => $value) {
