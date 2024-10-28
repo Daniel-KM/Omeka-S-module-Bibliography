@@ -183,4 +183,18 @@ if (version_compare($oldVersion, '3.4.9', '<')) {
         $messenger->addWarning($message);
         $logger->warn($message->getMessage(), $message->getContext());
     }
+
+    $siteSettings = $services->get('Omeka\Settings\Site');
+    $siteIds = $api->search('sites', [], ['returnScalar' => 'id'])->getContent();
+    foreach ($siteIds as $siteId) {
+        $siteSettings->setTargetId($siteId);
+        $siteSettings->set('bibliography_placement_citation', [
+            'after/items',
+        ]);
+    }
+
+    $message = new PsrMessage(
+        'A new option in site settings allows to append the bibliographic reference via a resource block.', // @translate
+    );
+    $messenger->addSuccess($message);
 }
