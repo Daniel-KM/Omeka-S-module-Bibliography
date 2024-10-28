@@ -7,7 +7,8 @@ Bibliography (module for Omeka S)
 
 [Bibliography] is a module for [Omeka S] that adds features to manage a
 bibliography with standard citations, reference lists, suggested values, and
-collected records from doi, isbn and other identifiers.
+collected records from doi, isbn and other identifiers. The reference can be
+added via site or resource blocks.
 
 - The canonical bibliographic citations of resources are displayed according to
   any managed [citation style].
@@ -29,24 +30,17 @@ Internet Archive.
 Installation
 ------------
 
-This optional  module [Generic] may be installed first.
+See general end user documentation for [installing a module].
 
-To use suggesters, it is required to use this [version of Value Suggest], that
-contains all patchs, not yet integrated upstream. For the same reason, it is
-required to use this [version of Collecting] to create a collecting form with
-suggesters. To output resources in admin or public side, the module [Bulk Export]
-should be installed.
+This module requires the module [Common], that should be installed first.
 
 The module uses external libraries, so use the release zip to install it, or use
 and init the source.
 
-See general end user documentation for [installing a module].
-
 * From the zip
 
-Download the last release [Bibliography.zip] from the list of releases (the
-master does not contain the dependency), and uncompress it in the `modules`
-directory.
+Download the last release [Bibliography.zip] from the list of releases, and
+uncompress it in the `modules` directory.
 
 * From the source and for development
 
@@ -59,6 +53,14 @@ composer install --no-dev
 
 If you used the module [Citation], it is automatically uninstalled: its features
 are the same and improved in this module.
+
+**WARNING**
+
+To use suggesters, it is required to use this [version of Value Suggest], that
+contains all patchs, not yet integrated upstream. For the same reason, it is
+required to use this [version of Collecting] to create a collecting form with
+suggesters. To output resources in admin or public side, the module [Bulk Export]
+should be installed.
 
 
 Usage
@@ -191,7 +193,7 @@ altered, and that no provisions are either added or removed herefrom.
 Copyright
 ---------
 
-* Copyright Daniel Berthereau, 2018-2023 (see [Daniel-KM] on GitLab)
+* Copyright Daniel Berthereau, 2018-2024 (see [Daniel-KM] on GitLab)
 * See third parties copyright for dependencies.
 
 First version of this module was built for Daniel Berthereau for [Collegium Musicæ],
@@ -212,9 +214,9 @@ of [Sorbonne Université].
 [OLID]: https://openlibrary.org
 [crossref]: https://www.crossref.org
 [OpenLibrary]: https://openlibrary.org
-[Generic]: https://gitlab.com/Daniel-KM/Omeka-S-module-Generic
+[Common]: https://gitlab.com/Daniel-KM/Omeka-S-module-Common
 [Bibliography.zip]: https://gitlab.com/Daniel-KM/Omeka-S-module-Bibliography/-/releases
-[Installing a module]: https://omeka.org/s/docs/user-manual/modules/#installing-modules
+[installing a module]: https://omeka.org/s/docs/user-manual/modules/#installing-modules
 [Blocks Disposition]: https://gitlab.com/Daniel-KM/Omeka-S-module-BlocksDisposition
 [Citation]: https://gitlab.com/Daniel-KM/Omeka-S-module-Citation
 [version of Value Suggest]: https://gitlab.com/Daniel-KM/Omeka-S-module-ValueSuggest
