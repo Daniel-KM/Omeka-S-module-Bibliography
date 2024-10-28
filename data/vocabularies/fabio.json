@@ -1,0 +1,13 @@
+{
+    "vocabulary": {
+        "o:namespace_uri": "http://purl.org/spar/fabio/",
+        "o:prefix": "fabio",
+        "o:label": "FaBiO",
+        "o:comment": "FaBiO, the FRBR-aligned Bibliographic Ontology"
+    },
+    "strategy": "file",
+    "options": {
+        "file": "fabio_2019-02-19.ttl",
+        "format": "turtle"
+    }
+}

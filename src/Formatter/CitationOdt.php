@@ -4,7 +4,7 @@ namespace Bibliography\Formatter;
 
 use BulkExport\Formatter\AbstractViewFormatter;
 use BulkExport\Traits\OpenDocumentTextTemplateTrait;
-use Log\Stdlib\PsrMessage;
+use Common\Stdlib\PsrMessage;
 use Omeka\Api\Representation\AbstractResourceEntityRepresentation;
 use PhpOffice\PhpWord;
 
@@ -26,10 +26,10 @@ class CitationOdt extends AbstractViewFormatter
     public function format($resources, $output = null, array $options = []): self
     {
         if (!extension_loaded('zip') || !extension_loaded('xml')) {
-            $this->services->get('Omeka\Logger')->err(new PsrMessage(
+            $this->services->get('Omeka\Logger')->err(
                 'To process export to "{format}", the php extensions "zip" and "xml" are required.', // @translate
                 ['format' => $this->getLabel()]
-            ));
+            );
             $this->hasError = false;
             $resources = false;
         }

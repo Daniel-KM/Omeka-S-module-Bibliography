@@ -3,6 +3,7 @@
 namespace Bibliography\Form;
 
 use Bibliography\Service\TraitCslData;
+use Common\Form\Element as CommonElement;
 use Laminas\Form\Element;
 use Laminas\Form\Fieldset;
 
@@ -26,6 +27,7 @@ class SettingsFieldset extends Fieldset
             ->setOption('element_groups', $this->elementGroups)
             ->add([
                 'name' => 'bibliography_crossref_email',
+                // TODO Use Common element optional email in next version of Common 3.4.64.
                 'type' => Element\Email::class,
                 'options' => [
                     'element_group' => 'export',
@@ -39,7 +41,7 @@ class SettingsFieldset extends Fieldset
             ])
             ->add([
                 'name' => 'bibliography_csl_style',
-                'type' => Element\Select::class,
+                'type' => CommonElement\OptionalSelect::class,
                 'options' => [
                     'element_group' => 'export',
                     'label' => 'Citation style', // @translate
@@ -54,7 +56,7 @@ class SettingsFieldset extends Fieldset
             ])
             ->add([
                 'name' => 'bibliography_csl_locale',
-                'type' => Element\Select::class,
+                'type' => CommonElement\OptionalSelect::class,
                 'options' => [
                     'element_group' => 'export',
                     'label' => 'Citation locale', // @translate

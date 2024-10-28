@@ -3,7 +3,7 @@
 namespace Bibliography\Form;
 
 use Bibliography\Service\TraitCslData;
-use Laminas\Form\Element;
+use Common\Form\Element as CommonElement;
 use Laminas\Form\Fieldset;
 
 class SiteSettingsFieldset extends Fieldset
@@ -26,7 +26,7 @@ class SiteSettingsFieldset extends Fieldset
             ->setOption('element_groups', $this->elementGroups)
             ->add([
                 'name' => 'bibliography_csl_style',
-                'type' => Element\Select::class,
+                'type' => CommonElement\OptionalSelect::class,
                 'options' => [
                     'element_group' => 'export',
                     'label' => 'Citation style', // @translate
@@ -41,7 +41,7 @@ class SiteSettingsFieldset extends Fieldset
             ])
             ->add([
                 'name' => 'bibliography_csl_locale',
-                'type' => Element\Select::class,
+                'type' => CommonElement\OptionalSelect::class,
                 'options' => [
                     'element_group' => 'export',
                     'label' => 'Citation locale', // @translate

@@ -2,28 +2,30 @@
 
 namespace Bibliography;
 
-if (!class_exists(\Generic\AbstractModule::class)) {
-    require file_exists(dirname(__DIR__) . '/Generic/AbstractModule.php')
-        ? dirname(__DIR__) . '/Generic/AbstractModule.php'
-        : __DIR__ . '/src/Generic/AbstractModule.php';
+if (!class_exists(\Common\TraitModule::class)) {
+    require_once dirname(__DIR__) . '/Common/TraitModule.php';
 }
 
-use Generic\AbstractModule;
+use Common\Stdlib\PsrMessage;
+use Common\TraitModule;
 use Laminas\EventManager\Event;
 use Laminas\EventManager\SharedEventManagerInterface;
 use Laminas\ModuleManager\ModuleManager;
 use Laminas\Mvc\MvcEvent;
+use Omeka\Module\AbstractModule;
 
 /**
  * Bibliography
  *
  * Tools to manage bibliographic items.
  *
- * @copyright Daniel Berthereau, 2018-2023
+ * @copyright Daniel Berthereau, 2018-2024
  * @license http://www.cecill.info/licences/Licence_CeCILL_V2.1-en.txt
  */
 class Module extends AbstractModule
 {
+    use TraitModule;
+
     const NAMESPACE = __NAMESPACE__;
 
     public function init(ModuleManager $moduleManager): void
@@ -31,10 +33,37 @@ class Module extends AbstractModule
         require_once __DIR__ . '/vendor/autoload.php';
     }
 
+    protected function preInstall(): void
+    {
+        $services = $this->getServiceLocator();
+        $translate = $services->get('ControllerPluginManager')->get('translate');
+        $translator = $services->get('MvcTranslator');
+
+        if (!method_exists($this, 'checkModuleActiveVersion') || !$this->checkModuleActiveVersion('Common', '3.4.63')) {
+            $message = new \Omeka\Stdlib\Message(
+                $translate('The module %1$s should be upgraded to version %2$s or later.'), // @translate
+                'Common', '3.4.63'
+            );
+            throw new \Omeka\Module\Exception\ModuleCannotInstallException((string) $message);
+        }
+
+        $file = __DIR__ . '/vendor/autoload.php';
+        if (!file_exists($file)) {
+            $message = new PsrMessage(
+                'The libraries should be installed. See module’s installation documentation.' // @translate
+            );
+            throw new \Omeka\Module\Exception\ModuleCannotInstallException((string) $message->setTranslator($translator));
+        }
+
+        // Note: The creation of the vocabulary directly failed in previous
+        // veresion, so there were a pull request https://github.com/omeka/omeka-s/pull/1335 (Omeka < 2.1)
+        // and a way to import it via sql.
+        // The fix was done separetly in https://github.com/omeka/omeka-s/commit/8d1476bcc8f2ec51126a44ea7497025ea1dbcb3b.
+    }
+
     protected function postInstall(): void
     {
         $this->uninstallModuleCitation();
-        $this->installResources();
     }
 
     public function onBootstrap(MvcEvent $event): void
@@ -63,6 +92,7 @@ class Module extends AbstractModule
             'form.add_elements',
             [$this, 'handleMainSettings']
         );
+        // TODO Remove in version of Common 3.4.64.
         $sharedEventManager->attach(
             \Omeka\Form\SettingForm::class,
             'form.add_input_filters',
@@ -74,45 +104,14 @@ class Module extends AbstractModule
             'form.add_elements',
             [$this, 'handleSiteSettings']
         );
-        $sharedEventManager->attach(
-            \Omeka\Form\SiteSettingsForm::class,
-            'form.add_input_filters',
-            [$this, 'handleSiteSettingsFilters']
-        );
     }
 
     public function handleMainSettingsFilters(Event $event): void
     {
-        $inputFilter = version_compare(\Omeka\Module::VERSION, '4', '<')
-            ? $event->getParam('inputFilter')->get('bibliography')
-            : $event->getParam('inputFilter');
+        $inputFilter = $event->getParam('inputFilter');
         $inputFilter
             ->add([
                 'name' => 'bibliography_crossref_email',
-                'required' => false,
-            ])
-            ->add([
-                'name' => 'bibliography_csl_style',
-                'required' => false,
-            ])
-            ->add([
-                'name' => 'bibliography_csl_locale',
-                'required' => false,
-            ]);
-    }
-
-    public function handleSiteSettingsFilters(Event $event): void
-    {
-        $inputFilter = version_compare(\Omeka\Module::VERSION, '4', '<')
-            ? $event->getParam('inputFilter')->get('bibliography')
-            : $event->getParam('inputFilter');
-        $inputFilter
-            ->add([
-                'name' => 'bibliography_csl_style',
-                'required' => false,
-            ])
-            ->add([
-                'name' => 'bibliography_csl_locale',
                 'required' => false,
             ]);
     }
@@ -144,7 +143,6 @@ class Module extends AbstractModule
             return;
         }
 
-        $t = $services->get('MvcTranslator');
         $messenger = $services->get('ControllerPluginManager')->get('messenger');
 
         // Process uninstallation directly: the module has nothing to uninstall.
@@ -153,8 +151,8 @@ class Module extends AbstractModule
             ->getRepository(\Omeka\Entity\Module::class)
             ->findOneById($module->getId());
         if (!$entity) {
-            $message = new \Omeka\Stdlib\Message(
-                $t->translate('The module Bibliography replaces the module Citation, that cannot be automatically uninstalled.') // @translate
+            $message = new PsrMessage(
+                'The module Bibliography replaces the module Citation, that cannot be automatically uninstalled.' // @translate
             );
             $messenger->addWarning($message);
             return;
@@ -163,71 +161,11 @@ class Module extends AbstractModule
         $entityManager->remove($entity);
         $entityManager->flush();
 
-        $message = new \Omeka\Stdlib\Message(
-            $t->translate('The module Bibliography replaces the module Citation, that was automatically uninstalled.') // @translate
+        $message = new PsrMessage(
+            'The module Bibliography replaces the module Citation, that was automatically uninstalled.' // @translate
         );
         $messenger->addNotice($message);
 
         $module->setState(\Omeka\Module\Manager::STATE_NOT_INSTALLED);
-    }
-
-    protected function installResources(): void
-    {
-        if (!class_exists(\Generic\InstallResources::class)) {
-            require_once file_exists(dirname(__DIR__) . '/Generic/InstallResources.php')
-                ? dirname(__DIR__) . '/Generic/InstallResources.php'
-                : __DIR__ . '/src/Generic/InstallResources.php';
-        }
-
-        $services = $this->getServiceLocator();
-        $installResources = new \Generic\InstallResources($services);
-        $installResources = $installResources();
-
-        $vocabulary = [
-            'vocabulary' => [
-                'o:namespace_uri' => 'http://purl.org/spar/fabio/',
-                'o:prefix' => 'fabio',
-                'o:label' => 'FaBiO', // @translate
-                'o:comment' => 'FaBiO, the FRBR-aligned Bibliographic Ontology', // @translate
-            ],
-            'strategy' => 'file',
-            'file' => __DIR__ . '/data/vocabularies/fabio_2019-02-19.ttl',
-            'format' => 'turtle',
-        ];
-        // This vocabulary is too big to be imported directly, so use sql.
-        // @todo Creation vocabulary directly with pull request https://github.com/omeka/omeka-s/pull/1335 (Omeka < 2.1).
-        // $installResources->createVocabulary($vocabulary);
-        if ($installResources->checkVocabulary($vocabulary)) {
-            return;
-        }
-        $this->createVocabularyViaSql($vocabulary, __DIR__ . '/data/install/fabio.sql');
-    }
-
-    protected function createVocabularyViaSql(array $vocabulary, $file): void
-    {
-        $vocabulary = $vocabulary['vocabulary'];
-
-        $services = $this->getServiceLocator();
-        $connection = $services->get('Omeka\Connection');
-
-        $api = $services->get('ControllerPluginManager')->get('api');
-        $vocab = $api->searchOne('vocabularies', ['namespace_uri' => $vocabulary['o:namespace_uri']])->getContent();
-        if ($vocab) {
-            return;
-        }
-
-        $userId = $services->get('Omeka\AuthenticationService')->getIdentity()->getId();
-
-        $sql = <<<SQL
-INSERT INTO `vocabulary` (`owner_id`, `namespace_uri`, `prefix`, `label`, `comment`) VALUES
-($userId, "{$vocabulary['o:namespace_uri']}", "{$vocabulary['o:prefix']}", "{$vocabulary['o:label']}", "{$vocabulary['o:comment']}");
-SQL;
-        $connection->executeStatement($sql);
-
-        $vocabularyId = $api->searchOne('vocabularies', ['namespace_uri' => $vocabulary['o:namespace_uri']])->getContent()->id();
-
-        $sql = file_get_contents($file);
-        $sql = str_replace('(1, __VOCABULARY_ID__,', "($userId, $vocabularyId,", $sql);
-        $connection->executeStatement($sql);
     }
 }
