@@ -87,16 +87,21 @@ return [
             'cslToRdf' => Service\ViewHelper\CslToRdfFactory::class,
         ],
     ],
-    'block_layouts' => [
-        'invokables' => [
-            'bibliography' => Site\BlockLayout\Bibliography::class,
-        ],
-    ],
     'form_elements' => [
         'invokables' => [
             Form\BibliographyBlockFieldset::class => Form\BibliographyBlockFieldset::class,
             Form\SettingsFieldset::class => Form\SettingsFieldset::class,
             Form\SiteSettingsFieldset::class => Form\SiteSettingsFieldset::class,
+        ],
+    ],
+    'block_layouts' => [
+        'invokables' => [
+            'bibliography' => Site\BlockLayout\Bibliography::class,
+        ],
+    ],
+    'resource_page_block_layouts' => [
+        'invokables' => [
+            'citation' => Site\ResourcePageBlockLayout\Citation::class,
         ],
     ],
     'controllers' => [
