@@ -54,6 +54,23 @@ class SiteSettingsFieldset extends Fieldset
                     'data-placeholder' => 'Select your locale for citation…', // @translate
                 ],
             ])
+            ->add([
+                'name' => 'bibliography_placement_citation',
+                'type' => CommonElement\OptionalMultiCheckbox::class,
+                'options' => [
+                    'element_group' => 'bibliography',
+                    'label' => 'Display citation', // @translate
+                    'value_options' => [
+                        'block/items' => 'Items: Via resource block or custom theme', // @translate
+                        'before/items' => 'Item: Top', // @translate
+                        'after/items' => 'Item: Bottom', // @translate
+                    ],
+                ],
+                'attributes' => [
+                    'id' => 'bibliography_placement_citation',
+                    'required' => false,
+                ],
+            ])
         ;
     }
 }

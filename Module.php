@@ -81,10 +81,16 @@ class Module extends AbstractModule
 
     public function attachListeners(SharedEventManagerInterface $sharedEventManager): void
     {
+        // The site is not set yet, so checks are done in method.
+        $sharedEventManager->attach(
+            'Omeka\Controller\Site\Item',
+            'view.show.before',
+            [$this, 'handleDisplayCitation']
+        );
         $sharedEventManager->attach(
             'Omeka\Controller\Site\Item',
             'view.show.after',
-            [$this, 'handleViewShowAfter']
+            [$this, 'handleDisplayCitation']
         );
 
         $sharedEventManager->attach(
@@ -116,10 +122,28 @@ class Module extends AbstractModule
             ]);
     }
 
-    public function handleViewShowAfter(Event $event): void
+    public function handleDisplayCitation(Event $event): void
     {
+        /**
+         * @var \Omeka\Settings\SiteSettings $siteSettings
+         * @var \Laminas\View\Renderer\PhpRenderer $view
+         * @var \Omeka\Api\Representation\AbstractResourceEntityRepresentation $resource
+         * @see \Bibliography\View\Helper\Citation
+         */
+
+        $services = $this->getServiceLocator();
+        $siteSettings = $services->get('Omeka\Settings\Site');
+
         $view = $event->getTarget();
-        echo $view->citation($view->resource, ['tag' => 'p']);
+        $resource = $view->resource;
+        $resourceName = $resource->resourceName();
+
+        $placements = $siteSettings->get('bibliography_placement_citation', []);
+        if (in_array('before/' . $resourceName, $placements)
+            || in_array('after/' . $resourceName, $placements)
+        ) {
+            echo $view->citation($resource, ['tag' => 'p']);
+        }
     }
 
     protected function uninstallModuleCitation(): void

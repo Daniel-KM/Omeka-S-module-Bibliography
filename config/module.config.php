@@ -152,6 +152,9 @@ return [
         'site_settings' => [
             'bibliography_csl_style' => 'chicago-fullnote-bibliography',
             'bibliography_csl_locale' => '',
+            'bibliography_placement_citation' => [
+                'after/items',
+            ],
         ],
         'block_settings' => [
             'bibliography' => [
