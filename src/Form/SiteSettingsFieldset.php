@@ -16,7 +16,7 @@ class SiteSettingsFieldset extends Fieldset
     protected $label = 'Bibliography'; // @translate
 
     protected $elementGroups = [
-        'export' => 'Export', // @translate
+        'bibliography' => 'Bibliography', // @translate
     ];
 
     public function init(): void
@@ -28,7 +28,7 @@ class SiteSettingsFieldset extends Fieldset
                 'name' => 'bibliography_csl_style',
                 'type' => CommonElement\OptionalSelect::class,
                 'options' => [
-                    'element_group' => 'export',
+                    'element_group' => 'bibliography',
                     'label' => 'Citation style', // @translate
                     'value_options' => $this->getCitationStyles(),
                     'empty_option' => '',
@@ -43,7 +43,7 @@ class SiteSettingsFieldset extends Fieldset
                 'name' => 'bibliography_csl_locale',
                 'type' => CommonElement\OptionalSelect::class,
                 'options' => [
-                    'element_group' => 'export',
+                    'element_group' => 'bibliography',
                     'label' => 'Citation locale', // @translate
                     'value_options' => $this->getCitationLocales(),
                     'empty_option' => '',

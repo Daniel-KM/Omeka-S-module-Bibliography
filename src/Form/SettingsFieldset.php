@@ -17,7 +17,7 @@ class SettingsFieldset extends Fieldset
     protected $label = 'Bibliography'; // @translate
 
     protected $elementGroups = [
-        'export' => 'Export', // @translate
+        'bibliography' => 'Bibliography', // @translate
     ];
 
     public function init(): void
@@ -30,7 +30,7 @@ class SettingsFieldset extends Fieldset
                 // TODO Use Common element optional email in next version of Common 3.4.64.
                 'type' => Element\Email::class,
                 'options' => [
-                    'element_group' => 'export',
+                    'element_group' => 'bibliography',
                     'label' => 'Crossref account email', // @translate
                     'info' => 'This email allows to be connected to better servers of crossref.', // @translate
                     'documentation' => 'https://github.com/CrossRef/rest-api-doc#etiquette',
@@ -43,7 +43,7 @@ class SettingsFieldset extends Fieldset
                 'name' => 'bibliography_csl_style',
                 'type' => CommonElement\OptionalSelect::class,
                 'options' => [
-                    'element_group' => 'export',
+                    'element_group' => 'bibliography',
                     'label' => 'Citation style', // @translate
                     'value_options' => $this->getCitationStyles(),
                     'empty_option' => '',
@@ -58,7 +58,7 @@ class SettingsFieldset extends Fieldset
                 'name' => 'bibliography_csl_locale',
                 'type' => CommonElement\OptionalSelect::class,
                 'options' => [
-                    'element_group' => 'export',
+                    'element_group' => 'bibliography',
                     'label' => 'Citation locale', // @translate
                     'value_options' => $this->getCitationLocales(),
                     'empty_option' => '',
