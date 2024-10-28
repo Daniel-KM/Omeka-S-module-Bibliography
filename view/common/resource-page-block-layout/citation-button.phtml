@@ -1,0 +1,28 @@
+<?php
+/**
+ * @var \Laminas\View\Renderer\PhpRenderer $this
+ * @var \Omeka\Api\Representation\AbstractResourceEntityRepresentation $resource
+ */
+
+$plugins = $this->getHelperPluginManager();
+$citation = $plugins->get('citation');
+$assetUrl = $plugins->get('assetUrl');
+$translate = $plugins->get('translate');
+$escapeAttr = $plugins->get('escapeHtmlAttr');
+
+// May be included in main layout.
+$this->headScript()
+    ->appendFile($assetUrl('js/bibliography.js', 'Bibliography'), 'text/javascript', ['defer' => 'defer']);
+
+$reference = $citation($resource, [
+    'append_date' => true,
+    'tag' => '',
+    'as_text' => true,
+]);
+?>
+
+<div class="block resource-block block-citation">
+    <button class="record-copy record-citation" type="button" title="<?= $escapeAttr($translate('Copy the bibliographic reference in clipboard')) ?>" data-citation="<?= $escapeAttr($reference) ?>" data-text-copied="<?= $escapeAttr($translate('Bibliographic reference copied in clipboard!')) ?>">
+        <?= $translate('Bibliographic reference') ?>
+    </button>
+</div>

@@ -102,6 +102,7 @@ return [
     'resource_page_block_layouts' => [
         'invokables' => [
             'citation' => Site\ResourcePageBlockLayout\Citation::class,
+            'citationButton' => Site\ResourcePageBlockLayout\CitationButton::class,
         ],
     ],
     'controllers' => [

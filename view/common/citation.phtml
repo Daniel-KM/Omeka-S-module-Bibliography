@@ -9,15 +9,16 @@
  * @var bool $append_site
  * @var bool $append_date
  * @var string $tag
+ * @var bool $as_text
  */
 
 $plugins = $this->getHelperPluginManager();
 $translate = $plugins->get('translate');
 $escape = $plugins->get('escapeHtml');
 
-if (is_null($style)):
+if (is_null($style)) {
     $style = 'chicago-fullnote-bibliography';
-endif;
+}
 
 try {
     $style = @\Seboettg\CiteProc\StyleSheet::loadStyleSheet($style);
@@ -25,7 +26,7 @@ try {
     $style = null;
 }
 
-if ($style):
+if ($style) {
 
     $citeProc = new \Seboettg\CiteProc\CiteProc($style, $locale);
     $csl = $this->rdfToCsl($resource, $defaults);
@@ -40,7 +41,7 @@ if ($style):
     }
     $citation = mb_substr($citation, 52, -13);
 
-else:
+} else {
 
     // Format: only pseudo-Chicago is managed when there is no csl.
 
@@ -50,7 +51,7 @@ else:
     // Strip formatting and remove empty creator elements.
     $creators = array_values(array_filter(array_map('strip_tags', $creators)));
     if ($creators) {
-        switch (count($creators)):
+        switch (count($creators)) {
         case 1:
             $creator = $creators[0];
             break;
@@ -66,7 +67,7 @@ else:
             // Chicago-style item citation: more than three authors.
             $creator = sprintf($translate('%s et al.'), $creators[0]);
             break;
-        endswitch;
+        }
         $citation .= $creator;
     }
 
@@ -74,33 +75,35 @@ else:
     $citation .= ($citation ? ', ' : '') . '“' . $title . '”';
 
     $publisher = $resource->value('dcterms:publisher') ?: @$defaults['dcterms:publisher'][0]['@value'];
-    if ($publisher):
-        $citation .= ', <i>' . $publisher . '</i>';
-    endif;
+    if ($publisher) {
+        $citation .= $as_text ? ', ' . $publisher : ', <i>' . $publisher . '</i>';
+    }
 
     $date = $resource->value('dcterms:date') ?: @$defaults['dcterms:date'][0]['@value'];
-    if ($date):
+    if ($date) {
         $citation .= ', ' . $date;
-    endif;
+    }
 
-endif;
+}
 
-if ($append_site || $append_date):
+if ($append_site || $append_date) {
     $citation = rtrim($citation, '. ');
 
-    if ($append_site):
-        if ($site = $this->viewModel()->getRoot()->getVariable('site')):
-            $citation .= ', <i>' . $site->title() . '</i>';
-        endif;
-    endif;
+    if ($append_site) {
+        if ($site = $this->viewModel()->getRoot()->getVariable('site')) {
+            $citation .= $as_text ? ', ' . $site->title() : ', <i>' . $site->title() . '</i>';
+        }
+    }
 
-    if ($append_date):
+    if ($append_date) {
         $accessed = $escape($this->i18n()->dateFormat(new \DateTime(), \Omeka\View\Helper\I18n::DATE_FORMAT_LONG));
-        $url = '<span class="citation-url">' . $escape($resource->url(null, true)) . '</span>';
+        $url = $as_text
+            ? $resource->url(null, true)
+            : '<span class="citation-url">' . $escape($resource->url(null, true)) . '</span>';
         // Chicago-style item citation: access date and URL.
         $citation .= ', ' . sprintf($translate('accessed %1$s, %2$s'), $accessed, $url);
-    endif;
+    }
 
-endif;
+}
 
 echo empty($tag) ? $citation : "<$tag class=\"citation\">$citation</$tag>";
