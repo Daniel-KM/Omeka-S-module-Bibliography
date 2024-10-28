@@ -1,4 +1,5 @@
 <?php declare(strict_types=1);
+
 namespace Bibliography\Site\BlockLayout;
 
 use Laminas\View\Renderer\PhpRenderer;
@@ -7,9 +8,10 @@ use Omeka\Api\Representation\SitePageRepresentation;
 use Omeka\Api\Representation\SiteRepresentation;
 use Omeka\Entity\SitePageBlock;
 use Omeka\Site\BlockLayout\AbstractBlockLayout;
+use Omeka\Site\BlockLayout\TemplateableBlockLayoutInterface;
 use Omeka\Stdlib\ErrorStore;
 
-class Bibliography extends AbstractBlockLayout
+class Bibliography extends AbstractBlockLayout implements TemplateableBlockLayoutInterface
 {
     /**
      * The default partial view script.
@@ -61,10 +63,12 @@ class Bibliography extends AbstractBlockLayout
         return $view->formCollection($fieldset);
     }
 
-    public function render(PhpRenderer $view, SitePageBlockRepresentation $block)
+    public function render(PhpRenderer $view, SitePageBlockRepresentation $block, $templateViewScript = self::PARTIAL_NAME)
     {
+        $data = $block->data();
+
         $query = [];
-        parse_str((string) $block->dataValue('query'), $query);
+        parse_str((string) ($data['query'] ?? ''), $query);
         $originalQuery = $query;
 
         $site = $block->page()->site();
@@ -73,7 +77,7 @@ class Bibliography extends AbstractBlockLayout
         }
 
         $query['site_id'] = $site->id();
-        $query['limit'] = $block->dataValue('limit', 12);
+        $query['limit'] = (int) ($data['limit'] ?? 12);
 
         if (!isset($query['sort_by'])) {
             $query['sort_by'] = 'created';
@@ -86,19 +90,17 @@ class Bibliography extends AbstractBlockLayout
         $resources = $response->getContent();
 
         $vars = [
-            'heading' => $block->dataValue('heading'),
+            'block' => $block,
             'query' => $originalQuery,
             'resources' => $resources,
             'options' => [
-                'style' => $block->dataValue('style'),
-                'locale' => $block->dataValue('locale'),
-                'append_site' => $block->dataValue('append_site'),
-                'append_date' => $block->dataValue('append_date'),
+                'style' => $data['style'] ?? null,
+                'locale' => $data['locale'] ?? null,
+                'append_site' => $data['append_site'] ?? null,
+                'append_date' => $data['append_date'] ?? null,
             ],
         ];
-        $template = $block->dataValue('template', self::PARTIAL_NAME);
-        return $template !== self::PARTIAL_NAME && $view->resolver($template)
-            ? $view->partial($template, $vars)
-            : $view->partial(self::PARTIAL_NAME, $vars);
+
+        return $view->partial($templateViewScript, $vars);
     }
 }

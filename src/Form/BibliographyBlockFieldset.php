@@ -15,16 +15,6 @@ class BibliographyBlockFieldset extends Fieldset
     {
         $this
             ->add([
-                'name' => 'o:block[__blockIndex__][o:data][heading]',
-                'type' => Element\Text::class,
-                'options' => [
-                    'label' => 'Block title', // @translate
-                ],
-                'attributes' => [
-                    'id' => 'bibliography-heading',
-                ],
-            ])
-            ->add([
                 'name' => 'o:block[__blockIndex__][o:data][style]',
                 'type' => Element\Select::class,
                 'options' => [
@@ -81,22 +71,5 @@ class BibliographyBlockFieldset extends Fieldset
                 ],
             ])
         ;
-
-        if (class_exists('BlockPlus\Form\Element\TemplateSelect')) {
-            $this
-                ->add([
-                    'name' => 'o:block[__blockIndex__][o:data][template]',
-                    'type' => \BlockPlus\Form\Element\TemplateSelect::class,
-                    'options' => [
-                        'label' => 'Template to display', // @translate
-                        'info' => 'Templates are in folder "common/block-layout" of the theme and should start with "bibliography".', // @translate
-                        'template' => 'common/block-layout/bibliography',
-                    ],
-                    'attributes' => [
-                        'id' => 'bibliography-template',
-                        'class' => 'chosen-select',
-                    ],
-                ]);
-        }
     }
 }

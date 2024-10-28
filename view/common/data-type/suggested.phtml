@@ -1,6 +1,11 @@
 <?php
-$translate = $this->plugin('translate');
-$escape = $this->plugin('escapeHtml');
+/**
+ * @var \Laminas\View\Renderer\PhpRenderer $this
+ */
+
+$plugins = $this->getHelperPluginManager();
+$escape = $plugins->get('escapeHtml');
+$translate = $plugins->get('translate');
 
 // Remove some options from the select in order to keep only value suggests vocabs,
 // since it can't be done via the core helper.
@@ -10,6 +15,7 @@ $dataTypeSelect = preg_replace([
     '~(<optgroup.*?>|</optgroup>|<option value="valuesuggest&#x3A;any">.*?</option>)~',
     '~<option value="">.*?</option>~',
 ], ['', '', '<option value="">' . $translate('Select a vocabulary…') . '</option>'], $dataTypeSelect) . '</select>';
+
 echo $dataTypeSelect;
 ?>
 

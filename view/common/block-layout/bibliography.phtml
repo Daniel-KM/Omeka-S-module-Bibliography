@@ -1,22 +1,19 @@
 <?php
 /**
  * @var \Laminas\View\Renderer\PhpRenderer $this
+ * @var \Omeka\Api\Representation\SitePageBlockRepresentation $block
  * @var \Omeka\Api\Representation\ItemRepresentation[] $resources
- * @var string $heading
  * @var string $query
  * @var array $options
  */
 
-$escape = $this->plugin('escapeHtml');
-$citation = $this->plugin('citation');
+$plugins = $this->getHelperPluginManager();
+$citation = $plugins->get('citation');
 
 $options['tag'] = 'li';
 ?>
 
-<div class="block-bibliography">
-    <?php if ($heading): ?>
-    <h2><?= $escape($heading) ?></h2>
-    <?php endif; ?>
+<div class="block block-bibliography">
     <ul>
     <?php foreach ($resources as $resource): ?>
         <?= $citation($resource, $options) ?>
