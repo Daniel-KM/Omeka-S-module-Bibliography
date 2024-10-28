@@ -1,4 +1,5 @@
 <?php declare(strict_types=1);
+
 namespace Bibliography\Service\ViewHelper;
 
 use Bibliography\View\Helper\CslToRdf;

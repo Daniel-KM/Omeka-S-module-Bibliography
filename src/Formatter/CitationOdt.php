@@ -4,7 +4,6 @@ namespace Bibliography\Formatter;
 
 use BulkExport\Formatter\AbstractViewFormatter;
 use BulkExport\Traits\OpenDocumentTextTemplateTrait;
-use Common\Stdlib\PsrMessage;
 use Omeka\Api\Representation\AbstractResourceEntityRepresentation;
 use PhpOffice\PhpWord;
 

@@ -1,4 +1,5 @@
 <?php declare(strict_types=1);
+
 namespace Bibliography\Controller;
 
 use Laminas\Mvc\Controller\AbstractActionController;

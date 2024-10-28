@@ -1,4 +1,5 @@
 <?php declare(strict_types=1);
+
 namespace Bibliography\View\Helper;
 
 use ArrayObject;
@@ -68,9 +69,7 @@ class CslToRdf extends AbstractHelper
         $data['o:resource_template'] = null;
 
         $mapping = require dirname(__DIR__, 3) . '/data/mapping/csl_variables_map.php';
-        $mapping = array_filter(array_map(function ($v) {
-            return empty($this->propertyIds[$v['property']]) ? null : $v + ['prepend' => '', 'append' => ''];
-        }, array_filter($mapping)));
+        $mapping = array_filter(array_map(fn ($v) => empty($this->propertyIds[$v['property']]) ? null : $v + ['prepend' => '', 'append' => ''], array_filter($mapping)));
 
         // Filter keys to avoid checks.
         $csl = array_diff_key($csl, $mapping);

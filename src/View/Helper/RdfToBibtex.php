@@ -1,4 +1,5 @@
 <?php declare(strict_types=1);
+
 namespace Bibliography\View\Helper;
 
 use Geissler\Converter\Converter;

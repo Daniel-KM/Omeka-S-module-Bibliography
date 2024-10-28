@@ -1,4 +1,5 @@
 <?php declare(strict_types=1);
+
 namespace Bibliography\DataType\OpenLibrary;
 
 use Bibliography\DataType\AbstractBibliographyDataType;

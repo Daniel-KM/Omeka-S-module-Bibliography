@@ -1,4 +1,5 @@
 <?php declare(strict_types=1);
+
 namespace Bibliography\DataType;
 
 // This check avoids a dependency on module ValueSuggest.
