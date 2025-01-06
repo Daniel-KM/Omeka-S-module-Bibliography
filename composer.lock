@@ -4,40 +4,103 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "88249d800a0987d980bedf0aeb077548",
+    "content-hash": "fadeeefb9532c80cef5021b3476456d2",
     "packages": [
         {
             "name": "citation-style-language/locales",
-            "version": "1.0.0",
+            "version": "v0.0.26",
             "source": {
                 "type": "git",
                 "url": "https://github.com/citation-style-language/locales.git",
-                "reference": "master"
-            },
-            "type": "library"
-        },
-        {
-            "name": "citation-style-language/styles-distribution",
-            "version": "1.0.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/citation-style-language/styles-distribution.git",
-                "reference": "master"
-            },
-            "type": "library"
-        },
-        {
-            "name": "myclabs/php-enum",
-            "version": "1.8.4",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/myclabs/php-enum.git",
-                "reference": "a867478eae49c9f59ece437ae7f9506bfaa27483"
+                "reference": "3c4fe082ff4d768cf3ccbbefc7c2214df51cd482"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/myclabs/php-enum/zipball/a867478eae49c9f59ece437ae7f9506bfaa27483",
-                "reference": "a867478eae49c9f59ece437ae7f9506bfaa27483",
+                "url": "https://api.github.com/repos/citation-style-language/locales/zipball/3c4fe082ff4d768cf3ccbbefc7c2214df51cd482",
+                "reference": "3c4fe082ff4d768cf3ccbbefc7c2214df51cd482",
+                "shasum": ""
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0.x-dev"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "CC-BY-SA-3.0"
+            ],
+            "authors": [
+                {
+                    "name": "Citation Style Language (CSL) Team",
+                    "homepage": "http://citationstyles.org/about/#Credits"
+                }
+            ],
+            "description": "Citation Style Language (CSL) Locales",
+            "homepage": "http://citationstyles.org/",
+            "support": {
+                "issues": "https://github.com/citation-style-language/locales/issues",
+                "source": "https://github.com/citation-style-language/locales/tree/v0.0.26"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/adam3smith",
+                    "type": "github"
+                }
+            ],
+            "time": "2025-01-09T14:34:55+00:00"
+        },
+        {
+            "name": "citation-style-language/styles",
+            "version": "v0.0.576",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/citation-style-language/styles.git",
+                "reference": "6bae16d70a42b5ff0846ba21123d2f3796f051db"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/citation-style-language/styles/zipball/6bae16d70a42b5ff0846ba21123d2f3796f051db",
+                "reference": "6bae16d70a42b5ff0846ba21123d2f3796f051db",
+                "shasum": ""
+            },
+            "type": "library",
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "CC-BY-SA-3.0"
+            ],
+            "authors": [
+                {
+                    "name": "Citation Style Language (CSL) Team",
+                    "homepage": "http://citationstyles.org/about/#Credits"
+                }
+            ],
+            "description": "Citation Style Language (CSL) Styless",
+            "homepage": "http://citationstyles.org/",
+            "support": {
+                "issues": "https://github.com/citation-style-language/styles/issues",
+                "source": "https://github.com/citation-style-language/styles/tree/v0.0.576"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/adam3smith",
+                    "type": "github"
+                }
+            ],
+            "time": "2025-01-09T14:49:51+00:00"
+        },
+        {
+            "name": "myclabs/php-enum",
+            "version": "1.8.5",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/myclabs/php-enum.git",
+                "reference": "e7be26966b7398204a234f8673fdad5ac6277802"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/myclabs/php-enum/zipball/e7be26966b7398204a234f8673fdad5ac6277802",
+                "reference": "e7be26966b7398204a234f8673fdad5ac6277802",
                 "shasum": ""
             },
             "require": {
@@ -47,7 +110,7 @@
             "require-dev": {
                 "phpunit/phpunit": "^9.5",
                 "squizlabs/php_codesniffer": "1.*",
-                "vimeo/psalm": "^4.6.2"
+                "vimeo/psalm": "^4.6.2 || ^5.2"
             },
             "type": "library",
             "autoload": {
@@ -69,13 +132,13 @@
                 }
             ],
             "description": "PHP Enum implementation",
-            "homepage": "http://github.com/myclabs/php-enum",
+            "homepage": "https://github.com/myclabs/php-enum",
             "keywords": [
                 "enum"
             ],
             "support": {
                 "issues": "https://github.com/myclabs/php-enum/issues",
-                "source": "https://github.com/myclabs/php-enum/tree/1.8.4"
+                "source": "https://github.com/myclabs/php-enum/tree/1.8.5"
             },
             "funding": [
                 {
@@ -87,33 +150,33 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2022-08-04T09:53:51+00:00"
+            "time": "2025-01-14T11:49:03+00:00"
         },
         {
             "name": "researchgate/converter",
-            "version": "1.2.0",
+            "version": "1.3.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/researchgate/converter.git",
-                "reference": "78cf6be56bffcb7c59866b95b1863923d1f324fa"
+                "reference": "891ee944e397bb38b450099a3b3a6022342b99df"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/researchgate/converter/zipball/78cf6be56bffcb7c59866b95b1863923d1f324fa",
-                "reference": "78cf6be56bffcb7c59866b95b1863923d1f324fa",
+                "url": "https://api.github.com/repos/researchgate/converter/zipball/891ee944e397bb38b450099a3b3a6022342b99df",
+                "reference": "891ee944e397bb38b450099a3b3a6022342b99df",
                 "shasum": ""
             },
             "require": {
                 "ext-json": "*",
-                "php": "^7.4 | ^8.0 | ^8.1",
-                "researchgate/libris": "^2.3.0"
+                "php": "^7.4 | ^8.0 | ^8.1 | ^8.2",
+                "researchgate/libris": "^2.4.0"
             },
             "require-dev": {
                 "friendsofphp/php-cs-fixer": "^3.1",
-                "phpstan/phpstan": "^0.12.42",
+                "phpstan/phpstan": "^1.10.38",
                 "phpunit/phpunit": "^9.3",
                 "squizlabs/php_codesniffer": "^3.5",
-                "vimeo/psalm": "^4.9"
+                "vimeo/psalm": "^5.15.0"
             },
             "type": "library",
             "autoload": {
@@ -152,42 +215,87 @@
             ],
             "support": {
                 "issues": "https://github.com/researchgate/converter/issues",
-                "source": "https://github.com/researchgate/converter/tree/1.2.0"
+                "source": "https://github.com/researchgate/converter/tree/1.3.2"
             },
-            "time": "2022-06-17T08:55:12+00:00"
+            "time": "2023-11-06T12:44:40+00:00"
         },
         {
             "name": "researchgate/libris",
-            "version": "2.3.0",
+            "version": "2.4.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/researchgate/libris.git",
-                "reference": "master"
-            },
-            "type": "library"
-        },
-        {
-            "name": "seboettg/citeproc-php",
-            "version": "v2.5.2",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/seboettg/citeproc-php.git",
-                "reference": "042535d9d1e56058f54156e3c5682f3f9a467abe"
+                "reference": "b766ede93f10ffda5406c35b40fcd6846c140ce1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/seboettg/citeproc-php/zipball/042535d9d1e56058f54156e3c5682f3f9a467abe",
-                "reference": "042535d9d1e56058f54156e3c5682f3f9a467abe",
+                "url": "https://api.github.com/repos/researchgate/libris/zipball/b766ede93f10ffda5406c35b40fcd6846c140ce1",
+                "reference": "b766ede93f10ffda5406c35b40fcd6846c140ce1",
                 "shasum": ""
             },
             "require": {
+                "php": ">= 7.4"
+            },
+            "require-dev": {
+                "friendsofphp/php-cs-fixer": "^3.1",
+                "phan/phan": "^5.2",
+                "phpstan/phpstan": "^1.7",
+                "phpunit/phpunit": "^9.5",
+                "vimeo/psalm": "^4.23"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "LibRIS\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT or GPLv2"
+            ],
+            "authors": [
+                {
+                    "name": "M Butcher",
+                    "homepage": "http://technosophos.com"
+                }
+            ],
+            "description": "An RIS parser. RIS is a format for reference metadata. A fork of technosophos/LibRIS.",
+            "homepage": "https://github.com/thompsonsj/LibRIS",
+            "keywords": [
+                "Bibliography",
+                "File parser",
+                "RIS",
+                "Reference"
+            ],
+            "support": {
+                "source": "https://github.com/researchgate/libris/tree/2.4.0"
+            },
+            "time": "2023-08-08T10:50:33+00:00"
+        },
+        {
+            "name": "seboettg/citeproc-php",
+            "version": "v2.6.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/seboettg/citeproc-php.git",
+                "reference": "4070bdc3ad1c5fa1cfe3887f2db70f281a50e4a7"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/seboettg/citeproc-php/zipball/4070bdc3ad1c5fa1cfe3887f2db70f281a50e4a7",
+                "reference": "4070bdc3ad1c5fa1cfe3887f2db70f281a50e4a7",
+                "shasum": ""
+            },
+            "require": {
+                "citation-style-language/locales": "v0.0.*",
+                "citation-style-language/styles": "v0.0.*",
                 "ext-intl": "*",
                 "ext-json": "*",
                 "ext-mbstring": "*",
                 "ext-simplexml": "*",
                 "myclabs/php-enum": "^1.8",
                 "php": ">=7.3",
-                "seboettg/collection": ">=v3.1.0"
+                "seboettg/collection": "^3.1"
             },
             "require-dev": {
                 "php-coveralls/php-coveralls": "^1",
@@ -222,9 +330,9 @@
             "description": "Full-featured CSL processor (https://citationstyles.org)",
             "support": {
                 "issues": "https://github.com/seboettg/citeproc-php/issues",
-                "source": "https://github.com/seboettg/citeproc-php/tree/v2.5.2"
+                "source": "https://github.com/seboettg/citeproc-php/tree/v2.6.2"
             },
-            "time": "2023-02-08T21:13:17+00:00"
+            "time": "2023-12-10T16:56:31+00:00"
         },
         {
             "name": "seboettg/collection",
@@ -292,14 +400,11 @@
     ],
     "packages-dev": [],
     "aliases": [],
-    "minimum-stability": "dev",
-    "stability-flags": {
-        "citation-style-language/locales": 20,
-        "citation-style-language/styles-distribution": 20
-    },
-    "prefer-stable": true,
+    "minimum-stability": "stable",
+    "stability-flags": [],
+    "prefer-stable": false,
     "prefer-lowest": false,
     "platform": [],
     "platform-dev": [],
-    "plugin-api-version": "2.0.0"
+    "plugin-api-version": "2.3.0"
 }

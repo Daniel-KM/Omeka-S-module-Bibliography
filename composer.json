@@ -21,49 +21,7 @@
         "citation",
         "csl"
     ],
-    "repositories": [
-        {
-            "type": "package",
-            "package": {
-                "name": "citation-style-language/locales",
-                "version": "1.0.0",
-                "source": {
-                    "type": "git",
-                    "url": "https://github.com/citation-style-language/locales.git",
-                    "reference": "master"
-                }
-            }
-        },
-        {
-            "type": "package",
-            "package": {
-                "name": "citation-style-language/styles-distribution",
-                "version": "1.0.0",
-                "source": {
-                    "type": "git",
-                    "url": "https://github.com/citation-style-language/styles-distribution.git",
-                    "reference": "master"
-                }
-            }
-        },
-        {
-            "type": "package",
-            "package": {
-                "name": "researchgate/libris",
-                "version": "2.3.0",
-                "source": {
-                    "type": "git",
-                    "url": "https://github.com/researchgate/libris.git",
-                    "reference": "master"
-                }
-            }
-        }
-    ],
-    "minimum-stability": "dev",
-    "prefer-stable": true,
     "require": {
-        "citation-style-language/locales": "@dev",
-        "citation-style-language/styles-distribution": "@dev",
         "researchgate/converter": "^1.2",
         "researchgate/libris": "^2.3",
         "seboettg/citeproc-php": "^2"
