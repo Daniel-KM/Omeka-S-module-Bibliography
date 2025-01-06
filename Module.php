@@ -56,7 +56,7 @@ class Module extends AbstractModule
         }
 
         // Note: The creation of the vocabulary directly failed in previous
-        // veresion, so there were a pull request https://github.com/omeka/omeka-s/pull/1335 (Omeka < 2.1)
+        // version, so there were a pull request https://github.com/omeka/omeka-s/pull/1335 (Omeka < 2.1)
         // and a way to import it via sql.
         // The fix was done separetly in https://github.com/omeka/omeka-s/commit/8d1476bcc8f2ec51126a44ea7497025ea1dbcb3b.
     }
