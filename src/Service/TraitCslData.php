@@ -8,36 +8,19 @@ namespace Bibliography\Service;
 trait TraitCslData
 {
     /**
-     * @var array
-     */
-    protected $citationStyles;
-
-    /**
-     * @var array
-     */
-    protected $citationLocales;
-
-    /**
-     * @param array $citationStyles
-     * @return self
-     */
-    public function setCitationStyles(array $citationStyles)
-    {
-        $this->citationStyles = $citationStyles;
-        return $this;
-    }
-
-    /**
      * @return array
      */
     public function getCitationStyles()
     {
-        if (is_array($this->citationStyles)) {
-            return $this->citationStyles;
+        static $citationStyles;
+
+        if (is_array($citationStyles)) {
+            return $citationStyles;
         }
 
-        $this->citationStyles = [];
-        $dirpath = dirname(__DIR__, 2) . '/vendor/citation-style-language/styles-distribution';
+        $citationStyles = [];
+
+        $dirpath = dirname(__DIR__, 2) . '/vendor/citation-style-language/styles';
         /* // TODO Create an autocomplete, the sub-dir is too big.
         $directory = new \RecursiveDirectoryIterator($dirpath, \RecursiveDirectoryIterator::SKIP_DOTS);
         $iterator = new \RecursiveIteratorIterator($directory);
@@ -48,26 +31,20 @@ trait TraitCslData
             }
         }
         */
-        $iterator = new \DirectoryIterator($dirpath);
+        try {
+            $iterator = new \DirectoryIterator($dirpath);
+        } catch (\Exception $e) {
+            return [];
+        }
         foreach ($iterator as $file) {
             if ($file->isFile() && !$file->isDot() && $file->isReadable() && $file->getExtension() === 'csl') {
                 $name = pathinfo($file->getFilename(), PATHINFO_FILENAME);
-                $this->citationStyles[$name] = $name;
+                $citationStyles[$name] = $name;
             }
         }
 
-        asort($this->citationStyles);
-        return $this->citationStyles;
-    }
-
-    /**
-     * @param array $citationLocales
-     * @return self
-     */
-    public function setCitationLocales(array $citationLocales)
-    {
-        $this->citationLocales = $citationLocales;
-        return $this;
+        asort($citationStyles);
+        return $citationStyles;
     }
 
     /**
@@ -75,21 +52,29 @@ trait TraitCslData
      */
     public function getCitationLocales()
     {
-        if (is_array($this->citationLocales)) {
-            return $this->citationLocales;
+        static $citationLocales;
+
+        if (is_array($citationLocales)) {
+            return $citationLocales;
         }
 
-        $this->citationLocales = [];
+        $citationLocales = [];
+
         $dirpath = dirname(__DIR__, 2) . '/vendor/citation-style-language/locales';
-        $directory = new \RecursiveDirectoryIterator($dirpath, \RecursiveDirectoryIterator::SKIP_DOTS);
+        try {
+            $directory = new \RecursiveDirectoryIterator($dirpath, \RecursiveDirectoryIterator::SKIP_DOTS);
+        } catch (\Exception $e) {
+            return [];
+        }
         $iterator = new \RecursiveIteratorIterator($directory);
         foreach ($iterator as $filepath => $file) {
             if ($file->getExtension() === 'xml') {
                 $name = substr(pathinfo($filepath, PATHINFO_FILENAME), 8);
-                $this->citationLocales[$name] = $name;
+                $citationLocales[$name] = $name;
             }
         }
-        asort($this->citationLocales);
-        return $this->citationLocales;
+
+        asort($citationLocales);
+        return $citationLocales;
     }
 }
