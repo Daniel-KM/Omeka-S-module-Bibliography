@@ -13,3 +13,5 @@
 .php-cs-fixer.cache
 composer.phar
 debug.log
+data/csl/csl-locales.php
+data/csl/csl-styles.php
