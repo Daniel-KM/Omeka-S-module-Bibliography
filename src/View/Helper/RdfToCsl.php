@@ -136,6 +136,9 @@ class RdfToCsl extends AbstractHelper
      * Get the csl type of a resource.
      *
      * @todo Improve mapping of the resource classes to csl type and check dcterms:type else.
+     * @todo Use "document" as default, but manage date.
+     *
+     * @see https://docs.citationstyles.org/en/stable/specification.html#appendix-iii-types
      *
      * @return string
      */
@@ -143,11 +146,11 @@ class RdfToCsl extends AbstractHelper
     {
         $class = $this->resource->resourceClass();
         if (!$class) {
-            return '';
+            return 'document';
         }
         $class = $class->term();
         $map = require dirname(__DIR__, 3) . '/data/mapping/csl_resource_class_map.php';
-        return empty($map[$class]) ? '' : $map[$class];
+        return empty($map[$class]) ? 'document' : $map[$class];
     }
 
     /**
