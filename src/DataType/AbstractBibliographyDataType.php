@@ -32,11 +32,11 @@ abstract class AbstractBibliographyDataType extends AbstractDataType
             ? $viewHelpers->get('siteSetting')
             : $setting;
 
-        $style = $currentSetting('bibliography_csl_style') ?: 'chicago-fullnote-bibliography';
+        $style = $currentSetting('bibliography_csl_style') ?: 'chicago-author-date';
         try {
             $style = @StyleSheet::loadStyleSheet($style);
         } catch (\Seboettg\CiteProc\Exception\CiteProcException $e) {
-            $style = StyleSheet::loadStyleSheet('chicago-fullnote-bibliography');
+            $style = StyleSheet::loadStyleSheet('chicago-author-date');
         }
         $locale = $currentSetting('bibliography_csl_locale') ?: str_replace('_', '-', $currentSetting('locale'));
         // A default locale is currently required by CiteProc.

@@ -153,11 +153,11 @@ return [
     'bibliography' => [
         'settings' => [
             'bibliography_crossref_email' => '',
-            'bibliography_csl_style' => 'chicago-fullnote-bibliography',
+            'bibliography_csl_style' => 'chicago-author-date',
             'bibliography_csl_locale' => '',
         ],
         'site_settings' => [
-            'bibliography_csl_style' => 'chicago-fullnote-bibliography',
+            'bibliography_csl_style' => 'chicago-author-date',
             'bibliography_csl_locale' => '',
             'bibliography_placement_citation' => [
                 'after/items',
@@ -166,7 +166,7 @@ return [
         'block_settings' => [
             'bibliography' => [
                 'heading' => '',
-                'style' => 'chicago-fullnote-bibliography',
+                'style' => 'chicago-author-date',
                 'locale' => '',
                 'query' => '',
                 'append_site' => false,

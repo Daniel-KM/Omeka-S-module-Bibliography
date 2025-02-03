@@ -53,7 +53,7 @@ class Citation extends AbstractHelper
             ? $view->plugin('siteSetting')
             : $view->plugin('setting');
         if (is_null($options['style'])) {
-            $options['style'] = $currentSetting('bibliography_csl_style') ?: 'chicago-fullnote-bibliography';
+            $options['style'] = $currentSetting('bibliography_csl_style') ?: 'chicago-author-date';
         }
         if (is_null($options['locale'])) {
             $options['locale'] = $currentSetting('bibliography_csl_locale') ?: str_replace('_', '-', $currentSetting('locale'));
