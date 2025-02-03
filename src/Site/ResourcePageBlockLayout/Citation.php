@@ -10,7 +10,7 @@ class Citation implements ResourcePageBlockLayoutInterface
 {
     public function getLabel() : string
     {
-        return 'Bibliographic citation'; // @translate
+        return 'Bibliography: Citation'; // @translate
     }
 
     public function getCompatibleResourceNames() : array

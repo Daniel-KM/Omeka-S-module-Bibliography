@@ -10,7 +10,7 @@ class CitationButton implements ResourcePageBlockLayoutInterface
 {
     public function getLabel() : string
     {
-        return 'Bibliographic citation (button)'; // @translate
+        return 'Bibliography: Citation (button)'; // @translate
     }
 
     public function getCompatibleResourceNames() : array
