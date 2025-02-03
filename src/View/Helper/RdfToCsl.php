@@ -52,12 +52,12 @@ class RdfToCsl extends AbstractHelper
 
         $csl['author'] = $this->cslAuthors();
 
-        // TODO Use displayTitle().
-        $csl['title'] = (string) $this->resourceValue('dcterms:title');
+        // displayTitle() is used to simplify process.
+        $csl['title'] = $this->resource->displayTitle();
 
         // TODO Check FOAF and related items for the publisher.
-        $csl['publisher'] = (string) $this->resourceValue('dcterms:publisher');
-        // $csl['publisher-place'] = $this->resourceValue('');
+        $csl['publisher'] = $this->cslValue($this->resourceValue('dcterms:publisher'));
+        // $csl['publisher-place'] = $this->cslValue($this->resourceValue(''));
 
         // TODO Check the format of the date if module NumericDataType is installed.
         $csl['created'] = $this->cslDate('dcterms:created');
@@ -66,7 +66,7 @@ class RdfToCsl extends AbstractHelper
         $csl['issued'] = $this->cslDate('dcterms:issued') ?: $this->cslDate('dcterms:date');
         // $csl['published-print'] = $this->cslDate('dcterms:issued') ?: $this->cslDate(dcterms:date');
 
-        $csl['edition'] = (string) $this->resourceValue('bibo:edition');
+        $csl['edition'] = $this->cslValue($this->resourceValue('bibo:edition'));
 
         $csl['DOI'] = (string) $this->resourceValue('bibo:doi');
         $issn = $this->resourceValue('bibo:issn', ['all' => true]);
@@ -80,7 +80,8 @@ class RdfToCsl extends AbstractHelper
         if ($isbn) {
             $csl['ISBN'] = count($isbn) > 1 ? $this->stripTags($isbn) : (string) reset($isbn);
         }
-        $csl['URL'] = (string) $this->resourceValue('bibo:uri') ?: (empty($csl['DOI']) ? null : 'https://dx.doi.org/' . urlencode($csl['DOI']));
+        $csl['URL'] = (string) $this->resourceValue('bibo:uri')
+            ?: (empty($csl['DOI']) ? null : 'https://dx.doi.org/' . urlencode($csl['DOI']));
         $csl['volume'] = (string) $this->resourceValue('bibo:volume');
         $csl['number-of-volumes'] = (string) $this->resourceValue('bibo:numVolumes');
         $csl['issue'] = (string) $this->resourceValue('bibo:issue');
@@ -105,11 +106,11 @@ class RdfToCsl extends AbstractHelper
             ?: ((string) $this->resourceValue('bibo:abstract')
                 ?: ((string) $this->resourceValue('dcterms:abstract') ?: (string) $this->resourceValue('dcterms:description')));
 
-        $subjects = $this->resourceValue('dcterms:subject', ['all' => true]) ?: [];
+        $subjects = $this->cslValue($this->resourceValue('dcterms:subject', ['all' => true])) ?: [];
         $subjects = $this->stripTags($subjects);
         $csl['subject'] = $subjects;
 
-        $csl['medium'] = (string) $this->resourceValue('dcterms:medium');
+        $csl['medium'] = $this->cslValue($this->resourceValue('dcterms:medium'));
 
         // TODO Check related items for the journal or conference (upper item).
         // The journal (for an article) or the book (for a part) is not directly
@@ -121,12 +122,12 @@ class RdfToCsl extends AbstractHelper
                 $containerResource = $container->valueResource();
                 // $csl['collection-title'] = $this->resourceValue('');
                 // $csl['collection-title-short'] = $this->resourceValue('');
-                $csl['container-title'] = (string) $containerResource->value('dcterms:title') ?: (string) $containerResource->value('bibo:shortTitle');
+                $csl['container-title'] = (string) $containerResource->displayTitle() ?: $this->cslValue($containerResource->value('bibo:shortTitle'));
                 $csl['container-author'] = $this->cslAuthorsResource($containerResource);
             } else {
-                $csl['container-title'] = (string) $container;
+                $csl['container-title'] = $this->cslValue($container);
             }
-            // $csl['event-place'] = $this->resourceValue('');
+            // $csl['event-place'] = $this->cslValue($this->resourceValue(''));
         }
 
         return (object) array_filter($csl);
@@ -175,23 +176,23 @@ class RdfToCsl extends AbstractHelper
      */
     protected function cslAuthorsResource(AbstractResourceEntityRepresentation $resource, array $defaults = [])
     {
+        /** @var \Omeka\Api\Representation\ValueRepresentation[] $creators */
         $authors = [];
         $creators = $resource->value('bibo:authorList', ['all' => true]) ?: [];
         if ($creators) {
             foreach ($creators as $creator) {
                 $authors[] = (object) [
-                    'family' => (string) $creator,
+                    'family' => $this->cslValue($creator),
                     'given' => '',
                 ];
             }
         } else {
             $creators = $resource->value('dcterms:creator', ['all' => true]) ?: [];
             if ($creators) {
-                $creators = $this->stripTags($creators);
                 foreach ($creators as $creator) {
                     $authors[] = (object) [
                         // 'name' => $creator,
-                        'family' => $creator,
+                        'family' => $this->cslValue($creator),
                         'given' => '',
                         // 'non-dropping-particle' => '',
                         // 'dropping-particle' => '',
@@ -230,6 +231,47 @@ class RdfToCsl extends AbstractHelper
     }
 
     /**
+     * @param \Omeka\Api\Representation\ValueRepresentation|string $value
+     * @return array|string|null
+     */
+    protected function cslValue($value)
+    {
+        $isArray = is_array($value);
+        if (!$value) {
+            return $isArray ? [] : null;
+        }
+
+        $result = [];
+        $values = $isArray ? $value : [$value];
+        foreach ($values as $value) {
+            if (empty($value)) {
+                continue;
+            }
+            if (is_string($value)) {
+                $result[] = $value;
+            }
+
+            /** @var \Omeka\Api\Representation\ValueRepresentation $value */
+            $vr = $value->valueResource();
+            if ($vr) {
+                $result[] = $vr->displayTitle();
+            } else {
+                $val = $value->value();
+                $uri = $value->uri();
+                if ($val && !$uri) {
+                    $result[] = (string) $value;
+                } elseif ($uri && !$val) {
+                    $result[] = (string) $uri;
+                } else {
+                    $result[] = (string) $val;
+                }
+            }
+        }
+
+        return $isArray ? $result : reset($result);
+     }
+
+    /**
      * Helper to get a resource value, managing a default value.
      *
      * @param string $term
@@ -264,6 +306,6 @@ class RdfToCsl extends AbstractHelper
      */
     protected function stripTags(array $values)
     {
-        return array_values(array_filter(array_map('strip_tags', $values)));
+        return array_values(array_filter(array_map(fn ($v) => strip_tags(is_object($v) ? $v->asHtml() : (string) $v), $values)));
     }
 }
