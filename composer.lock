@@ -52,16 +52,16 @@
         },
         {
             "name": "citation-style-language/styles",
-            "version": "v0.0.576",
+            "version": "v0.0.580",
             "source": {
                 "type": "git",
                 "url": "https://github.com/citation-style-language/styles.git",
-                "reference": "6bae16d70a42b5ff0846ba21123d2f3796f051db"
+                "reference": "2e90b3afc1aa6fc90c46d674798936cd438af1fa"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/citation-style-language/styles/zipball/6bae16d70a42b5ff0846ba21123d2f3796f051db",
-                "reference": "6bae16d70a42b5ff0846ba21123d2f3796f051db",
+                "url": "https://api.github.com/repos/citation-style-language/styles/zipball/2e90b3afc1aa6fc90c46d674798936cd438af1fa",
+                "reference": "2e90b3afc1aa6fc90c46d674798936cd438af1fa",
                 "shasum": ""
             },
             "type": "library",
@@ -79,7 +79,7 @@
             "homepage": "http://citationstyles.org/",
             "support": {
                 "issues": "https://github.com/citation-style-language/styles/issues",
-                "source": "https://github.com/citation-style-language/styles/tree/v0.0.576"
+                "source": "https://github.com/citation-style-language/styles/tree/v0.0.580"
             },
             "funding": [
                 {
@@ -87,7 +87,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2025-01-09T14:49:51+00:00"
+            "time": "2025-01-22T19:16:26+00:00"
         },
         {
             "name": "myclabs/php-enum",
