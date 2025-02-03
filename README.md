@@ -121,7 +121,8 @@ echo $this->citation($resource, $options);
 ```
 
 Default options are:
-* `style` (string): the citation style (default to "chicago-fullnote-bibliography").
+* `style` (string): the citation style (default to "chicago-author-date"),
+   similar to "din-1505-2", the Deutsch Norm with author, title and date.
 * `locale` (string): the locale for the citation (default to "en-US"). The
   language and the country are separated with "-", not "_".
 * `defaults` (array): The default values to use when a property is not set. It
@@ -146,10 +147,11 @@ The result can be customized via the template `common/citation` in `view/`.
 TODO
 ----
 
-* Replace the library used to convert formats.
-* Improve conversion from dcterms and bibo into csl, or find a library for it. See https://docs.citationstyles.org/en/1.0.1/index.html.
-* Use the dcterms:type if resource class is not present.
-* Add a bulk replacement from bibo to fabio.
+- [ ] Create a builder from resource template: select title/author/date/publisher/subinfo and use or create a citation template.
+- [ ] Replace the library used to convert formats.
+- [ ] Improve conversion from dcterms and bibo into csl, or find a library for it. See https://docs.citationstyles.org/en/1.0.1/index.html.
+- [ ] Use the dcterms:type if resource class is not present.
+- [ ] Add a bulk replacement from bibo to fabio?
 
 
 Warning
