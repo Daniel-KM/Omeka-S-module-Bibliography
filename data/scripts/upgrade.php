@@ -27,6 +27,7 @@ $translate = $plugins->get('translate');
 $translator = $services->get('MvcTranslator');
 $connection = $services->get('Omeka\Connection');
 $messenger = $plugins->get('messenger');
+$siteSettings = $services->get('Omeka\Settings\Site');
 $entityManager = $services->get('Omeka\EntityManager');
 
 if (!method_exists($this, 'checkModuleActiveVersion') || !$this->checkModuleActiveVersion('Common', '3.4.66')) {
@@ -39,10 +40,10 @@ if (!method_exists($this, 'checkModuleActiveVersion') || !$this->checkModuleActi
 
 if (version_compare($oldVersion, '3.0.3', '<')) {
     $sql = <<<'SQL'
-UPDATE site_page_block
-SET data = REPLACE(data, '"partial":"', '"template":"')
-WHERE layout = 'bibliography';
-SQL;
+        UPDATE site_page_block
+        SET data = REPLACE(data, '"partial":"', '"template":"')
+        WHERE layout = 'bibliography';
+        SQL;
     $connection->executeStatement($sql);
 }
 
@@ -195,6 +196,32 @@ if (version_compare($oldVersion, '3.4.9', '<')) {
 
     $message = new PsrMessage(
         'A new option in site settings allows to append the bibliographic reference via a resource block.', // @translate
+    );
+    $messenger->addSuccess($message);
+}
+
+if (version_compare($oldVersion, '3.4.11', '<')) {
+    if ($settings->get('bibliography_csl_style') === 'chicago-fullnote-bibliography') {
+        $settings->set('bibliography_csl_style', 'chicago-author-date');
+    }
+
+    $siteIds = $api->search('sites', [], ['returnScalar' => 'id'])->getContent();
+    foreach ($siteIds as $siteId) {
+        $siteSettings->setTargetId($siteId);
+        if ($siteSettings->get('bibliography_csl_style') === 'chicago-fullnote-bibliography') {
+            $siteSettings->set('bibliography_csl_style', 'chicago-author-date');
+        }
+    }
+
+    $sql = <<<'SQL'
+        UPDATE site_page_block
+        SET data = REPLACE(data, '"style":"chicago-fullnote-bibliography"', '"style":"chicago-author-date"')
+        WHERE layout = 'bibliography';
+        SQL;
+    $connection->executeStatement($sql);
+
+    $message = new PsrMessage(
+        'The new default is "chicago-author-date", that manages date better.', // @translate
     );
     $messenger->addSuccess($message);
 }
