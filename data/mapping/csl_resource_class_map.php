@@ -2,7 +2,7 @@
 /**
  * Mapping from common resource classes to citation style types.
  *
- * @see https://docs.citationstyles.org/en/1.0.1/specification.html#appendix-iii-types
+ * @see https://docs.citationstyles.org/en/stable/specification.html#appendix-iii-types
  */
 
 return [
@@ -20,12 +20,12 @@ return [
     'bibo:CollectedDocument'        => '', // To check.
     'bibo:Conference'               => '', // To check.
     'bibo:CourtReporter'            => 'article', // To check.
-    'bibo:Document'                 => '',
+    'bibo:Document'                 => 'document',
     'bibo:DocumentPart'             => '', // To check.
     'bibo:DocumentStatus'           => '', // To check.
     'bibo:EditedBook'               => 'book',
     'bibo:Email'                    => 'post',
-    'bibo:Event'                    => '', // To check.
+    'bibo:Event'                    => 'event', // To check.
     'bibo:Excerpt'                  => '', // To check.
     'bibo:Film'                     => 'motion_picture',
     'bibo:Hearing'                  => 'speech',
@@ -46,8 +46,8 @@ return [
     'bibo:Newspaper'                => '', // To check.
     'bibo:Note'                     => 'personal_communication', // To check.
     'bibo:Patent'                   => 'patent',
-    'bibo:Performance'              => '', // To check.
-    'bibo:Periodical'               => '', // To check.
+    'bibo:Performance'              => 'performance', // To check.
+    'bibo:Periodical'               => 'periodical', // To check.
     'bibo:PersonalCommunication'    => 'personal_communication',
     'bibo:PersonalCommunicationDocument' => 'personal_communication', // To check.
     'bibo:Proceedings'              => 'paper-conference',
@@ -57,7 +57,7 @@ return [
     'bibo:Series'                   => '', // To check.
     'bibo:Slide'                    => '', // To check.
     'bibo:Slideshow'                => '',
-    'bibo:Standard'                 => '', // To check.
+    'bibo:Standard'                 => 'standard', // To check.
     'bibo:Statute'                  => '',
     'bibo:Thesis'                   => 'thesis',
     'bibo:ThesisDegree'             => '', // To check.
@@ -86,17 +86,17 @@ return [
     'dcterms:ProvenanceStatement'   => '', // To check.
     'dcterms:RightsStatement'       => '', // To check.
     'dcterms:SizeOrDuration'        => '', // To check.
-    'dcterms:Standard'              => '', // To check.
+    'dcterms:Standard'              => 'standard',
 
     'dctype:Collection'             => 'dataset',
     'dctype:Dataset'                => 'dataset',
-    'dctype:Event'                  => '', // To check.
+    'dctype:Event'                  => 'event',
     'dctype:Image'                  => 'graphic', // figure?
     'dctype:InteractiveResource'    => '', // To check.
     'dctype:MovingImage'            => 'motion_picture',
     'dctype:PhysicalObject'         => '', // To check.
     'dctype:Service'                => '', // To check.
-    'dctype:Software'               => '',
+    'dctype:Software'               => 'software',
     'dctype:Sound'                  => 'speech', // song? interview? broadcast?
     'dctype:StillImage'             => 'graphic', // figure?
     'dctype:Text'                   => 'personal_communication', // To check.
@@ -106,7 +106,7 @@ return [
     'fabio:MagazineArticle'         => 'article-magazine',
     'fabio:NewspaperArticle'        => 'article-newspaper',
     'fabio:JournalArticle'          => 'article-journal',
-    'bibo:LegalDocument'            => 'bill', // So various.
+    'bibo:LegalDocument'            => 'legal_case', // So various.
     'bibo:Book'                     => 'book',
     'mo:Stream'                     => 'broadcast',
     'bibo:Chapter'                  => 'chapter',

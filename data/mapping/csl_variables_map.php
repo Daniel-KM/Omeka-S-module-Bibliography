@@ -2,7 +2,7 @@
 /**
  * Mapping from citation style variables to common properties.
  *
- * @see https://docs.citationstyles.org/en/1.0.1/specification.html#appendix-iv-variables
+ * @see https://docs.citationstyles.org/en/stable/specification.html#appendix-iv-variables
  */
 
 return [
@@ -33,6 +33,9 @@ return [
         'prepend' => 'call-number:',
     ],
     // Useless.
+    'citation-key' => [
+        'property' => '',
+    ],
     'citation-label' => [
         'property' => '',
     ],
@@ -52,6 +55,9 @@ return [
     'dimensions' => [
         'property' => 'dcterms:format',
     ],
+    'division' => [
+        'property' => '',
+    ],
     'DOI' => [
         'property' => 'bibo:doi',
     ],
@@ -61,6 +67,9 @@ return [
     // Like archive-place.
     'event-place' => [
         'property' => 'dcterms:spatial',
+    ],
+    'event-title' => [
+        'property' => 'dcterms:title',
     ],
     // Useless.
     'first-reference-note-number' => [
@@ -81,6 +90,12 @@ return [
     'keyword' => [
         'property' => 'dcterms:subject', // fabio:hasSubjectTerm // prism:keyword
         'multiple' => true,
+    ],
+    'language' => [
+        'property' => 'dcterms:language',
+    ],
+    'license' => [
+        'property' => 'dcterms:license',
     ],
     'locator' => [
         'property' => 'bibo:locator',
@@ -111,6 +126,9 @@ return [
     'page-last' => [
         'property' => 'bibo:pageEnd',
     ],
+    'part-title' => [
+        'property' => 'dcterms:alternative',
+    ],
     'PMCID' => [
         'property' => 'dcterms:identifier',
         'prepend' => 'pmcid:',
@@ -126,6 +144,9 @@ return [
     ],
     'references' => [
         'property' => 'dcterms:references',
+    ],
+    'reviewed-genre' => [
+        'property' => '',
     ],
     'reviewed-title' => [
         'property' => '',
@@ -154,6 +175,9 @@ return [
     'version' => [
         'property' => 'fabio:hasSequenceIdentifier', // prism:versionIdentifier
     ],
+    'volume-title' => [
+        'property' => 'bibo:volume',
+    ],
     'year-suffix' => [
         'property' => 'fabio:hasPublicationYear',
     ],
@@ -164,6 +188,10 @@ return [
         'property' => 'bibo:chapterNumber',
         'type' => 'number',
     ],
+    'citation-number' => [
+        'property' => 'bibo:identifier',
+        'type' => 'number',
+    ],
     'collection-number' => [
         'property' => '',
         'type' => 'number',
@@ -172,8 +200,16 @@ return [
         'property' => 'bibo:edition',
         'type' => 'number',
     ],
+    'first-reference-note-number' => [
+        'property' => '',
+        'type' => 'number',
+    ],
     'issue' => [
         'property' => 'bibo:issue',
+        'type' => 'number',
+    ],
+    'locator' => [
+        'property' => 'bibo:locator',
         'type' => 'number',
     ],
     'number' => [
@@ -186,6 +222,39 @@ return [
     ],
     'number-of-volumes' => [
         'property' => 'bibo:numVolumes',
+        'type' => 'number',
+    ],
+    'page' => [
+        'property' => 'bibo:pages',
+        'type' => 'number',
+    ],
+    'page-first' => [
+        'property' => 'bibo:pageStart',
+        'type' => 'number',
+    ],
+    // Not in the official list.
+    'page-last' => [
+        'property' => 'bibo:pageEnd',
+        'type' => 'number',
+    ],
+    'part-number' => [
+        'property' => 'bibo:section',
+        'type' => 'number',
+    ],
+    'printing-number' => [
+        'property' => 'bibo:section',
+        'type' => 'number',
+    ],
+    'section' => [
+        'property' => 'bibo:section',
+        'type' => 'number',
+    ],
+    'supplement-number' => [
+        'property' => 'bibo:section',
+        'type' => 'number',
+    ],
+    'version' => [
+        'property' => '',
         'type' => 'number',
     ],
     'volume' => [
@@ -201,6 +270,10 @@ return [
         'type' => 'date',
     ],
     // ?
+    'available' => [
+        'property' => 'dcterms:available',
+        'type' => 'date',
+    ],
     'container' => [
         'property' => '',
         'type' => 'date',
@@ -228,7 +301,15 @@ return [
         'property' => 'dcterms:creator',
         'type' => 'name',
     ],
+    'chair' => [
+        'property' => '',
+        'type' => 'name',
+    ],
     'collection-editor' => [
+        'property' => '',
+        'type' => 'name',
+    ],
+    'compiler' => [
         'property' => '',
         'type' => 'name',
     ],
@@ -237,6 +318,14 @@ return [
         'type' => 'name',
     ],
     'container-author' => [
+        'property' => '',
+        'type' => 'name',
+    ],
+    'contributor' => [
+        'property' => 'dcterms:contributor',
+        'type' => 'name',
+    ],
+    'curator' => [
         'property' => '',
         'type' => 'name',
     ],
@@ -252,7 +341,27 @@ return [
         'property' => '',
         'type' => 'name',
     ],
+    'editor-translator' => [
+        'property' => '',
+        'type' => 'name',
+    ],
+    'executive-producer' => [
+        'property' => '',
+        'type' => 'name',
+    ],
+    'guest' => [
+        'property' => '',
+        'type' => 'name',
+    ],
+    'host' => [
+        'property' => '',
+        'type' => 'name',
+    ],
     'illustrator' => [
+        'property' => '',
+        'type' => 'name',
+    ],
+    'host' => [
         'property' => '',
         'type' => 'name',
     ],
@@ -260,9 +369,25 @@ return [
         'property' => 'bibo:interviewer',
         'type' => 'name',
     ],
+    'narrator' => [
+        'property' => '',
+        'type' => 'name',
+    ],
+    'organizer' => [
+        'property' => 'bibo:organizer',
+        'type' => 'name',
+    ],
     // ?
     'original-author' => [
         'property' => 'dcterms:creator',
+        'type' => 'name',
+    ],
+    'performer' => [
+        'property' => 'bibo:performer',
+        'type' => 'name',
+    ],
+    'producer' => [
+        'property' => 'bibo:producer',
         'type' => 'name',
     ],
     'recipient' => [
@@ -270,6 +395,14 @@ return [
         'type' => 'name',
     ],
     'reviewed-author' => [
+        'property' => '',
+        'type' => 'name',
+    ],
+    'script-writer' => [
+        'property' => '',
+        'type' => 'name',
+    ],
+    'series-creator' => [
         'property' => '',
         'type' => 'name',
     ],

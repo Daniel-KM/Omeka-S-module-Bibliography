@@ -2,27 +2,34 @@
 /**
  * Mapping from citation style types to common resource classes.
  *
- * @see https://docs.citationstyles.org/en/1.0.1/specification.html#appendix-iii-types
+ * @see https://docs.citationstyles.org/en/stable/specification.html#appendix-iii-types
+ *
+ * A type is required, so "document" by default.
  */
 
 return [
     'article'                   => 'bibo:Article',
+    'article-journal'           => 'fabio:JournalArticle',
     'article-magazine'          => 'fabio:MagazineArticle',
     'article-newspaper'         => 'fabio:NewspaperArticle',
-    'article-journal'           => 'fabio:JournalArticle',
-    'bill'                      => 'bibo:LegalDocument',
+    'bill'                      => 'bibo:Bill',
     'book'                      => 'bibo:Book',
     'broadcast'                 => 'bibo:AudioVisualDocument', // 'mo:Stream',
     'chapter'                   => 'bibo:Chapter',
+    'classic'                   => '', // Ancient work.
+    'collection'                => 'bibo:Collection',
     'dataset'                   => 'dctype:Dataset',
+    'document'                  => 'bibo:Document',
     'entry'                     => 'fabio:Entry',
     'entry-dictionary'          => 'fabio:ReferenceEntry', // Find more precise.
     'entry-encyclopedia'        => 'fabio:ReferenceEntry',
+    'event'                     => 'bibo:Event',
     'figure'                    => 'fabio:Figure',
     'graphic'                   => 'dctype:StillImage', // Find more precise.
+    'hearing'                   => 'bibo:Hearing',
     'interview'                 => 'bibo:Interview',
-    'legislation'               => 'bibo:Legislation',
     'legal_case'                => 'bibo:LegalCaseDocument',
+    'legislation'               => 'bibo:Legislation',
     'manuscript'                => 'bibo:Manuscript',
     'map'                       => 'bibo:Map',
     'motion_picture'            => 'dctype:MovingImage',
@@ -30,14 +37,19 @@ return [
     'pamphlet'                  => '', // To check. Short paper?
     'paper-conference'          => 'fabio:ConferencePaper',
     'patent'                    => 'bibo:Patent',
+    'performance'               => 'bibo:Performance',
+    'periodical'                => 'bibo:Periodical',
+    'personal_communication'    => 'bibo:PersonalCommunication',
     'post'                      => 'fabio:Micropost',
     'post-weblog'               => 'fabio:BlogPost',
-    'personal_communication'    => 'bibo:PersonalCommunication',
+    'regulation'                => '', // To check.
     'report'                    => 'bibo:Report',
     'review'                    => 'fabio:Review',
     'review-book'               => 'fabio:BookReview',
+    'software'                  => 'dctype:Software',
     'song'                      => 'fabio:Song',
-    'speech'                    => 'dctype:Sound', // Find more precise.
+    'speech'                    => 'fabio:Oration',
+    'standard'                  => 'dcterms:Standard',
     'thesis'                    => 'bibo:Thesis',
     'treaty'                    => '', // To check.
     'webpage'                   => 'bibo:Webpage',
