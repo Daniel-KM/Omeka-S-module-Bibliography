@@ -4,6 +4,7 @@ namespace Bibliography\View\Helper;
 
 use Laminas\View\Helper\AbstractHelper;
 use Omeka\Api\Representation\AbstractResourceEntityRepresentation;
+use stdClass;
 
 class RdfToCsl extends AbstractHelper
 {
@@ -59,7 +60,7 @@ class RdfToCsl extends AbstractHelper
         $csl['publisher'] = $this->cslValue($this->resourceValue('dcterms:publisher'));
         // $csl['publisher-place'] = $this->cslValue($this->resourceValue(''));
 
-        // TODO Check the format of the date if module NumericDataType is installed.
+        // Module NumericDataType may be used.
         $csl['created'] = $this->cslDate('dcterms:created');
         $csl['deposited'] = $this->cslDate('dcterms:dateSubmitted');
         $csl['approved'] = $this->cslDate('dcterms:dateAccepted');
@@ -216,18 +217,22 @@ class RdfToCsl extends AbstractHelper
     /**
      * Get the csl date of a resource.
      *
-     * @param string $term
-     * @return \stdClass|null
+     * Date should be either [2019, 11, 25] or ['251119'] or ['20191125'] or
+     * ['25/11/2019'].
      */
-    protected function cslDate($term)
+    protected function cslDate($term): ?stdClass
     {
         $date = $this->resource->value($term);
         if (!$date) {
             return null;
         }
 
-        // Date should be either [2019, 11, 25] or ['20191125'] or ['25/11/2019'].
-        return (object) ['date-parts' => [[(string) $date]]];
+        if ($date->type() === 'numeric:timestamp') {
+            $date = str_replace('-', '', substr((string) $date->value() . '-00-00', 0, 10));
+            return (object) ['date-parts' => [[$date]]];
+        }
+
+        return (object) ['date-parts' => [[str_replace('-', '', substr((string) $date->value() . '-00-00', 0, 10))]]];
     }
 
     /**
