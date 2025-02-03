@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-10-28 00:00+0000\n"
-"PO-Revision-Date: 2024-10-28 00:00+0000\n"
+"POT-Creation-Date: 2025-02-03 00:00+0000\n"
+"PO-Revision-Date: 2025-02-03 00:00+0000\n"
 "Last-Translator: Daniel Berthereau <Daniel.fr@Berthereau.net>\n"
 "Language-Team: French <kde-i18n-doc@kde.org>\n"
 "Language: fr\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Generator: Poedit 3.2.2\n"
 
-#: data/scripts/upgrade.php:34 Module.php:44
+#: data/scripts/upgrade.php:35 Module.php:44
 #, php-format
 msgid "The module %1$s should be upgraded to version %2$s or later."
 msgstr "Le module %1$s doit être mis à niveau à la version %2$s ou supérieure."
@@ -27,22 +27,22 @@ msgstr "Le module %1$s doit être mis à niveau à la version %2$s ou supérieur
 msgid "Unsupported format: %s"
 msgstr "Format non géré : %s"
 
-#: view/common/citation.phtml:60
+#: view/common/citation.phtml:82
 #, php-format
 msgid "%1$s and %2$s"
 msgstr "%1$s et %2$s"
 
-#: view/common/citation.phtml:64
+#: view/common/citation.phtml:86
 #, php-format
 msgid "%1$s, %2$s, and %3$s"
 msgstr "%1$s, %2$s, et %3$s"
 
-#: view/common/citation.phtml:68
+#: view/common/citation.phtml:90
 #, php-format
 msgid "%s et al."
 msgstr "%s et al."
 
-#: view/common/citation.phtml:104
+#: view/common/citation.phtml:126
 #, php-format
 msgid "accessed %1$s, %2$s"
 msgstr "consulté le %1$s, %2$s"
@@ -71,14 +71,14 @@ msgstr "Référence bibliographique copiée dans le presse-papiers !"
 msgid "Bibliographic reference"
 msgstr "Référence bibliographique"
 
-#: data/scripts/upgrade.php:93
+#: data/scripts/upgrade.php:94
 msgid ""
 "The option \"heading\" was removed from block Bibliography and replaced by a "
 "block Heading (if module Block Plus is present) or Html. Remove it in the "
 "following files before upgrade and automatic conversion: {json}"
 msgstr ""
 
-#: data/scripts/upgrade.php:170
+#: data/scripts/upgrade.php:171
 msgid ""
 "The setting \"template\" was moved to the new block layout settings "
 "available since Omeka S v4.1. You may check pages for styles: {json}"
@@ -86,18 +86,25 @@ msgstr ""
 "Le paramètre « template » a été déplacé dans les nouveaux paramètres de bloc "
 "depuis Omeka S v4.1. Vous pouvez vérifier les pages pour les styles : {json}"
 
-#: data/scripts/upgrade.php:180
+#: data/scripts/upgrade.php:181
 msgid ""
 "The option \"heading\" was removed from block Bibliography. New block "
 "\"Heading\" (if module Block Plus is present) or \"Html\" was prepended to "
 "all blocks that had a filled heading. You may check pages for styles: {json}"
 msgstr ""
 
-#: data/scripts/upgrade.php:197
+#: data/scripts/upgrade.php:198
 msgid ""
 "A new option in site settings allows to append the bibliographic reference "
 "via a resource block."
 msgstr ""
+"Une nouvelle option dans les paramètres de sites permet d’ajouter la "
+"référence bibliographique via un bloc de ressource."
+
+#: data/scripts/upgrade.php:224
+msgid "The new default is \"chicago-author-date\", that manages date better."
+msgstr ""
+"Le nouveau défaut est « chicago-author-date », qui gère mieux les dates."
 
 #: Module.php:53
 msgid ""
@@ -106,7 +113,7 @@ msgstr ""
 "Les dépendances doivent être installées. Consulter la documentation "
 "d’installation du module."
 
-#: Module.php:180
+#: Module.php:179
 msgid ""
 "The module Bibliography replaces the module Citation, that cannot be "
 "automatically uninstalled."
@@ -114,7 +121,7 @@ msgstr ""
 "Le module Bibliography remplace le module Citation, qui ne peut pas être "
 "supprimé automatiquement."
 
-#: Module.php:190
+#: Module.php:189
 msgid ""
 "The module Bibliography replaces the module Citation, that was automatically "
 "uninstalled."
@@ -355,12 +362,12 @@ msgid "Skipped resource {resource_id}: it contains more than 1000 characters."
 msgstr "Ressource {resource_id} ignorée : il contient plus de 1000 caractères."
 
 #: src/Site/ResourcePageBlockLayout/CitationButton.php:13
-msgid "Bibliographic citation (button)"
-msgstr "Référence bibliographique (bouton)"
+msgid "Bibliography: Citation (button)"
+msgstr "Bibliographie : Référence (bouton)"
 
 #: src/Site/ResourcePageBlockLayout/Citation.php:13
-msgid "Bibliographic citation"
-msgstr "Référence bibliographique"
+msgid "Bibliography: Citation"
+msgstr "Bibliography : Référence"
 
 #, php-format
 #~ msgid "This module requires the module \"%s\"."

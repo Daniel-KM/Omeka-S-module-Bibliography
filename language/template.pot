@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-10-28 00:00+0000\n"
+"POT-Creation-Date: 2025-02-03 00:00+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: data/scripts/upgrade.php:34 Module.php:44
+#: data/scripts/upgrade.php:35 Module.php:44
 #, php-format
 msgid "The module %1$s should be upgraded to version %2$s or later."
 msgstr ""
@@ -27,22 +27,22 @@ msgstr ""
 msgid "Unsupported format: %s"
 msgstr ""
 
-#: view/common/citation.phtml:60
+#: view/common/citation.phtml:82
 #, php-format
 msgid "%1$s and %2$s"
 msgstr ""
 
-#: view/common/citation.phtml:64
+#: view/common/citation.phtml:86
 #, php-format
 msgid "%1$s, %2$s, and %3$s"
 msgstr ""
 
-#: view/common/citation.phtml:68
+#: view/common/citation.phtml:90
 #, php-format
 msgid "%s et al."
 msgstr ""
 
-#: view/common/citation.phtml:104
+#: view/common/citation.phtml:126
 #, php-format
 msgid "accessed %1$s, %2$s"
 msgstr ""
@@ -71,30 +71,34 @@ msgstr ""
 msgid "Bibliographic reference"
 msgstr ""
 
-#: data/scripts/upgrade.php:93
+#: data/scripts/upgrade.php:94
 msgid ""
 "The option \"heading\" was removed from block Bibliography and replaced by a "
 "block Heading (if module Block Plus is present) or Html. Remove it in the "
 "following files before upgrade and automatic conversion: {json}"
 msgstr ""
 
-#: data/scripts/upgrade.php:170
+#: data/scripts/upgrade.php:171
 msgid ""
 "The setting \"template\" was moved to the new block layout settings "
 "available since Omeka S v4.1. You may check pages for styles: {json}"
 msgstr ""
 
-#: data/scripts/upgrade.php:180
+#: data/scripts/upgrade.php:181
 msgid ""
 "The option \"heading\" was removed from block Bibliography. New block "
 "\"Heading\" (if module Block Plus is present) or \"Html\" was prepended to "
 "all blocks that had a filled heading. You may check pages for styles: {json}"
 msgstr ""
 
-#: data/scripts/upgrade.php:197
+#: data/scripts/upgrade.php:198
 msgid ""
 "A new option in site settings allows to append the bibliographic reference "
 "via a resource block."
+msgstr ""
+
+#: data/scripts/upgrade.php:224
+msgid "The new default is \"chicago-author-date\", that manages date better."
 msgstr ""
 
 #: Module.php:53
@@ -102,13 +106,13 @@ msgid ""
 "The libraries should be installed. See module’s installation documentation."
 msgstr ""
 
-#: Module.php:180
+#: Module.php:179
 msgid ""
 "The module Bibliography replaces the module Citation, that cannot be "
 "automatically uninstalled."
 msgstr ""
 
-#: Module.php:190
+#: Module.php:189
 msgid ""
 "The module Bibliography replaces the module Citation, that was automatically "
 "uninstalled."
@@ -343,9 +347,9 @@ msgid "Skipped resource {resource_id}: it contains more than 1000 characters."
 msgstr ""
 
 #: src/Site/ResourcePageBlockLayout/CitationButton.php:13
-msgid "Bibliographic citation (button)"
+msgid "Bibliography: Citation (button)"
 msgstr ""
 
 #: src/Site/ResourcePageBlockLayout/Citation.php:13
-msgid "Bibliographic citation"
+msgid "Bibliography: Citation"
 msgstr ""
