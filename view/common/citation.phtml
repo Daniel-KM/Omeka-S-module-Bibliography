@@ -28,7 +28,9 @@ try {
     $style = null;
 }
 
-$stringValue = function ($value): string {
+$locale = $plugins->get('lang')();
+
+$stringValue = function ($value) use ($locale): string  {
     if (empty($value) || is_string($value)) {
         return $value;
     }
@@ -71,7 +73,7 @@ if ($style) {
 
     $creators = $resource->value('dcterms:creator', ['all' => true]) ?: (@$defaults['dcterms:creator'][0]['@value'] ? [$defaults['dcterms:creator'][0]['@value']] : []);
     // Strip formatting and remove empty creator elements.
-    $creators = array_values(array_filter(array_map('stringValue', $creators)));
+    $creators = array_values(array_filter(array_map($stringValue, $creators)));
     if ($creators) {
         switch (count($creators)) {
             case 1:
