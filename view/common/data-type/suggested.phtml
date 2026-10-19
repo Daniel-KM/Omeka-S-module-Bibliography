@@ -27,7 +27,7 @@ echo $dataTypeSelect;
     </div>
     <div class="valuesuggest-vocab-container">
         <span class="o-icon-vocab label" title="<?php echo $escape($rdfLabel); ?>"><?php echo $this->escapeHtml($rdfLabel); ?></span>
-        <input type="text" class="valuesuggest-input">
+        <input type="text" class="valuesuggest-input" aria-label="<?php echo $escape($translate('Suggested value')); ?>">
         <?php echo $this->formHidden($labelInput); ?>
         <?php echo $this->formHidden($idInput); ?>
         <div class="valuesuggest-input-value"><?php echo $this->formHidden($valueInput); ?></div>
