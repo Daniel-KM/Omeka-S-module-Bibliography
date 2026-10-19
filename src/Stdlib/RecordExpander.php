@@ -48,7 +48,13 @@ class RecordExpander
                 }
 
                 foreach ($record as $recordTerm => $recordValues) {
-                    if (!is_array($recordValues) || !$recordValues || strpos((string) $recordTerm, 'o:') === 0) {
+                    if (!is_array($recordValues) || strpos((string) $recordTerm, 'o:') === 0) {
+                        continue;
+                    }
+                    if ($recordTerm === 'bibo:doi') {
+                        $recordValues = array_filter($recordValues, [$this, 'isValidDoiValue']);
+                    }
+                    if (!$recordValues) {
                         continue;
                     }
                     if (isset($filled[$recordTerm])) {
@@ -100,13 +106,27 @@ class RecordExpander
     }
 
     /**
+     * Check if a doi value of a record is a real doi.
+     *
+     * Previous versions stored the alternative ids of Crossref as doi, but they
+     * may be ids of the publisher, for example "2014-57555-025".
+     */
+    public function isValidDoiValue($value): bool
+    {
+        $doi = is_array($value) ? (string) ($value['@id'] ?? $value['@value'] ?? '') : '';
+        return (bool) preg_match('~^(?:https?://(?:dx\.)?doi\.org/)?10\.\d+/~i', $doi);
+    }
+
+    /**
      * Get the uri of the record (doi or url of the notice).
      */
     public function recordUri(array $record): ?string
     {
         foreach (['bibo:doi', 'bibo:uri'] as $term) {
             foreach ($record[$term] ?? [] as $value) {
-                if (!empty($value['@id']) && is_string($value['@id'])) {
+                if (!empty($value['@id']) && is_string($value['@id'])
+                    && ($term !== 'bibo:doi' || $this->isValidDoiValue($value))
+                ) {
                     return $value['@id'];
                 }
             }

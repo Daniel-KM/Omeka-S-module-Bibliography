@@ -473,18 +473,27 @@ class DoiSuggest extends AbstractBibliographySuggest
             'o:label' => $data['DOI'],
         ];
 
-        // TODO Check if alternative ids are really always doi.
+        // The alternative ids are not always doi, for example the ids of the
+        // publisher, so only the real doi are stored as doi.
         foreach ($data['alternative-id'] as $value) {
             $valueDoi = $data['prefix'] . '/' . $value;
-            if ($valueDoi === $data['DOI']) {
+            if ($valueDoi === $data['DOI'] || $value === $data['DOI']) {
                 continue;
             }
-            $item['bibo:doi'][] = [
-                'type' => 'uri',
-                'property_id' => $this->propertyIds['bibo:doi'],
-                '@id' => 'https://dx.doi.org/' . $value,
-                'o:label' => $value,
-            ];
+            if (strpos((string) $value, '10.') === 0) {
+                $item['bibo:doi'][] = [
+                    'type' => 'uri',
+                    'property_id' => $this->propertyIds['bibo:doi'],
+                    '@id' => 'https://dx.doi.org/' . $value,
+                    'o:label' => $value,
+                ];
+            } else {
+                $item['dcterms:identifier'][] = [
+                    'type' => 'literal',
+                    'property_id' => $this->propertyIds['dcterms:identifier'],
+                    '@value' => $value,
+                ];
+            }
         }
 
         if ($data['issn-type']) {
@@ -504,12 +513,18 @@ class DoiSuggest extends AbstractBibliographySuggest
         }
 
         foreach ($data['funder'] as $value) {
-            $item['dcterms:contributor'][] = [
-                'type' => 'uri',
-                'property_id' => $this->propertyIds['dcterms:contributor'],
-                '@id' => 'https://dx.doi.org/' . $value['DOI'],
-                'o:label' => $value['name'] . ' (funder)',
-            ];
+            $item['dcterms:contributor'][] = empty($value['DOI'])
+                ? [
+                    'type' => 'literal',
+                    'property_id' => $this->propertyIds['dcterms:contributor'],
+                    '@value' => ($value['name'] ?? '') . ' (funder)',
+                ]
+                : [
+                    'type' => 'uri',
+                    'property_id' => $this->propertyIds['dcterms:contributor'],
+                    '@id' => 'https://dx.doi.org/' . $value['DOI'],
+                    'o:label' => ($value['name'] ?? '') . ' (funder)',
+                ];
         }
 
         // Don't duplicate the type and the ressource class.
