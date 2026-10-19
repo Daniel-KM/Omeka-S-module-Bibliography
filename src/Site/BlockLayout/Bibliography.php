@@ -46,7 +46,7 @@ class Bibliography extends AbstractBlockLayout implements TemplateableBlockLayou
         $blockFieldset = \Bibliography\Form\BibliographyBlockFieldset::class;
 
         $defaultSettings['style'] = $view->siteSetting('bibliography_csl_style') ?: 'chicago-author-date';
-        $defaultSettings['locale'] = $view->siteSetting('bibliography_csl_locale') ?: str_replace('_', '-', $view->siteSetting('locale'));
+        $defaultSettings['locale'] = $view->siteSetting('bibliography_csl_locale') ?: strtr($view->siteSetting('locale'), ['_' => '-']);
 
         $data = $block ? ($block->data() ?? []) + $defaultSettings : $defaultSettings;
 

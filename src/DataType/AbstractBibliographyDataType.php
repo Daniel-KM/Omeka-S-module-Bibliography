@@ -38,7 +38,7 @@ abstract class AbstractBibliographyDataType extends AbstractDataType
         } catch (\Seboettg\CiteProc\Exception\CiteProcException $e) {
             $style = StyleSheet::load('chicago-author-date');
         }
-        $locale = $currentSetting('bibliography_csl_locale') ?: str_replace('_', '-', $currentSetting('locale'));
+        $locale = $currentSetting('bibliography_csl_locale') ?: strtr($currentSetting('locale'), ['_' => '-']);
         // A default locale is currently required by CiteProc.
         $locale = $locale ?: 'en-US';
 

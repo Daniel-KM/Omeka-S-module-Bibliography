@@ -468,7 +468,7 @@ class DoiSuggest extends AbstractBibliographySuggest
             'property_id' => $this->propertyIds['bibo:doi'],
             '@id' => !empty($data['URL'])
                 // Use https to allow safe browsing and easier api.
-                ? str_replace('http://', 'https://', $data['URL'])
+                ? strtr($data['URL'], ['http://' => 'https://'])
                 : 'https://dx.doi.org/' . $data['DOI'],
             'o:label' => $data['DOI'],
         ];

@@ -57,7 +57,7 @@ class Citation extends AbstractHelper
             $options['style'] = $currentSetting('bibliography_csl_style') ?: 'chicago-author-date';
         }
         if ($options['locale'] === null) {
-            $options['locale'] = $currentSetting('bibliography_csl_locale') ?: str_replace('_', '-', $currentSetting('locale'));
+            $options['locale'] = $currentSetting('bibliography_csl_locale') ?: strtr($currentSetting('locale'), ['_' => '-']);
         } elseif (empty($options['locale'])) {
             $options['locale'] = 'en-US';
         }
