@@ -53,10 +53,10 @@ class Citation extends AbstractHelper
         $currentSetting = $currentSite
             ? $view->plugin('siteSetting')
             : $view->plugin('setting');
-        if (is_null($options['style'])) {
+        if ($options['style'] === null) {
             $options['style'] = $currentSetting('bibliography_csl_style') ?: 'chicago-author-date';
         }
-        if (is_null($options['locale'])) {
+        if ($options['locale'] === null) {
             $options['locale'] = $currentSetting('bibliography_csl_locale') ?: str_replace('_', '-', $currentSetting('locale'));
         } elseif (empty($options['locale'])) {
             $options['locale'] = 'en-US';

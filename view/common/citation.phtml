@@ -19,7 +19,7 @@ $plugins = $this->getHelperPluginManager();
 $escape = $plugins->get('escapeHtml');
 $translate = $plugins->get('translate');
 
-if (is_null($style)) {
+if ($style === null) {
     $style = 'chicago-author-date';
 }
 
