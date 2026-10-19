@@ -1,32 +1,49 @@
 {
     "name": "daniel-km/omeka-s-module-bibliography",
-    "description": "Bibliography (module for Omeka S)",
-    "type": "library",
+    "type": "omeka-s-module",
+    "description": "Module for Omeka S: Manage a bibliography with standard citations, reference lists, suggested values, and collected records from doi, isbn and other identifiers.",
+    "keywords": [
+        "Omeka S",
+        "Omeka S module",
+        "citation",
+        "csl",
+        "bibliography",
+        "doi",
+        "isbn",
+        "lccn",
+        "oclc",
+        "olid",
+        "fabio"
+    ],
     "license": "CECILL-2.1",
+    "homepage": "https://gitlab.com/Daniel-KM/Omeka-S-module-Bibliography",
     "authors": [
         {
             "name": "Daniel Berthereau",
             "email": "Daniel.packagist@Berthereau.net"
         }
     ],
-    "homepage": "https://gitlab.com/Daniel-KM/Omeka-S-module-Bibliography",
     "support": {
         "issues": "https://gitlab.com/Daniel-KM/Omeka-S-module-Bibliography/-/issues",
         "forum": "https://forum.omeka.org/"
     },
-    "keywords": [
-        "Omeka S",
-        "module",
-        "bibliography",
-        "citation",
-        "csl"
-    ],
+    "_require (not set until Omeka S merges PR #2432)": {
+        "omeka/omeka-s": "^4.1",
+        "daniel-km/omeka-s-module-common": "*"
+    },
     "require": {
         "researchgate/converter": "^1.3",
         "seboettg/citeproc-php": "^2.6"
     },
-    "replace": {
-        "symfony/polyfill-mbstring": "*"
+    "autoload": {
+        "psr-4": {
+            "Bibliography\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "BibliographyTest\\": "tests/BibliographyTest/"
+        }
     },
     "scripts": {
         "post-install-cmd": "@build",
@@ -35,10 +52,7 @@
             "@php -f 'data/scripts/prepare_csl_lists.php'"
         ]
     },
-    "config": {
-        "allow-plugins": {
-            "composer/installers": true,
-            "oomphinc/composer-installers-extender": true
-        }
+    "extra": {
+        "installer-name": "Bibliography"
     }
 }

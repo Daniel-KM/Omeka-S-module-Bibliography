@@ -4,20 +4,20 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "9a4ce649931d4249fc91738aa0dfd36b",
+    "content-hash": "5d2c69cfd747f60a5896e2aedeca95b1",
     "packages": [
         {
             "name": "citation-style-language/locales",
-            "version": "v0.0.26",
+            "version": "v0.0.104",
             "source": {
                 "type": "git",
                 "url": "https://github.com/citation-style-language/locales.git",
-                "reference": "3c4fe082ff4d768cf3ccbbefc7c2214df51cd482"
+                "reference": "a89adece41013402236e2c9020972d7e931fbab8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/citation-style-language/locales/zipball/3c4fe082ff4d768cf3ccbbefc7c2214df51cd482",
-                "reference": "3c4fe082ff4d768cf3ccbbefc7c2214df51cd482",
+                "url": "https://api.github.com/repos/citation-style-language/locales/zipball/a89adece41013402236e2c9020972d7e931fbab8",
+                "reference": "a89adece41013402236e2c9020972d7e931fbab8",
                 "shasum": ""
             },
             "type": "library",
@@ -40,7 +40,7 @@
             "homepage": "http://citationstyles.org/",
             "support": {
                 "issues": "https://github.com/citation-style-language/locales/issues",
-                "source": "https://github.com/citation-style-language/locales/tree/v0.0.26"
+                "source": "https://github.com/citation-style-language/locales/tree/v0.0.104"
             },
             "funding": [
                 {
@@ -48,20 +48,20 @@
                     "type": "github"
                 }
             ],
-            "time": "2025-01-09T14:34:55+00:00"
+            "time": "2026-09-10T20:50:37+00:00"
         },
         {
             "name": "citation-style-language/styles",
-            "version": "v0.0.580",
+            "version": "v0.0.772",
             "source": {
                 "type": "git",
                 "url": "https://github.com/citation-style-language/styles.git",
-                "reference": "2e90b3afc1aa6fc90c46d674798936cd438af1fa"
+                "reference": "5c1e6ba17b0c0127bf737bcf36355982ecbb6ff0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/citation-style-language/styles/zipball/2e90b3afc1aa6fc90c46d674798936cd438af1fa",
-                "reference": "2e90b3afc1aa6fc90c46d674798936cd438af1fa",
+                "url": "https://api.github.com/repos/citation-style-language/styles/zipball/5c1e6ba17b0c0127bf737bcf36355982ecbb6ff0",
+                "reference": "5c1e6ba17b0c0127bf737bcf36355982ecbb6ff0",
                 "shasum": ""
             },
             "type": "library",
@@ -79,7 +79,7 @@
             "homepage": "http://citationstyles.org/",
             "support": {
                 "issues": "https://github.com/citation-style-language/styles/issues",
-                "source": "https://github.com/citation-style-language/styles/tree/v0.0.580"
+                "source": "https://github.com/citation-style-language/styles/tree/v0.0.772"
             },
             "funding": [
                 {
@@ -87,7 +87,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2025-01-22T19:16:26+00:00"
+            "time": "2025-08-22T17:23:31+00:00"
         },
         {
             "name": "myclabs/php-enum",
@@ -221,16 +221,16 @@
         },
         {
             "name": "researchgate/libris",
-            "version": "2.4.0",
+            "version": "2.4.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/researchgate/libris.git",
-                "reference": "b766ede93f10ffda5406c35b40fcd6846c140ce1"
+                "reference": "b8236b0ee240fadfb0fee6d3be81c4504db193ac"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/researchgate/libris/zipball/b766ede93f10ffda5406c35b40fcd6846c140ce1",
-                "reference": "b766ede93f10ffda5406c35b40fcd6846c140ce1",
+                "url": "https://api.github.com/repos/researchgate/libris/zipball/b8236b0ee240fadfb0fee6d3be81c4504db193ac",
+                "reference": "b8236b0ee240fadfb0fee6d3be81c4504db193ac",
                 "shasum": ""
             },
             "require": {
@@ -251,7 +251,7 @@
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
-                "MIT or GPLv2"
+                "(MIT or GPL-2.0-only)"
             ],
             "authors": [
                 {
@@ -268,22 +268,22 @@
                 "Reference"
             ],
             "support": {
-                "source": "https://github.com/researchgate/libris/tree/2.4.0"
+                "source": "https://github.com/researchgate/libris/tree/2.4.1"
             },
-            "time": "2023-08-08T10:50:33+00:00"
+            "time": "2025-04-02T10:44:09+00:00"
         },
         {
             "name": "seboettg/citeproc-php",
-            "version": "v2.6.2",
+            "version": "v2.7.1",
             "source": {
                 "type": "git",
-                "url": "https://github.com/seboettg/citeproc-php.git",
-                "reference": "4070bdc3ad1c5fa1cfe3887f2db70f281a50e4a7"
+                "url": "https://github.com/pkp/citeproc-php.git",
+                "reference": "a7200e4ac0ec4265442a41aa82fb574d22af21a2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/seboettg/citeproc-php/zipball/4070bdc3ad1c5fa1cfe3887f2db70f281a50e4a7",
-                "reference": "4070bdc3ad1c5fa1cfe3887f2db70f281a50e4a7",
+                "url": "https://api.github.com/repos/pkp/citeproc-php/zipball/a7200e4ac0ec4265442a41aa82fb574d22af21a2",
+                "reference": "a7200e4ac0ec4265442a41aa82fb574d22af21a2",
                 "shasum": ""
             },
             "require": {
@@ -330,9 +330,9 @@
             "description": "Full-featured CSL processor (https://citationstyles.org)",
             "support": {
                 "issues": "https://github.com/seboettg/citeproc-php/issues",
-                "source": "https://github.com/seboettg/citeproc-php/tree/v2.6.2"
+                "source": "https://github.com/pkp/citeproc-php/tree/v2.7.1"
             },
-            "time": "2023-12-10T16:56:31+00:00"
+            "time": "2026-02-05T11:15:32+00:00"
         },
         {
             "name": "seboettg/collection",
@@ -401,10 +401,10 @@
     "packages-dev": [],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {},
     "prefer-stable": false,
     "prefer-lowest": false,
-    "platform": [],
-    "platform-dev": [],
-    "plugin-api-version": "2.3.0"
+    "platform": {},
+    "platform-dev": {},
+    "plugin-api-version": "2.6.0"
 }
