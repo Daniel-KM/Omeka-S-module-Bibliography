@@ -2,9 +2,10 @@
 
 namespace Bibliography\DataType;
 
-// This check avoids a dependency on module ValueSuggest.
-// TODO Find a way to avoid the check of class of the dependency here.
-if (!class_exists('ValueSuggest\DataType\AbstractDataType', false)) {
+// This check avoids a dependency on module ValueSuggest. The autoloader must
+// be used: else, when the real class is not loaded yet, the fallback replaces
+// it for all the data types of ValueSuggest, that are no more valid.
+if (!class_exists('ValueSuggest\DataType\AbstractDataType')) {
     require_once __DIR__ . '/AbstractDataType.php';
 }
 

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-02-03 00:00+0000\n"
+"POT-Creation-Date: 2026-10-19 00:00+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,9 +17,13 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: data/scripts/upgrade.php:35 Module.php:44
+#: data/scripts/upgrade.php:36 Module.php:63
 #, php-format
 msgid "The module %1$s should be upgraded to version %2$s or later."
+msgstr ""
+
+#: data/scripts/upgrade.php:40
+msgid "Missing requirement. Unable to upgrade."
 msgstr ""
 
 #: src/Controller/BibliographyController.php:48
@@ -27,22 +31,22 @@ msgstr ""
 msgid "Unsupported format: %s"
 msgstr ""
 
-#: view/common/citation.phtml:82
+#: view/common/citation.phtml:85
 #, php-format
 msgid "%1$s and %2$s"
 msgstr ""
 
-#: view/common/citation.phtml:86
+#: view/common/citation.phtml:89
 #, php-format
 msgid "%1$s, %2$s, and %3$s"
 msgstr ""
 
-#: view/common/citation.phtml:90
+#: view/common/citation.phtml:93
 #, php-format
 msgid "%s et al."
 msgstr ""
 
-#: view/common/citation.phtml:126
+#: view/common/citation.phtml:138
 #, php-format
 msgid "accessed %1$s, %2$s"
 msgstr ""
@@ -53,6 +57,10 @@ msgstr ""
 
 #: view/common/data-type/suggested.phtml:26
 msgid "Remove language"
+msgstr ""
+
+#: view/common/data-type/suggested.phtml:30
+msgid "Suggested value"
 msgstr ""
 
 #: view/common/data-type/suggested.phtml:38
@@ -71,48 +79,79 @@ msgstr ""
 msgid "Bibliographic reference"
 msgstr ""
 
-#: data/scripts/upgrade.php:94
+#: data/scripts/upgrade.php:96
 msgid ""
 "The option \"heading\" was removed from block Bibliography and replaced by a "
 "block Heading (if module Block Plus is present) or Html. Remove it in the "
 "following files before upgrade and automatic conversion: {json}"
 msgstr ""
 
-#: data/scripts/upgrade.php:171
+#: data/scripts/upgrade.php:173
 msgid ""
 "The setting \"template\" was moved to the new block layout settings "
 "available since Omeka S v4.1. You may check pages for styles: {json}"
 msgstr ""
 
-#: data/scripts/upgrade.php:181
+#: data/scripts/upgrade.php:183
 msgid ""
 "The option \"heading\" was removed from block Bibliography. New block "
 "\"Heading\" (if module Block Plus is present) or \"Html\" was prepended to "
 "all blocks that had a filled heading. You may check pages for styles: {json}"
 msgstr ""
 
-#: data/scripts/upgrade.php:198
+#: data/scripts/upgrade.php:200
 msgid ""
 "A new option in site settings allows to append the bibliographic reference "
 "via a resource block."
 msgstr ""
 
-#: data/scripts/upgrade.php:224
+#: data/scripts/upgrade.php:228
 msgid "The new default is \"chicago-author-date\", that manages date better."
 msgstr ""
 
-#: Module.php:53
+#: data/scripts/upgrade.php:251
+msgid ""
+"The module Value Suggest is not active, so the values \"collected record\" "
+"of these resources were not expanded. Save them once the module is enabled: "
+"{resource_ids}."
+msgstr ""
+
+#: data/scripts/upgrade.php:298
+msgid ""
+"Bibliography: the collected record of resource #{resource_id} cannot be "
+"expanded: {message}"
+msgstr ""
+
+#: data/scripts/upgrade.php:306
+msgid ""
+"The values \"collected record\" were expanded into the empty properties of "
+"these resources: {resource_ids}."
+msgstr ""
+
+#: data/scripts/upgrade.php:313 Module.php:237
+msgid ""
+"The bibliographic record was not used for these properties, that were "
+"already filled: {properties}."
+msgstr ""
+
+#: data/scripts/upgrade.php:320
+msgid ""
+"The values \"collected record\" of these resources cannot be expanded (see "
+"logs): {resource_ids}."
+msgstr ""
+
+#: Module.php:74
 msgid ""
 "The libraries should be installed. See module’s installation documentation."
 msgstr ""
 
-#: Module.php:179
+#: Module.php:286
 msgid ""
 "The module Bibliography replaces the module Citation, that cannot be "
 "automatically uninstalled."
 msgstr ""
 
-#: Module.php:189
+#: Module.php:296
 msgid ""
 "The module Bibliography replaces the module Citation, that was automatically "
 "uninstalled."
@@ -124,39 +163,39 @@ msgstr ""
 msgid "Bibliography"
 msgstr ""
 
-#: src/Form/SiteSettingsFieldset.php:32 src/Form/SettingsFieldset.php:47
+#: src/Form/SiteSettingsFieldset.php:20
+msgid "Old themes"
+msgstr ""
+
+#: src/Form/SiteSettingsFieldset.php:34 src/Form/SettingsFieldset.php:47
 #: src/Form/BibliographyBlockFieldset.php:21
 msgid "Citation style"
 msgstr ""
 
-#: src/Form/SiteSettingsFieldset.php:39 src/Form/SettingsFieldset.php:54
+#: src/Form/SiteSettingsFieldset.php:41 src/Form/SettingsFieldset.php:54
 #: src/Form/BibliographyBlockFieldset.php:27
 msgid "Select your citation style…"
 msgstr ""
 
-#: src/Form/SiteSettingsFieldset.php:47 src/Form/SettingsFieldset.php:62
+#: src/Form/SiteSettingsFieldset.php:49 src/Form/SettingsFieldset.php:62
 #: src/Form/BibliographyBlockFieldset.php:34
 msgid "Citation locale"
 msgstr ""
 
-#: src/Form/SiteSettingsFieldset.php:54 src/Form/SettingsFieldset.php:69
+#: src/Form/SiteSettingsFieldset.php:56 src/Form/SettingsFieldset.php:69
 #: src/Form/BibliographyBlockFieldset.php:40
 msgid "Select your locale for citation…"
 msgstr ""
 
-#: src/Form/SiteSettingsFieldset.php:62
+#: src/Form/SiteSettingsFieldset.php:64
 msgid "Display citation"
 msgstr ""
 
-#: src/Form/SiteSettingsFieldset.php:64
-msgid "Items: Via resource block or custom theme"
-msgstr ""
-
-#: src/Form/SiteSettingsFieldset.php:65
+#: src/Form/SiteSettingsFieldset.php:66
 msgid "Item: Top"
 msgstr ""
 
-#: src/Form/SiteSettingsFieldset.php:66
+#: src/Form/SiteSettingsFieldset.php:67
 msgid "Item: Bottom"
 msgstr ""
 
@@ -352,4 +391,12 @@ msgstr ""
 
 #: src/Site/ResourcePageBlockLayout/Citation.php:13
 msgid "Bibliography: Citation"
+msgstr ""
+
+#: config/module.config.php:184
+msgid "Properties filled from the bibliographic record:"
+msgstr ""
+
+#: config/module.config.php:185
+msgid "Properties already filled, not modified:"
 msgstr ""

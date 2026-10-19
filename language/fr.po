@@ -1,13 +1,11 @@
-# Copyright (C) YEAR THE PACKAGE’S COPYRIGHT HOLDER
-# This file is distributed under the same license as the PACKAGE package.
+# Daniel Berthereau <Daniel.fr@Berthereau.net>, 2020.
 #
-# Daniel Berthereau <Daniel.github@Berthereau.net>, 2020.
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-02-03 00:00+0000\n"
-"PO-Revision-Date: 2025-02-03 00:00+0000\n"
+"POT-Creation-Date: 2026-10-19 00:00+0000\n"
+"PO-Revision-Date: 2026-10-19 00:00+0000\n"
 "Last-Translator: Daniel Berthereau <Daniel.fr@Berthereau.net>\n"
 "Language-Team: French <kde-i18n-doc@kde.org>\n"
 "Language: fr\n"
@@ -15,34 +13,38 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Poedit 3.2.2\n"
+"X-Generator: Poedit 3.6\n"
 
-#: data/scripts/upgrade.php:35 Module.php:44
+#: data/scripts/upgrade.php:36 Module.php:63
 #, php-format
 msgid "The module %1$s should be upgraded to version %2$s or later."
 msgstr "Le module %1$s doit être mis à niveau à la version %2$s ou supérieure."
+
+#: data/scripts/upgrade.php:40
+msgid "Missing requirement. Unable to upgrade."
+msgstr "Pré-requis absent. Impossible de mettre à jour."
 
 #: src/Controller/BibliographyController.php:48
 #, php-format
 msgid "Unsupported format: %s"
 msgstr "Format non géré : %s"
 
-#: view/common/citation.phtml:82
+#: view/common/citation.phtml:85
 #, php-format
 msgid "%1$s and %2$s"
 msgstr "%1$s et %2$s"
 
-#: view/common/citation.phtml:86
+#: view/common/citation.phtml:89
 #, php-format
 msgid "%1$s, %2$s, and %3$s"
 msgstr "%1$s, %2$s, et %3$s"
 
-#: view/common/citation.phtml:90
+#: view/common/citation.phtml:93
 #, php-format
 msgid "%s et al."
 msgstr "%s et al."
 
-#: view/common/citation.phtml:126
+#: view/common/citation.phtml:138
 #, php-format
 msgid "accessed %1$s, %2$s"
 msgstr "consulté le %1$s, %2$s"
@@ -54,6 +56,10 @@ msgstr "Choisir un vocabulaire…"
 #: view/common/data-type/suggested.phtml:26
 msgid "Remove language"
 msgstr "Supprimer la langue"
+
+#: view/common/data-type/suggested.phtml:30
+msgid "Suggested value"
+msgstr "Valeur suggérée"
 
 #: view/common/data-type/suggested.phtml:38
 msgid "Remove URI"
@@ -71,14 +77,18 @@ msgstr "Référence bibliographique copiée dans le presse-papiers !"
 msgid "Bibliographic reference"
 msgstr "Référence bibliographique"
 
-#: data/scripts/upgrade.php:94
+#: data/scripts/upgrade.php:96
 msgid ""
 "The option \"heading\" was removed from block Bibliography and replaced by a "
 "block Heading (if module Block Plus is present) or Html. Remove it in the "
 "following files before upgrade and automatic conversion: {json}"
 msgstr ""
+"L'option « heading » a été supprimée du bloc « Bibliographie » et remplacée "
+"par un bloc « Heading » (si le module Block Plus est installé) ou « Html ». "
+"Veuillez la supprimer dans les fichiers suivants avant la mise à jour et la "
+"conversion automatique : {json}"
 
-#: data/scripts/upgrade.php:171
+#: data/scripts/upgrade.php:173
 msgid ""
 "The setting \"template\" was moved to the new block layout settings "
 "available since Omeka S v4.1. You may check pages for styles: {json}"
@@ -86,14 +96,18 @@ msgstr ""
 "Le paramètre « template » a été déplacé dans les nouveaux paramètres de bloc "
 "depuis Omeka S v4.1. Vous pouvez vérifier les pages pour les styles : {json}"
 
-#: data/scripts/upgrade.php:181
+#: data/scripts/upgrade.php:183
 msgid ""
 "The option \"heading\" was removed from block Bibliography. New block "
 "\"Heading\" (if module Block Plus is present) or \"Html\" was prepended to "
 "all blocks that had a filled heading. You may check pages for styles: {json}"
 msgstr ""
+"L'option « titre » a été supprimée du bloc « Bibliographie ». Un nouveau "
+"bloc « Titre » (si le module Block Plus est installé) ou « HTML » a été "
+"ajouté au début de tous les blocs comportant un titre renseigné. Vous pouvez "
+"vérifier les styles des pages : {json}"
 
-#: data/scripts/upgrade.php:198
+#: data/scripts/upgrade.php:200
 msgid ""
 "A new option in site settings allows to append the bibliographic reference "
 "via a resource block."
@@ -101,19 +115,61 @@ msgstr ""
 "Une nouvelle option dans les paramètres de sites permet d’ajouter la "
 "référence bibliographique via un bloc de ressource."
 
-#: data/scripts/upgrade.php:224
+#: data/scripts/upgrade.php:228
 msgid "The new default is \"chicago-author-date\", that manages date better."
 msgstr ""
 "Le nouveau défaut est « chicago-author-date », qui gère mieux les dates."
 
-#: Module.php:53
+#: data/scripts/upgrade.php:251
+msgid ""
+"The module Value Suggest is not active, so the values \"collected record\" "
+"of these resources were not expanded. Save them once the module is enabled: "
+"{resource_ids}."
+msgstr ""
+"Le module Value Suggest n’est pas actif : les valeurs « notice récupérée » "
+"de ces ressources n’ont pas été développées. Enregistrez-les une fois le "
+"module activé : {resource_ids}."
+
+#: data/scripts/upgrade.php:298
+msgid ""
+"Bibliography: the collected record of resource #{resource_id} cannot be "
+"expanded: {message}"
+msgstr ""
+"Bibliography : la notice récupérée de la ressource #{resource_id} ne peut "
+"pas être développée : {message}"
+
+#: data/scripts/upgrade.php:306
+msgid ""
+"The values \"collected record\" were expanded into the empty properties of "
+"these resources: {resource_ids}."
+msgstr ""
+"Les valeurs « notice récupérée » ont été développées dans les propriétés "
+"vides de ces ressources : {resource_ids}."
+
+#: data/scripts/upgrade.php:313 Module.php:237
+msgid ""
+"The bibliographic record was not used for these properties, that were "
+"already filled: {properties}."
+msgstr ""
+"La notice bibliographique n’a pas été utilisée pour ces propriétés, déjà "
+"remplies : {properties}."
+
+#: data/scripts/upgrade.php:320
+msgid ""
+"The values \"collected record\" of these resources cannot be expanded (see "
+"logs): {resource_ids}."
+msgstr ""
+"Les valeurs « notice récupérée » de ces ressources ne peuvent pas être "
+"développées (voir les journaux) : {resource_ids}."
+
+#: Module.php:74
 msgid ""
 "The libraries should be installed. See module’s installation documentation."
 msgstr ""
 "Les dépendances doivent être installées. Consulter la documentation "
 "d’installation du module."
 
-#: Module.php:179
+#: Module.php:286
 msgid ""
 "The module Bibliography replaces the module Citation, that cannot be "
 "automatically uninstalled."
@@ -121,7 +177,7 @@ msgstr ""
 "Le module Bibliography remplace le module Citation, qui ne peut pas être "
 "supprimé automatiquement."
 
-#: Module.php:189
+#: Module.php:296
 msgid ""
 "The module Bibliography replaces the module Citation, that was automatically "
 "uninstalled."
@@ -135,39 +191,39 @@ msgstr ""
 msgid "Bibliography"
 msgstr "Bibliographie"
 
-#: src/Form/SiteSettingsFieldset.php:32 src/Form/SettingsFieldset.php:47
+#: src/Form/SiteSettingsFieldset.php:20
+msgid "Old themes"
+msgstr "Anciens thèmes"
+
+#: src/Form/SiteSettingsFieldset.php:34 src/Form/SettingsFieldset.php:47
 #: src/Form/BibliographyBlockFieldset.php:21
 msgid "Citation style"
 msgstr "Style de citation"
 
-#: src/Form/SiteSettingsFieldset.php:39 src/Form/SettingsFieldset.php:54
+#: src/Form/SiteSettingsFieldset.php:41 src/Form/SettingsFieldset.php:54
 #: src/Form/BibliographyBlockFieldset.php:27
 msgid "Select your citation style…"
 msgstr "Choisir son style de citation…"
 
-#: src/Form/SiteSettingsFieldset.php:47 src/Form/SettingsFieldset.php:62
+#: src/Form/SiteSettingsFieldset.php:49 src/Form/SettingsFieldset.php:62
 #: src/Form/BibliographyBlockFieldset.php:34
 msgid "Citation locale"
 msgstr "Langue de la citation"
 
-#: src/Form/SiteSettingsFieldset.php:54 src/Form/SettingsFieldset.php:69
+#: src/Form/SiteSettingsFieldset.php:56 src/Form/SettingsFieldset.php:69
 #: src/Form/BibliographyBlockFieldset.php:40
 msgid "Select your locale for citation…"
 msgstr "Choisir la langue pour la citation…"
 
-#: src/Form/SiteSettingsFieldset.php:62
+#: src/Form/SiteSettingsFieldset.php:64
 msgid "Display citation"
 msgstr "Afficher la référence bibliographique"
 
-#: src/Form/SiteSettingsFieldset.php:64
-msgid "Items: Via resource block or custom theme"
-msgstr "Contenu : via le bloc de ressource ou un thème personnalisé"
-
-#: src/Form/SiteSettingsFieldset.php:65
+#: src/Form/SiteSettingsFieldset.php:66
 msgid "Item: Top"
 msgstr "Contenu : haut"
 
-#: src/Form/SiteSettingsFieldset.php:66
+#: src/Form/SiteSettingsFieldset.php:67
 msgid "Item: Bottom"
 msgstr "Contenu : bas"
 
@@ -195,159 +251,160 @@ msgstr "Valeurs suggérées"
 
 #: src/Service/DoiDataTypeFactory.php:13
 msgid "DOI: Works"
-msgstr ""
+msgstr "DOI : Œuvres"
 
 #: src/Service/DoiDataTypeFactory.php:21
 msgid "DOI: Works (name)"
-msgstr ""
+msgstr "DOI : Œuvres (nom)"
 
 #: src/Service/DoiDataTypeFactory.php:29
 msgid "DOI: Works (reference)"
-msgstr ""
+msgstr "DOI : Œuvres (référence)"
 
 #: src/Service/DoiDataTypeFactory.php:37
 msgid "DOI: Works (collected record)"
-msgstr ""
+msgstr "DOI : Œuvres (notice collectée)"
 
 #: src/Service/DoiDataTypeFactory.php:45
 msgid "DOI: Works (by id)"
-msgstr ""
+msgstr "DOI : Œuvres (par id)"
 
 #: src/Service/DoiDataTypeFactory.php:53
 msgid "DOI: Works (by id, name)"
-msgstr ""
+msgstr "DOI : Œuvres (par id, nom)"
 
 #: src/Service/DoiDataTypeFactory.php:61
 msgid "DOI: Works (by id, reference)"
-msgstr ""
+msgstr "DOI : Œuvres (par id, référence)"
 
 #: src/Service/DoiDataTypeFactory.php:69
 msgid "DOI: Works (by id, collected record)"
-msgstr ""
+msgstr "DOI : Œuvres (par id, notice collective)"
 
 #: src/Service/DoiDataTypeFactory.php:78
 msgid "DOI: Journals"
-msgstr ""
+msgstr "DOI : Revues"
 
 #: src/Service/DoiDataTypeFactory.php:86
 msgid "DOI: Journals (name)"
-msgstr ""
+msgstr "DOI : Revues (nom)"
 
 #: src/Service/DoiDataTypeFactory.php:94
 msgid "DOI: Journals (by id)"
-msgstr ""
+msgstr "DOI : Revues (par id)"
 
 #: src/Service/DoiDataTypeFactory.php:102
 msgid "DOI: Journals (by id, name)"
-msgstr ""
+msgstr "DOI : Revues (par id, par nom)"
 
 #: src/Service/DoiDataTypeFactory.php:111
 msgid "DOI: Funders"
-msgstr ""
+msgstr "DOI : Financeurs"
 
 #: src/Service/DoiDataTypeFactory.php:119
 msgid "DOI: Funders (name)"
-msgstr ""
+msgstr "DOI : Financeurs (nom)"
 
 #: src/Service/DoiDataTypeFactory.php:127
 msgid "DOI: Funders (by id)"
-msgstr ""
+msgstr "DOI : Financeurs (par id)"
 
 #: src/Service/DoiDataTypeFactory.php:135
 msgid "DOI: Funders (by id, name)"
-msgstr ""
+msgstr "DOI : Financeurs (par id, nom)"
 
 #: src/Service/DoiDataTypeFactory.php:144
 msgid "DOI: Members"
-msgstr ""
+msgstr "DOI : Membres"
 
 #: src/Service/DoiDataTypeFactory.php:152
 msgid "DOI: Members (name)"
-msgstr ""
+msgstr "DOI : Membres (nom)"
 
 #: src/Service/DoiDataTypeFactory.php:160
 msgid "DOI: Member (by id)"
-msgstr ""
+msgstr "DOI : Membre (par id)"
 
 #: src/Service/DoiDataTypeFactory.php:168
 msgid "DOI: Member (by id, name)"
-msgstr ""
+msgstr "DOI : Membre (par id, nom)"
 
 #: src/Service/DoiDataTypeFactory.php:177
 msgid "DOI: Licenses"
-msgstr ""
+msgstr "DOI : Licences"
 
 #: src/Service/DoiDataTypeFactory.php:185
 msgid "DOI: License (by id)"
-msgstr ""
+msgstr "DOI : Licence (par id)"
 
 #: src/Service/DoiDataTypeFactory.php:194
 msgid "DOI: Types"
-msgstr ""
+msgstr "DOI : Types"
 
 #: src/Service/OpenLibraryDataTypeFactory.php:13
 msgid "ISBN: International standard book number (by id)"
-msgstr ""
+msgstr "ISBN: International standard book number (par id)"
 
 #: src/Service/OpenLibraryDataTypeFactory.php:21
 msgid "ISBN: International standard book number (by id, name)"
-msgstr ""
+msgstr "ISBN: International standard book number (par id, par nom)"
 
 #: src/Service/OpenLibraryDataTypeFactory.php:29
 msgid "ISBN: International standard book number (by id, reference)"
-msgstr ""
+msgstr "ISBN: International standard book number (par id, référence)"
 
 #: src/Service/OpenLibraryDataTypeFactory.php:37
 msgid "ISBN: International standard book number (collected record)"
-msgstr ""
+msgstr "ISBN: International standard book number (notice collectée)"
 
 #: src/Service/OpenLibraryDataTypeFactory.php:46
 msgid "LCCN: Library of Congress Control Number (by id)"
-msgstr ""
+msgstr "Library of Congress Control Number (par id)"
 
 #: src/Service/OpenLibraryDataTypeFactory.php:54
 msgid "LCCN: Library of Congress Control Number (by id, name)"
-msgstr ""
+msgstr "Library of Congress Control Number (par id, nom)"
 
 #: src/Service/OpenLibraryDataTypeFactory.php:62
 msgid "LCCN: Library of Congress Control Number (by id, reference)"
-msgstr ""
+msgstr "Library of Congress Control Number (par id, référence)"
 
 #: src/Service/OpenLibraryDataTypeFactory.php:70
 msgid "LCCN: Library of Congress Control Number (collected record)"
-msgstr ""
+msgstr "LCCN : Library of Congress Control Number (notice collectée)"
 
 #: src/Service/OpenLibraryDataTypeFactory.php:79
 msgid "OCLC: Online computer library center (by id)"
-msgstr ""
+msgstr "OCLC : Online Computer Library Center (par id)"
 
 #: src/Service/OpenLibraryDataTypeFactory.php:87
 msgid "OCLC: Online computer library center (by id, name)"
-msgstr ""
+msgstr "OCLC : Online Computer Library Center (par id, nom)"
 
 #: src/Service/OpenLibraryDataTypeFactory.php:95
 msgid "OCLC: Online computer library center (by id, reference)"
-msgstr ""
+msgstr "OCLC : Online Computer Library Center (par id, référence)"
 
 #: src/Service/OpenLibraryDataTypeFactory.php:103
 msgid "OCLC: Online computer library center (collected record)"
-msgstr ""
+msgstr "OCLC : Online Computer Library Center (notice collectée)"
 
 #: src/Service/OpenLibraryDataTypeFactory.php:112
 msgid "OLID: Open library id from Internet Archive (by id)"
-msgstr ""
+msgstr "OLID : Open Library Id provenant d'Internet Archive (par id)"
 
 #: src/Service/OpenLibraryDataTypeFactory.php:120
 msgid "OLID: Open library id from Internet Archive (by id, name)"
-msgstr ""
+msgstr "OLID : Open Library Id provenant d'Internet Archive (par id, nom)"
 
 #: src/Service/OpenLibraryDataTypeFactory.php:128
 msgid "OLID: Open library id from Internet Archive (by id, reference)"
 msgstr ""
+"OLID : Open Library Id provenant d'Internet Archive (par id, référence)"
 
 #: src/Service/OpenLibraryDataTypeFactory.php:136
 msgid "OLID: Open library id from Internet Archive (collected record)"
-msgstr ""
+msgstr "OLID : Open Library Id provenant d'Internet Archive (notice collectée)"
 
 #: src/Formatter/CitationOdt.php:29
 msgid ""
@@ -368,6 +425,17 @@ msgstr "Bibliographie : Référence (bouton)"
 #: src/Site/ResourcePageBlockLayout/Citation.php:13
 msgid "Bibliography: Citation"
 msgstr "Bibliography : Référence"
+
+#: config/module.config.php:184
+msgid "Properties filled from the bibliographic record:"
+msgstr "Propriétés remplies à partir de la notice bibliographique :"
+
+#: config/module.config.php:185
+msgid "Properties already filled, not modified:"
+msgstr "Propriétés déjà remplies, non modifiées :"
+
+#~ msgid "Items: Via resource block or custom theme"
+#~ msgstr "Contenu : via le bloc de ressource ou un thème personnalisé"
 
 #, php-format
 #~ msgid "This module requires the module \"%s\"."
