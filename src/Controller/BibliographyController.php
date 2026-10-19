@@ -45,7 +45,7 @@ class BibliographyController extends AbstractActionController
                 return $this->sendJson($content, $filename);
             default:
                 throw new \Omeka\Mvc\Exception\RuntimeException(sprintf(
-                    $this->translate('Unsupported format: %s'), // @translated
+                    $this->translate('Unsupported format: %s'), // @translate
                     $output
                 ));
         }
@@ -77,8 +77,8 @@ class BibliographyController extends AbstractActionController
             case 'tsv':
                 $options = [
                     'delimiter' => "\t",
-                    'enclosure' => chr(0),
-                    'escape' => chr(0),
+                    'enclosure' => "\0",
+                    'escape' => "\0",
                     'separator' => ' | ',
                 ];
                 break;

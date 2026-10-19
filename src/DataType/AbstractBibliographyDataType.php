@@ -4,7 +4,7 @@ namespace Bibliography\DataType;
 
 // This check avoids a dependency on module ValueSuggest.
 // TODO Find a way to avoid the check of class of the dependency here.
-if (!class_exists(\ValueSuggest\DataType\AbstractDataType::class)) {
+if (!class_exists('ValueSuggest\DataType\AbstractDataType', false)) {
     require_once __DIR__ . '/AbstractDataType.php';
 }
 
