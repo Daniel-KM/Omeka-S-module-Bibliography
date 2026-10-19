@@ -19,7 +19,8 @@ use Common\Stdlib\PsrMessage;
  * @var \Omeka\Mvc\Controller\Plugin\Messenger $messenger
  */
 $plugins = $services->get('ControllerPluginManager');
-$url = $services->get('ViewHelperManager')->get('url');
+$helpers = $services->get('ViewHelperManager');
+$url = $helpers->get('url');
 $api = $plugins->get('api');
 $logger = $services->get('Omeka\Logger');
 $settings = $services->get('Omeka\Settings');
@@ -35,7 +36,8 @@ if (!method_exists($this, 'checkModuleActiveVersion') || !$this->checkModuleActi
         $translate('The module %1$s should be upgraded to version %2$s or later.'), // @translate
         'Common', '3.4.94'
     );
-    throw new \Omeka\Module\Exception\ModuleCannotInstallException((string) $message);
+    $messenger->addError($message);
+    throw new \Omeka\Module\Exception\ModuleCannotInstallException((string) $translate('Missing requirement. Unable to upgrade.')); // @translate
 }
 
 if (version_compare($oldVersion, '3.0.3', '<')) {
@@ -211,6 +213,8 @@ if (version_compare($oldVersion, '3.4.11', '<')) {
         if ($siteSettings->get('bibliography_csl_style') === 'chicago-fullnote-bibliography') {
             $siteSettings->set('bibliography_csl_style', 'chicago-author-date');
         }
+        $v = $siteSettings->get('bibliography_placement_citation', []);
+        $siteSettings->set('bibliography_placement_citation', array_diff($v, ['block/items', 'block/media', 'block/item_sets']));
     }
 
     $sql = <<<'SQL'
@@ -224,4 +228,98 @@ if (version_compare($oldVersion, '3.4.11', '<')) {
         'The new default is "chicago-author-date", that manages date better.', // @translate
     );
     $messenger->addSuccess($message);
+}
+
+if (version_compare($oldVersion, '3.4.13', '<')) {
+    // The values "collected record" stored the whole record as json in the
+    // uri. They are now expanded on save, so expand the existing ones too: the
+    // empty properties are filled and the value keeps the uri of the record.
+    $sql = <<<'SQL'
+        SELECT DISTINCT `resource`.`id`, `resource`.`resource_type`
+        FROM `value`
+        JOIN `resource` ON `resource`.`id` = `value`.`resource_id`
+        WHERE `value`.`type` LIKE 'valuesuggest:%:record'
+            AND `value`.`uri` LIKE '{%'
+        ORDER BY `resource`.`id`
+        SQL;
+    $resources = $connection->executeQuery($sql)->fetchAllKeyValue();
+
+    // Without module Value Suggest, the values of its data types are invalid,
+    // so the resources cannot be updated. They are expanded on next save.
+    if ($resources && !$this->isModuleActive('ValueSuggest')) {
+        $message = new PsrMessage(
+            'The module Value Suggest is not active, so the values "collected record" of these resources were not expanded. Save them once the module is enabled: {resource_ids}.', // @translate
+            ['resource_ids' => '#' . implode(', #', array_keys($resources))]
+        );
+        $messenger->addWarning($message);
+        $resources = [];
+    }
+
+    $resourceNames = [
+        \Omeka\Entity\Item::class => 'items',
+        \Omeka\Entity\ItemSet::class => 'item_sets',
+        \Omeka\Entity\Media::class => 'media',
+    ];
+    $expander = new \Bibliography\Stdlib\RecordExpander();
+    $updated = [];
+    $skipped = [];
+    $errors = [];
+    foreach ($resources as $id => $resourceType) {
+        $resourceName = $resourceNames[$resourceType] ?? null;
+        if (!$resourceName) {
+            continue;
+        }
+        try {
+            $resource = $api->read($resourceName, $id)->getContent();
+            $data = json_decode(json_encode($resource), true);
+            $result = $expander->expand($data);
+            if ($result['data'] === $data) {
+                continue;
+            }
+            // Use a partial update to keep the other data (media, item sets,
+            // etc.), but pass all the values, since a partial update with
+            // values replaces all of them.
+            $update = array_filter(
+                $result['data'],
+                fn ($term) => strpos((string) $term, ':') && strpos((string) $term, 'o:') !== 0,
+                ARRAY_FILTER_USE_KEY
+            );
+            if (($result['data']['o:resource_class'] ?? null) !== ($data['o:resource_class'] ?? null)) {
+                $update['o:resource_class'] = $result['data']['o:resource_class'];
+            }
+            $api->update($resourceName, $id, $update, [], ['isPartial' => true, 'collectionAction' => 'replace']);
+            $updated[] = $id;
+            if ($result['skipped']) {
+                $skipped[] = '#' . $id . ' (' . implode(', ', $result['skipped']) . ')';
+            }
+        } catch (\Throwable $e) {
+            $errors[] = '#' . $id;
+            $logger->err(
+                'Bibliography: the collected record of resource #{resource_id} cannot be expanded: {message}', // @translate
+                ['resource_id' => $id, 'message' => $e->getMessage()]
+            );
+        }
+    }
+
+    if ($updated) {
+        $message = new PsrMessage(
+            'The values "collected record" were expanded into the empty properties of these resources: {resource_ids}.', // @translate
+            ['resource_ids' => '#' . implode(', #', $updated)]
+        );
+        $messenger->addSuccess($message);
+    }
+    if ($skipped) {
+        $message = new PsrMessage(
+            'The bibliographic record was not used for these properties, that were already filled: {properties}.', // @translate
+            ['properties' => implode('; ', $skipped)]
+        );
+        $messenger->addWarning($message);
+    }
+    if ($errors) {
+        $message = new PsrMessage(
+            'The values "collected record" of these resources cannot be expanded (see logs): {resource_ids}.', // @translate
+            ['resource_ids' => implode(', ', $errors)]
+        );
+        $messenger->addError($message);
+    }
 }
