@@ -8,8 +8,8 @@ if (!class_exists(\ValueSuggest\DataType\AbstractDataType::class)) {
     require_once __DIR__ . '/AbstractDataType.php';
 }
 
+use Bibliography\Stdlib\StyleSheet;
 use Seboettg\CiteProc\CiteProc;
-use Seboettg\CiteProc\StyleSheet;
 use ValueSuggest\DataType\AbstractDataType;
 
 abstract class AbstractBibliographyDataType extends AbstractDataType
@@ -34,9 +34,9 @@ abstract class AbstractBibliographyDataType extends AbstractDataType
 
         $style = $currentSetting('bibliography_csl_style') ?: 'chicago-author-date';
         try {
-            $style = @StyleSheet::loadStyleSheet($style);
+            $style = StyleSheet::load($style);
         } catch (\Seboettg\CiteProc\Exception\CiteProcException $e) {
-            $style = StyleSheet::loadStyleSheet('chicago-author-date');
+            $style = StyleSheet::load('chicago-author-date');
         }
         $locale = $currentSetting('bibliography_csl_locale') ?: str_replace('_', '-', $currentSetting('locale'));
         // A default locale is currently required by CiteProc.

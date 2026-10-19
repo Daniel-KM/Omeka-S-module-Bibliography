@@ -23,7 +23,7 @@ if (is_null($style)) {
 }
 
 try {
-    $style = @\Seboettg\CiteProc\StyleSheet::loadStyleSheet($style);
+    $style = \Bibliography\Stdlib\StyleSheet::load($style);
 } catch (\Seboettg\CiteProc\Exception\CiteProcException $e) {
     $style = null;
 }
