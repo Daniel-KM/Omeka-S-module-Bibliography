@@ -182,6 +182,10 @@ return [
             ],
         ],
     ],
+    'js_translate_strings' => [
+        'Properties filled from the bibliographic record:', // @translate
+        'Properties already filled, not modified:', // @translate
+    ],
     'formatters' => [
         'factories' => [
             Formatter\Bibtex::class => \BulkExport\Service\PluginManagerFactory::class,

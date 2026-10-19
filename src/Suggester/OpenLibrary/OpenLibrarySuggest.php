@@ -252,9 +252,9 @@ class OpenLibrarySuggest extends AbstractBibliographySuggest
         $data += $defaults;
 
         // Open Library manages books only.
-        // Omeka property 3 = "dcterms:BibliographicResource":
-        // Omeka property 40 = "bibo:Book".
-        $item['o:resource_class'] = ['o:id' => 40];
+        if (!empty($this->resourceClassIds['bibo:Book'])) {
+            $item['o:resource_class'] = ['o:id' => $this->resourceClassIds['bibo:Book']];
+        }
 
         $mappingSingle = [
             // 'url' => 'bibo:uri',
@@ -274,11 +274,13 @@ class OpenLibrarySuggest extends AbstractBibliographySuggest
             ];
         }
         foreach ($mappingSingle as $key => $map) {
-            if (strlen($data[$key])) {
+            // Some values are lists, for example the title in Crossref.
+            $value = is_array($data[$key] ?? null) ? reset($data[$key]) : ($data[$key] ?? null);
+            if (is_scalar($value) && strlen((string) $value)) {
                 $item[$map][] = [
                     'type' => 'literal',
                     'property_id' => $this->propertyIds[$map],
-                    '@value' => $data[$key],
+                    '@value' => (string) $value,
                 ];
             }
         }

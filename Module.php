@@ -93,6 +93,35 @@ class Module extends AbstractModule
             [$this, 'handleDisplayCitation']
         );
 
+        // Expand the values "collected record" into the resource.
+        foreach ([
+            \Omeka\Api\Adapter\ItemAdapter::class,
+            \Omeka\Api\Adapter\ItemSetAdapter::class,
+            \Omeka\Api\Adapter\MediaAdapter::class,
+        ] as $adapter) {
+            $sharedEventManager->attach(
+                $adapter,
+                'api.hydrate.pre',
+                [$this, 'handleRecordValues']
+            );
+        }
+        foreach ([
+            'Omeka\Controller\Admin\Item',
+            'Omeka\Controller\Admin\ItemSet',
+            'Omeka\Controller\Admin\Media',
+        ] as $controller) {
+            $sharedEventManager->attach(
+                $controller,
+                'view.add.after',
+                [$this, 'handleResourceForm']
+            );
+            $sharedEventManager->attach(
+                $controller,
+                'view.edit.after',
+                [$this, 'handleResourceForm']
+            );
+        }
+
         $sharedEventManager->attach(
             \Omeka\Form\SettingForm::class,
             'form.add_elements',
@@ -144,6 +173,59 @@ class Module extends AbstractModule
         ) {
             echo $view->citation($resource, ['tag' => 'p']);
         }
+    }
+
+    /**
+     * Expand the values "collected record" into the resource on save.
+     */
+    public function handleRecordValues(Event $event): void
+    {
+        /**
+         * @var \Omeka\Api\Request $request
+         * @var \Omeka\Entity\Resource $entity
+         */
+        $request = $event->getParam('request');
+        $data = $request->getContent();
+        if (!is_array($data) || strpos(json_encode($data), ':record"') === false) {
+            return;
+        }
+
+        // During a partial update, the properties not sent are kept.
+        $filledTerms = [];
+        if ($request->getOperation() === \Omeka\Api\Request::UPDATE && $request->getOption('isPartial')) {
+            foreach ($event->getParam('entity')->getValues() as $value) {
+                $property = $value->getProperty();
+                $filledTerms[] = $property->getVocabulary()->getPrefix() . ':' . $property->getLocalName();
+            }
+        }
+
+        $result = (new \Bibliography\Stdlib\RecordExpander())->expand($data, array_unique($filledTerms));
+        if (!$result['filled'] && !$result['skipped']) {
+            return;
+        }
+
+        $request->setContent($result['data']);
+
+        if ($result['skipped']) {
+            $messenger = $this->getServiceLocator()->get('ControllerPluginManager')->get('messenger');
+            $messenger->addWarning(new PsrMessage(
+                'The bibliographic record was not used for these properties, that were already filled: {properties}.', // @translate
+                ['properties' => implode(', ', $result['skipped'])]
+            ));
+        }
+    }
+
+    /**
+     * Fill the resource form from the values "collected record".
+     */
+    public function handleResourceForm(Event $event): void
+    {
+        if (!class_exists('ValueSuggest\Module', false)) {
+            return;
+        }
+        $view = $event->getTarget();
+        $view->headScript()
+            ->appendFile($view->assetUrl('js/bibliography-record.js', 'Bibliography'), 'text/javascript', ['defer' => 'defer']);
     }
 
     protected function uninstallModuleCitation(): void

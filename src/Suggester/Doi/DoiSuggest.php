@@ -369,7 +369,9 @@ class DoiSuggest extends AbstractBibliographySuggest
         $mappingTypes = require dirname(__DIR__, 3) . '/data/mapping/crossref_types_map.php';
         $noRdfType = empty($mappingTypes[$data['type']]);
         $resourceClass = $noRdfType ? 'dcterms:BibliographicResource' : $mappingTypes[$data['type']];
-        $item['o:resource_class'] = ['o:id' => $this->resourceClassIds[$resourceClass]];
+        if (!empty($this->resourceClassIds[$resourceClass])) {
+            $item['o:resource_class'] = ['o:id' => $this->resourceClassIds[$resourceClass]];
+        }
 
         $mappingSingle = [
             'title' => 'dcterms:title',
@@ -383,11 +385,13 @@ class DoiSuggest extends AbstractBibliographySuggest
             'genre' => 'dcterms:subject',
         ];
         foreach ($mappingSingle as $key => $map) {
-            if (strlen($data[$key])) {
+            // Some values are lists, for example the title in Crossref.
+            $value = is_array($data[$key] ?? null) ? reset($data[$key]) : ($data[$key] ?? null);
+            if (is_scalar($value) && strlen((string) $value)) {
                 $item[$map][] = [
                     'type' => 'literal',
                     'property_id' => $this->propertyIds[$map],
-                    '@value' => $data[$key],
+                    '@value' => (string) $value,
                 ];
             }
         }
@@ -462,7 +466,7 @@ class DoiSuggest extends AbstractBibliographySuggest
         $item['bibo:doi'][] = [
             'type' => 'uri',
             'property_id' => $this->propertyIds['bibo:doi'],
-            '@id' => mb_strlen($data['URL'])
+            '@id' => !empty($data['URL'])
                 // Use https to allow safe browsing and easier api.
                 ? str_replace('http://', 'https://', $data['URL'])
                 : 'https://dx.doi.org/' . $data['DOI'],

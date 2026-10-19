@@ -30,10 +30,14 @@ class OpenLibrary extends AbstractBibliographyDataType
 
         $citeProc = $this->prepareCiteProc();
 
-        $propertyIds = $this->options['uri_label'] === 'record'
-            ? $this->getPropertyIds()
-            : null;
+        if ($this->options['uri_label'] === 'record') {
+            $propertyIds = $this->getPropertyIds();
+            $resourceClassIds = $this->getResourceClassIds();
+        } else {
+            $propertyIds = null;
+            $resourceClassIds = null;
+        }
 
-        return new OpenLibrarySuggest($client, $citeProc, $this->options, $propertyIds);
+        return new OpenLibrarySuggest($client, $citeProc, $this->options, $propertyIds, $resourceClassIds);
     }
 }
