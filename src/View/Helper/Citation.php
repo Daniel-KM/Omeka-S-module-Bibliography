@@ -21,6 +21,7 @@ class Citation extends AbstractHelper
      * - tag (string): "p" (default) or "div" or empty string to skip it.
      * - as_text (bool): the default output is html (italic for title, etc.)
      * - template (string)
+     * The option "accessed" is set for the template: the localized access date.
      * The default options are used for Omeka resources. You may unset options
      * to append the site and the access date for real bibliographic resources.
      * Other options are passed to template.
@@ -61,10 +62,42 @@ class Citation extends AbstractHelper
             $options['locale'] = 'en-US';
         }
 
+        $options['accessed'] = $options['append_date']
+            ? $this->accessed($options['locale'])
+            : null;
+
         $template = empty($options['template']) ? 'common/citation' : $options['template'];
         unset($options['template']);
 
         return $view->partial($template, $options);
+    }
+
+    /**
+     * Get the term "accessed" with the current date in the citation locale.
+     *
+     * The term and the date format are the ones of the csl locale, so they are
+     * localized even without the php extension intl.
+     */
+    protected function accessed(string $locale): ?string
+    {
+        $style = <<<'XML'
+            <?xml version="1.0" encoding="utf-8"?>
+            <style xmlns="http://purl.org/net/xbiblio/csl" class="in-text" version="1.0">
+              <info><title>Accessed</title><id>accessed</id><updated>2026-01-01T00:00:00+00:00</updated></info>
+              <citation><layout><group delimiter=" "><text term="accessed"/><date variable="accessed" form="text"/></group></layout></citation>
+            </style>
+            XML;
+        $item = (object) [
+            'id' => 'accessed',
+            'type' => 'webpage',
+            'accessed' => (object) ['date-parts' => [array_map('intval', explode('-', date('Y-m-d')))]],
+        ];
+        try {
+            $accessed = (new \Seboettg\CiteProc\CiteProc($style, $locale))->render([$item], 'citation');
+        } catch (\Throwable $e) {
+            return null;
+        }
+        return trim(strip_tags((string) $accessed)) ?: null;
     }
 
     /**

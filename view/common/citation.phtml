@@ -10,6 +10,7 @@
  * @var bool $append_date
  * @var string $tag
  * @var bool $as_text
+ * @var string|null $accessed
  *
  * @uses \Bibliography\View\Helper\RdfToCsl
  */
@@ -28,16 +29,16 @@ try {
     $style = null;
 }
 
-$locale = $plugins->get('lang')();
+$lang = $plugins->get('lang')();
 
-$stringValue = function ($value) use ($locale): string  {
+$stringValue = function ($value) use ($lang): string  {
     if (empty($value) || is_string($value)) {
         return $value;
     }
     /** @var \Omeka\Api\Representation\ValueRepresentation $value */
     $vr = $value->valueResource();
     if ($vr) {
-        return $vr->displayTitle(null, $locale);
+        return $vr->displayTitle(null, $lang);
     }
     $val = $value->value();
     $uri = $value->uri();
@@ -120,12 +121,22 @@ if ($append_site || $append_date) {
     }
 
     if ($append_date) {
-        $accessed = $escape($this->i18n()->dateFormat(new \DateTime(), \Omeka\View\Helper\I18n::DATE_FORMAT_LONG));
         $url = $as_text
             ? $resource->url(null, true)
             : '<span class="citation-url">' . $escape($resource->url(null, true)) . '</span>';
         // Chicago-style item citation: access date and URL.
-        $citation .= ', ' . sprintf($translate('accessed %1$s, %2$s'), $accessed, $url);
+        if (!empty($accessed)) {
+            $citation .= ', ' . $escape($accessed) . ', ' . $url;
+        } else {
+            $i18n = $this->i18n();
+            try {
+                $accessed = $i18n->dateFormat(new \DateTime(), $i18n::DATE_FORMAT_LONG, $i18n::DATE_FORMAT_NONE, strtr((string) $locale, ['-' => '_']));
+            } catch (\Throwable $e) {
+                $accessed = $i18n->dateFormat(new \DateTime(), $i18n::DATE_FORMAT_LONG);
+            }
+            $accessed = $escape($accessed);
+            $citation .= ', ' . sprintf($translate('accessed %1$s, %2$s'), $accessed, $url);
+        }
     }
 
 }
