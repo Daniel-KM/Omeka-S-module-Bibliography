@@ -24,6 +24,7 @@ class SiteSettingsFieldset extends Fieldset
         $this
             ->setAttribute('id', 'bibliography')
             ->setOption('element_groups', $this->elementGroups)
+
             ->add([
                 'name' => 'bibliography_csl_style',
                 'type' => CommonElement\OptionalSelect::class,
@@ -59,9 +60,8 @@ class SiteSettingsFieldset extends Fieldset
                 'type' => CommonElement\OptionalMultiCheckbox::class,
                 'options' => [
                     'element_group' => 'bibliography',
-                    'label' => 'Display citation', // @translate
+                    'label' => 'Display citation (old themes)', // @translate
                     'value_options' => [
-                        'block/items' => 'Items: Via resource block or custom theme', // @translate
                         'before/items' => 'Item: Top', // @translate
                         'after/items' => 'Item: Bottom', // @translate
                     ],

@@ -159,9 +159,7 @@ return [
         'site_settings' => [
             'bibliography_csl_style' => 'chicago-author-date',
             'bibliography_csl_locale' => '',
-            'bibliography_placement_citation' => [
-                'after/items',
-            ],
+            'bibliography_placement_citation' => [],
         ],
         'block_settings' => [
             'bibliography' => [
