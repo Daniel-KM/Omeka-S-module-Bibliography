@@ -15,8 +15,6 @@ added via site or resource blocks.
 - Some record suggesters are added for the module [Value Suggest] in order to
   get multiple unique identifiers from [DOI], [ISBN], [ISSN], [OCLC], [LCCN],
   [OLID].
-- Full bibliographic citation can be added through the module [Collecting], and
-  even the full record.
 
 The module adds basic output for some bibliographic formats for the module [Bulk Export]
 too.
@@ -51,15 +49,21 @@ the module to `Bibliography`, go to the root of the module, and run:
 composer install --no-dev
 ```
 
+* For test
+
+The module includes a comprehensive test suite with unit and functional tests.
+Run them from the root of Omeka:
+
+```sh
+vendor/bin/phpunit -c modules/Bibliography/phpunit.xml --testdox
+```
+
 If you used the module [Citation], it is automatically uninstalled: its features
 are the same and improved in this module.
 
-**WARNING**
-
-To use suggesters, it is required to use this [version of Value Suggest], that
-contains all patchs, not yet integrated upstream. For the same reason, it is
-required to use this [version of Collecting] to create a collecting form with
-suggesters. To output resources in admin or public side, the module [Bulk Export]
+To use the suggesters, the module [Value Suggest] should be installed (any
+version compatible with Omeka S 4). To export resources in bibliographic formats
+(BibTeX, CSL, RIS, citations as text or OpenDocument), the module [Bulk Export]
 should be installed.
 
 
@@ -75,7 +79,7 @@ generally, the elements they uses are rare or can be replaced by the bibo ones.
 
 ### Suggesters
 
-Once the specific [version of Value Suggest] is installed, the following
+Once the module [Value Suggest] is installed, the following
 identifiers can be requested:
 - DOI: Works
 - DOI: Journals
@@ -88,32 +92,68 @@ identifiers can be requested:
 - OCLC: Online computer library center
 - OLID: Open library id from Internet Archive
 
-In the config of the resource template or the collecting form, some items above
-can be requested with different values. It allows to choose between a large
-query with keywords, or a strict query with the id. It allows to set the label
-too, that can be a name or an id according to properties, for example the title
-or the article for dcterms:title, but the id for bibo:doi, or even the full
-reference for dcterms:bibliographicCitation, or even the full record as a
-resource.
+In the config of the resource template, some items above can be requested with
+different values. It allows to choose between a large query with keywords, or a
+strict query with the id. It allows to set the label too, that can be a name or
+an id according to properties, for example the title or the article for
+dcterms:title, but the id for bibo:doi, or even the full reference for
+dcterms:bibliographicCitation.
+
+The data types "(collected record)" fetch the whole record: when a suggestion is
+selected in the resource form, the empty properties and the empty resource class
+are filled with the metadata of the record, and the properties already filled
+are listed, but not modified. The value itself keeps the doi or the url of the
+record, with the formatted reference as label. The same process is done when the
+resource is saved via the api or an import.
+
+In previous versions, these data types were designed only for a specific branch
+of the module [Collecting] (Omeka S 2), now obsolete: the suggester sent the
+whole record, converted into resource data, as a json string in place of the
+uri, and the collecting form decoded it to append all its values and its
+resource class to the new item, so a contributor could create a full
+bibliographic record from a doi or an isbn. The value itself was not stored.
+Elsewhere, for example in a resource template, the json was saved as the uri of
+the value, so it was displayed as a broken link. The upgrade to version 3.4.13
+expands these values like a new save, and removes the alternative ids that are
+not doi, that were stored as doi.
 
 ### Creation of the citation
 
 The citation can be displayed with any managed [citation style], in any of the
-managed languages.
+managed languages. The style and the language are set in the main settings and
+in the site settings.
+
+Some recent styles use options that are not managed yet by the library CiteProc,
+for example the page range format "chicago-16" of the default style: they are
+replaced by the nearest managed one. Some styles cannot output a bibliographic
+reference, for example some note styles without bibliography: the citation uses
+then a simple format similar to Chicago.
 
 Remarks on the metadata:
 - The process is based on the resource class, that allows to adapt the style. If
   the class is not present or [not managed], the citation may not be accurate.
 - The journal (for an article) or the book (for a part) should be referenced as
   dcterms:relation or dcterms:isPartOf.
-- The date should be a numeric data type or an iso8601 formatted date, partial
-  or full. The year should be on 4 digits.
+- The date should be an iso 8601 date, partial or full ("1916", "2015-02",
+  "2015-02-04"), with any data type (literal, numeric or edtf). An interval like
+  "1914/1918" or "1914-1918" and an approximate or uncertain edtf date like
+  "1916~" or "1916?" are managed too. For any other value, the first year is
+  used, if any.
 
 ### Display of the citation
 
-The citation is automatically added to the item/show page. You can have a better
-control on the display with module [Blocks Disposition] or direct edition of the
-theme.
+The citation can be added to the item page via the resource page blocks of the
+theme, configured in the site admin:
+- "Bibliography: Citation": the bibliographic reference;
+- "Bibliography: Citation (button)": a button to copy the reference into the
+  clipboard.
+
+For old themes that do not use resource page blocks, an option in the site
+settings allows to display the citation at the top or the bottom of the item
+page. It is not set by default.
+
+A list of references can be added to a site page via the page block
+"Bibliography".
 
 To insert a citation in the theme, add this anywhere in any partial:
 ```php
@@ -123,25 +163,28 @@ echo $this->citation($resource, $options);
 Default options are:
 * `style` (string): the citation style (default to "chicago-author-date"),
    similar to "din-1505-2", the Deutsch Norm with author, title and date.
-* `locale` (string): the locale for the citation (default to "en-US"). The
-  language and the country are separated with "-", not "_".
+* `locale` (string): the locale for the citation and the access date (default
+  to the locale set in the settings, else the locale of the site, else "en-US").
+  The language and the country are separated with "-", not "_".
 * `defaults` (array): The default values to use when a property is not set. It
   is mainly used for own specific items to set the creator, the date, and the
   publisher of own specific records.
 * `append_site` (boolean): to append the site or not.
 * `append_date` (boolean): to append the access date.
 * `bibliographic` (boolean): if true, set `append_site` and `append_date` false.
-* `mode` (string): how to display the citation (option used to display it
-  differently in various contexts). Default managed values are "list" and
-  "single" (default). It may avoid to use a specific partial.
+* `tag` (string): the html tag wrapping the citation: "p" (default), "div", or
+  an empty string to skip it.
+* `as_text` (boolean): output a plain text instead of html (italic for title,
+  etc.).
 * `template` (string): partial to use for display, default is `common/citation`.
-  currently).
 
 The default options are used for Omeka resources. You may unset options to
 append the site and the access date for real bibliographic resources. Any other
 option is passed to template.
 
-The result can be customized via the template `common/citation` in `view/`.
+The result can be customized via the template `common/citation` in `view/`. The
+access date, localized according to the option `locale`, is passed to it as the
+variable `accessed`.
 
 
 TODO
@@ -195,7 +238,7 @@ altered, and that no provisions are either added or removed herefrom.
 Copyright
 ---------
 
-* Copyright Daniel Berthereau, 2018-2025 (see [Daniel-KM] on GitLab)
+* Copyright Daniel Berthereau, 2018-2026 (see [Daniel-KM] on GitLab)
 * See third parties copyright for dependencies.
 
 First version of this module was built for Daniel Berthereau for [Collegium Musicæ],
@@ -206,8 +249,8 @@ of [Sorbonne Université].
 [Bibliography]: https://gitlab.com/Daniel-KM/Omeka-S-module-Bibliography
 [citation style]: https://citationstyles.org
 [Value Suggest]: https://github.com/omeka-s-modules/ValueSuggest
-[Collecting]: https://github.com/omeka-s-modules/Collecting
 [Bulk Export]: https://github.com/omeka-s-modules/BulkExport
+[Collecting]: https://github.com/omeka-s-modules/Collecting
 [DOI]: https://doi.org
 [ISBN]: https://www.isbn-international.org
 [ISSN]: http://www.issn.org
@@ -219,14 +262,11 @@ of [Sorbonne Université].
 [Common]: https://gitlab.com/Daniel-KM/Omeka-S-module-Common
 [Bibliography.zip]: https://gitlab.com/Daniel-KM/Omeka-S-module-Bibliography/-/releases
 [installing a module]: https://omeka.org/s/docs/user-manual/modules/#installing-modules
-[Blocks Disposition]: https://gitlab.com/Daniel-KM/Omeka-S-module-BlocksDisposition
 [Citation]: https://gitlab.com/Daniel-KM/Omeka-S-module-Citation
-[version of Value Suggest]: https://gitlab.com/Daniel-KM/Omeka-S-module-ValueSuggest
-[version of Collecting]: https://gitlab.com/Daniel-KM/Omeka-S-module-Collecting
 [Prism]: http://prismstandard.org
 [FRBR]: http://vocab.org/frbr/core.html
 [not managed]: https://gitlab.com/Daniel-KM/Omeka-S-module-Bibliography/-/tree/master/data/mapping/csl_resource_class_map.php
-[module issues]: https://gitlab.com/Daniel-KM/Omeka-S-module-Bibliography/-/issues
+[module issues]: https://gitlab.com/Daniel-KM/Omeka-S-module-Bibliography/-/work_items
 [CeCILL v2.1]: https://www.cecill.info/licences/Licence_CeCILL_V2.1-en.html
 [GNU/GPL]: https://www.gnu.org/licenses/gpl-3.0.html
 [FSF]: https://www.fsf.org
