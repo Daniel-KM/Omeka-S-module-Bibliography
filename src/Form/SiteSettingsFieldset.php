@@ -17,6 +17,7 @@ class SiteSettingsFieldset extends Fieldset
 
     protected $elementGroups = [
         'bibliography' => 'Bibliography', // @translate
+        'themes_old' => 'Old themes', // @translate
     ];
 
     public function init(): void
@@ -59,8 +60,8 @@ class SiteSettingsFieldset extends Fieldset
                 'name' => 'bibliography_placement_citation',
                 'type' => CommonElement\OptionalMultiCheckbox::class,
                 'options' => [
-                    'element_group' => 'bibliography',
-                    'label' => 'Display citation (old themes)', // @translate
+                    'element_group' => 'themes_old',
+                    'label' => 'Display citation', // @translate
                     'value_options' => [
                         'before/items' => 'Item: Top', // @translate
                         'after/items' => 'Item: Bottom', // @translate
