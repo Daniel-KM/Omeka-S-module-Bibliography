@@ -200,7 +200,7 @@ class DoiDataTypeFactory implements FactoryInterface
         ],
     ];
 
-    public function __invoke(ContainerInterface $services, $requestedName, array $options = null)
+    public function __invoke(ContainerInterface $services, $requestedName, ?array $options = null)
     {
         $dataType = new Doi($services);
         return $dataType

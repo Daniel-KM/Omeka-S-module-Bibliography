@@ -42,8 +42,8 @@ abstract class AbstractBibliographySuggest implements SuggesterInterface
         Client $client,
         CiteProc $citeProc,
         array $options,
-        array $propertyIds = null,
-        array $resourceClassIds = null
+        ?array $propertyIds = null,
+        ?array $resourceClassIds = null
     ) {
         $this->client = $client;
         $this->citeProc = $citeProc;
