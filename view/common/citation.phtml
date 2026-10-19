@@ -57,7 +57,7 @@ if ($style) {
     // CiteProc fails when the metadata are incomplete.
     try {
         $citation = @$citeProc->render([$csl], 'bibliography');
-    } catch (\Exception $e) {
+    } catch (\Throwable $e) {
         $vars = $this->vars();
         $vars->offsetSet('style', '');
         echo $this->partial('common/citation', $this->vars());

@@ -112,7 +112,7 @@ class DoiSuggest extends AbstractBibliographySuggest
             // CiteProc fails when the metadata are incomplete.
             try {
                 $value = @$this->citeProc->render([$item], 'bibliography');
-            } catch (\Exception $e) {
+            } catch (\Throwable $e) {
                 continue;
             }
             $list[] = substr($value, 52, -13);

@@ -54,7 +54,7 @@ class OpenLibrarySuggest extends AbstractBibliographySuggest
         // CiteProc fails when the metadata are incomplete.
         try {
             $item = @$this->citeProc->render([$csl], 'bibliography');
-        } catch (\Exception $e) {
+        } catch (\Throwable $e) {
             return [];
         }
         $list[] = substr($item, 52, -13);

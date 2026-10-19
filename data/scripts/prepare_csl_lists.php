@@ -40,7 +40,7 @@ foreach ($directories as $directory) {
 try {
     $directory = new \RecursiveDirectoryIterator($dirPath, \RecursiveDirectoryIterator::SKIP_DOTS);
     $iterator = new \RecursiveIteratorIterator($directory);
-} catch (\Exception $e) {
+} catch (\Throwable $e) {
     die('Enable to read the directory of csl styles.')
     $iterator = [];
 }
@@ -54,7 +54,7 @@ foreach ($iterator as $filepath => $file) {
 
 try {
     $iterator = new \DirectoryIterator($dirPath);
-} catch (\Exception $e) {
+} catch (\Throwable $e) {
     exit('Enable to read the directory of csl styles.');
 }
 
@@ -71,7 +71,7 @@ asort($citationStyles);
 $outputFile = dirname(__DIR__, 2) . '/data/csl/csl-styles.php';
 try {
     file_put_contents($outputFile, "<?php\nreturn " . var_export($citationStyles, true) . ";\n");
-} catch (\Exception $e) {
+} catch (\Throwable $e) {
     exit('Enable to read the directory of csl styles.');
 }
 
@@ -84,7 +84,7 @@ $dirPath = $libraryPath;
 
 try {
     $iterator = new \RecursiveDirectoryIterator($dirPath, \RecursiveDirectoryIterator::SKIP_DOTS);
-} catch (\Exception $e) {
+} catch (\Throwable $e) {
     exit('Enable to read the directory of csl locales.');
 }
 
@@ -102,6 +102,6 @@ asort($citationLocales);
 $outputFile = dirname(__DIR__, 2) . '/data/csl/csl-locales.php';
 try {
     file_put_contents($outputFile, "<?php\nreturn " . var_export($citationLocales, true) . ";\n");
-} catch (\Exception $e) {
+} catch (\Throwable $e) {
     exit('Enable to save data in the directory of csl locales.');
 }
