@@ -216,23 +216,82 @@ class RdfToCsl extends AbstractHelper
 
     /**
      * Get the csl date of a resource.
-     *
-     * Date should be either [2019, 11, 25] or ['251119'] or ['20191125'] or
-     * ['25/11/2019'].
      */
     protected function cslDate($term): ?stdClass
     {
         $date = $this->resource->value($term);
-        if (!$date) {
+        return $date
+            ? $this->dateToCsl((string) $date->value())
+            : null;
+    }
+
+    /**
+     * Convert a date into a csl date.
+     *
+     * Managed formats are the iso 8601 partial or full dates, used by literals
+     * and data types numeric and edtf, the intervals "1914/1918" or "1914-1918"
+     * and the approximate or uncertain edtf dates ("1916~", "1916?"). For any
+     * other string, the first year is used, if any.
+     *
+     * The date parts are integers without the empty month and day: a date like
+     * "19160000" is understood as "1915-11-30" by CiteProc.
+     */
+    public function dateToCsl(string $date): ?stdClass
+    {
+        $date = trim($date);
+        if ($date === '') {
             return null;
         }
 
-        if ($date->type() === 'numeric:timestamp') {
-            $date = str_replace('-', '', substr((string) $date->value() . '-00-00', 0, 10));
-            return (object) ['date-parts' => [[$date]]];
+        $circa = (bool) preg_match('/[~?%]/', $date);
+        $clean = strtr($date, ['~' => '', '?' => '', '%' => '']);
+
+        $parts = [];
+        $intervals = preg_match('~^(-?\d{4})-(-?\d{4})$~', $clean, $matches)
+            ? [$matches[1], $matches[2]]
+            : explode('/', $clean);
+        if (count($intervals) <= 2) {
+            foreach ($intervals as $value) {
+                $dateParts = $this->isoToDateParts($value);
+                if ($dateParts === null) {
+                    $parts = [];
+                    break;
+                }
+                $parts[] = $dateParts;
+            }
         }
 
-        return (object) ['date-parts' => [[str_replace('-', '', substr((string) $date->value() . '-00-00', 0, 10))]]];
+        if (!$parts) {
+            if (!preg_match('~(?<!\d)(\d{4})(?!\d)~', $date, $matches)) {
+                return null;
+            }
+            $parts = [[(int) $matches[1]]];
+        }
+
+        $result = (object) ['date-parts' => $parts];
+        if ($circa) {
+            $result->circa = true;
+        }
+        return $result;
+    }
+
+    /**
+     * Convert an iso 8601 partial or full date into csl date parts.
+     */
+    protected function isoToDateParts(string $date): ?array
+    {
+        if (!preg_match('~^(-?\d{1,4})(?:-(\d{2})(?:-(\d{2}))?)?(?:[T ][\d:.]*(?:Z|[+-]\d{2}:?\d{2})?)?$~', trim($date), $matches)) {
+            return null;
+        }
+        $year = (int) $matches[1];
+        $month = (int) ($matches[2] ?? 0);
+        $day = (int) ($matches[3] ?? 0);
+        if (!$year || $month > 12 || $day > 31) {
+            return null;
+        }
+        return $month
+            ? ($day ? [$year, $month, $day] : [$year, $month])
+            : [$year];
     }
 
     /**
